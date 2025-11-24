@@ -1,0 +1,70 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+  
+    background: #ffffff;
+    border-right: 4px solid #f97316; /* soft orange */
+    border-radius: 0 30px 30px 0;   /* rounded like the card */
+  
+    padding: 2rem 1.5rem;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.06);
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo-section img {
+    height: 80px;
+    border-radius: 12px;
+  }
+  
+  .logo-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #1e3a8a;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .sidebar a,
+  .signout-btn {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #1f2937;
+    padding: 0.6rem 0.8rem;
+  
+    border-radius: 12px;
+    transition: 0.2s ease;
+  }
+  
+  .sidebar a:hover,
+  .signout-btn:hover {
+    background-color: #fff7ed; /* soft orange tint */
+    color: #c2410c;
+  }
+  
+  .signout-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+  }
+  

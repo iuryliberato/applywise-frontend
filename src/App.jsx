@@ -1,5 +1,5 @@
-// App.jsx
 
+import './App.css'
 import { Routes, Route } from 'react-router';
 import { useContext } from 'react';
 import NavBar from './components/NavBar/NavBar';
@@ -19,11 +19,13 @@ const App = () => {
   return (
     <>
       <NavBar />
+      <div className="page-wrapper">
       <Routes>
-        <Route path='/' element={user ? <Dashboard /> : <Landing /> } />
+        <Route path='/' element={user ? <Dashboard /> : <SignInForm /> } />
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
       </Routes>
+      </div>
     </>
   );
 };
