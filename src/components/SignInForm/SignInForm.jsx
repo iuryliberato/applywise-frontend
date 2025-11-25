@@ -1,10 +1,9 @@
 // src/components/SignInForm/SignInForm.jsx
-
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router';
+import './SignInForm.css';
 
 import { signIn } from '../../services/authService';
-
 import { UserContext } from '../../contexts/UserContext';
 
 const SignInForm = () => {
@@ -24,10 +23,7 @@ const SignInForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      // This function doesn't exist yet, but we'll create it soon.
-      // It will cause an error right now
       const signedInUser = await signIn(formData);
-
       setUser(signedInUser);
       navigate('/');
     } catch (err) {
@@ -36,40 +32,38 @@ const SignInForm = () => {
   };
 
   return (
-    <main>
-      <h1>Sign In</h1>
-      <p>{message}</p>
-      <form autoComplete='off' onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Username:</label>
-          <input
-            type='text'
-            autoComplete='off'
-            id='username'
-            value={formData.username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            autoComplete='off'
-            id='password'
-            value={formData.password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button>Sign In</button>
-        </div>
+    <main className="signin-container">
+      <h1 className="signin-title">Sign In</h1>
+
+      {message && <p className="error-message">{message}</p>}
+
+      <form className="signin-form" autoComplete="off" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          id="username"
+          value={formData.username}
+          name="username"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          id="password"
+          value={formData.password}
+          name="password"
+          onChange={handleChange}
+          required
+        />
+
+        <button className="signin-btn">Sign In</button>
       </form>
-      <p>Don’t have an account?</p>
-      <li><Link to="/sign-up">Sign Up</Link></li> 
+
+      <p className="signup-text">
+        Don’t have an account? <Link to="/sign-up">Sign up</Link>
+      </p>
     </main>
   );
 };

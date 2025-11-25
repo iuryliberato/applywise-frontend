@@ -1,6 +1,9 @@
+// src/components/SignUpForm/SignUpForm.jsx
 
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router';
+import './SignUpForm.css'; // <-- shared styles
+
 import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -25,11 +28,8 @@ const SignUpForm = () => {
     evt.preventDefault();
     try {
       const newUser = await signUp(formData);
-      // Call the setUser function to update the user state, just like normal.
       setUser(newUser);
-      // Take the user to the (non-existent) home page after they sign up.
-      // We'll get to this shortly!
-      navigate('/');
+      navigate('/profile');
     } catch (err) {
       setMessage(err.message);
     }
@@ -40,49 +40,47 @@ const SignUpForm = () => {
   };
 
   return (
-    <main>
-      <h1>Sign Up</h1>
-      <p>{message}</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username:</label>
-          <input
-            type='text'
-            id='name'
-            value={username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='confirm'>Confirm Password:</label>
-          <input
-            type='password'
-            id='confirm'
-            value={passwordConf}
-            name='passwordConf'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
-        </div>
+    <main className="auth-container">
+      <h1 className="auth-title">Sign Up</h1>
+
+      {message && <p className="error-message">{message}</p>}
+
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          name="username"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          name="password"
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={passwordConf}
+          name="passwordConf"
+          onChange={handleChange}
+          required
+        />
+
+        <button className="auth-btn" disabled={isFormInvalid()}>
+          Sign Up
+        </button>
       </form>
-      <p>Already have an account?</p>
-      <li><Link to="/sign-in">Sign In</Link></li>
+
+      <p className="auth-switch">
+        Already have an account? <Link to="/sign-in">Sign In</Link>
+      </p>
     </main>
   );
 };

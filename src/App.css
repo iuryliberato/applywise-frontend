@@ -1,4 +1,7 @@
-.page-wrapper {
-  margin-left: 280px;
-  padding: 2rem;
+.main-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem; /* room for footer if you keep it fixed */
+  box-sizing: border-box;
+  text-align: center;
 }

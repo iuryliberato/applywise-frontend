@@ -1,54 +1,92 @@
+// src/components/NavBar/NavBar.jsx
 import { useContext } from 'react';
-import { Link } from 'react-router';
+import { NavLink, Link } from 'react-router'; // or react-router-dom if you're using that
 import './NavBar.css';
 import { UserContext } from '../../contexts/UserContext';
-import logo from "../../../public/images/Logo.png";
+import logo from '../../../public/images/Logo.png';
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    setUser(null);   // <-- this now triggers a re-render
+    setUser(null);
   };
 
   return (
-    <nav className="sidebar">
-      <div className="logo-section">
-        <img src={logo} alt="ApplyWise logo" />
-      </div>
+    <header className="navbar">
+      <div className="navbar-inner">
+        {/* Brand / logo */}
+        <Link to="/" className="brand">
+          <img src={logo} alt="ApplyWise logo" className="brand-logo" />
+        </Link>
 
-      <ul>
-        {user ? (
-          <>
-            <li>Welcome, {user.username}</li>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/add-application">Add Application</Link></li>
+        {/* Right-side links */}
+        <nav className="nav-links">
+          {/* Show these only when logged in */}
+          {user && (
+            <>
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  'nav-link' + (isActive ? ' nav-link--active' : '')
+                }
+              >
+                Dashboard
+              </NavLink>
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  'nav-link' + (isActive ? ' nav-link--active' : '')
+                }
+              >
+                Profile
+              </NavLink>
+              <NavLink
+                to="/add-application"
+                className={({ isActive }) =>
+                  'nav-link' + (isActive ? ' nav-link--active' : '')
+                }
+              >
+                Add Application
+              </NavLink>
 
-            <li>
-              <button className="signout-btn" onClick={handleSignOut}>
+              <NavLink
+               to="/"
+                type="button"
+                className="nav-link nav-link--ghost"
+                onClick={handleSignOut}
+              >
                 Sign Out
-              </button>
-            </li>
-          </>
-        ) : (
-          <>
-          <div className="info">
-          <p>Searching for a job can feel overwhelming, so ApplyWise brings everything together in one place. You can save roles, follow your progress, and keep all documents neatly arranged. With built-in AI support, you can also:</p>
-          <ul>
-            <li>Summarize job descriptions for quicker understanding</li>
-            <li>Generate personalised cover letters</li>
-            <li>Receive feedback to improve your CV</li>
-            <li>Extract important keywords and required skills</li>
-            <li>Prepare with tailored interview questions</li>
-          </ul>
-          <p>Whether you’re applying to your first role or managing multiple applications at once, ApplyWise helps you stay focused, organised, and ready for the next step of your career.</p>
-          </div>
-          </>
-        )}
-      </ul>
-    </nav>
+              </NavLink>
+            </>
+          )}
+
+          {/* When signed out, simple Sign In / Sign Up */}
+          {!user && (
+            <>
+              <NavLink
+                to="/sign-in"
+                className={({ isActive }) =>
+                  'nav-link' + (isActive ? ' nav-link--active' : '')
+                }
+              >
+                Sign In
+              </NavLink>
+              <NavLink
+                to="/sign-up"
+                className={({ isActive }) =>
+                  'nav-link' + (isActive ? ' nav-link--active' : '')
+                }
+              >
+                Sign Up
+              </NavLink>
+            </>
+          )}
+        </nav>
+      </div>
+    </header>
   );
 };
 

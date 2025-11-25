@@ -1,0 +1,155 @@
+/* src/pages/ProfilePage.css */
+
+/* Page background & centering */
+.profile-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 1rem 4rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  .profile-page-loading {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4eddc;
+  }
+  
+  /* Center container */
+  .profile-container {
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  /* Title (your name) */
+  .profile-title {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    color: #1f3529; /* dark green */
+  }
+  
+  /* Main card */
+  .profile-card {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Stack of inputs on top */
+  .profile-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  /* Input / textarea base style */
+  .profile-input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border-radius: 0.5rem; /* pill look for inputs */
+    border: 2px solid #4a7b5f; /* medium green */
+    background-color: #fdfaf1;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  .profile-input::placeholder {
+    color: #8c9b8e;
+  }
+  
+  .profile-input:focus {
+    border-color: #2f5b43;
+    box-shadow: 0 0 0 3px rgba(76, 129, 98, 0.25);
+  }
+  
+  /* Summary textarea needs non-pill shape */
+  .profile-textarea {
+    min-height: 110px;
+    border-radius: 0.8rem;
+    resize: vertical;
+  }
+  
+  /* Links section card */
+  .profile-links-section {
+    background-color: #d4e0de; /* soft green/blue block */
+    border-radius: 1.2rem;
+    padding: 2rem 2.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .profile-links-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #1f3529;
+  }
+  
+  /* 3 columns for LinkedIn, GitHub, Portfolio */
+  .profile-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .profile-link-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #1f3529;
+  }
+  
+  /* Button */
+  .profile-save-btn {
+    width: 400px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 50;
+    border-radius: 14px;
+    border: 2px solid var(--accent);
+    background: #356b5c;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .profile-save-btn:hover:not(:disabled) {
+    background: #629485;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
+  }
+  
+  .profile-save-btn:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+  
+  /* Error message */
+  .profile-error {
+    color: #b3261e;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
+  /* Mobile tweaks */
+  @media (max-width: 768px) {
+    .profile-page {
+      padding: 2rem 1rem 3rem;
+    }
+  
+    .profile-links-section {
+      padding: 1.5rem 1.2rem;
+    }
+  
+    .profile-links-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  

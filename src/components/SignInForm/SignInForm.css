@@ -1,0 +1,73 @@
+/* Center container */
+.signin-container {
+    max-width: 360px;
+    margin: 6rem auto;
+    text-align: center;
+    font-family: system-ui, sans-serif;
+  }
+  
+  /* Title */
+  .signin-title {
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+  }
+  
+  /* Error */
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+  }
+  
+  /* Form */
+  .signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Inputs */
+  .signin-form input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    outline: none;
+  }
+  
+  .signin-form input:focus {
+    border-color: #7e9c93; /* darker blue */
+  }
+  
+  /* Button */
+  .signin-btn {
+    width: 400px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 50;
+    border-radius: 14px;
+    border: 2px solid var(--accent);
+    background: #356b5c;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .signin-btn:hover {
+    background: #62736e;
+  }
+  
+  /* Text under form */
+  .signup-text {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #4b5563;
+  }
+  
+  .signup-text a {
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+  }
+  
