@@ -1,14 +1,17 @@
 import './ProfilePage.css';
 import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router';
-import { getMyProfile, saveMyProfile } from '../../services/profileService';
+import { getMyProfile, saveMyProfile, uploadCvAndExtract } from '../../services/profileService';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-
+  const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [cvLoading, setCvLoading] = useState(false);
+  const [cvFile, setCvFile] = useState(null);
 
   const [form, setForm] = useState({
     fullName: '',
@@ -22,41 +25,74 @@ const ProfilePage = () => {
     portfolio: '',
   });
 
-  useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const profile = await getMyProfile();
-        if (!profile) {
-          setLoading(false);
-          return; // no profile yet → keep empty form
-        }
+    // Load existing profile
+    useEffect(() => {
+        const load = async () => {
+          try {
+            const profile = await getMyProfile();
+            if (profile) {
+              setForm({
+                fullName: profile.fullName || '',
+                headline: profile.headline || '',
+                location: profile.location || '',
+                summary: profile.summary || '',
+                primarySkills: (profile.primarySkills || []).join(', '),
+                yearsOfExperience: profile.yearsOfExperience || '',
+                linkedin: profile.links?.linkedin || '',
+                github: profile.links?.github || '',
+                portfolio: profile.links?.portfolio || '',
+              });
+            }
+          } catch (err) {
+            console.log(err);
+            setError(err.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+        load();
+      }, []);
 
-        setForm({
-          fullName: profile.fullName || '',
-          headline: profile.headline || '',
-          location: profile.location || '',
-          summary: profile.summary || '',
-          primarySkills: (profile.primarySkills || []).join(', '),
-          yearsOfExperience: profile.yearsOfExperience || '',
-          linkedin: profile.links?.linkedin || '',
-          github: profile.links?.github || '',
-          portfolio: profile.links?.portfolio || '',
-        });
-      } catch (err) {
-        console.log(err);
-        setError(err.message || 'Failed to load profile');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProfile();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   };
+
+  const handleCvChange = (e) => {
+    setCvFile(e.target.files[0] || null);
+  };
+
+  const handleUseCv = async () => {
+    if (!cvFile) return;
+    setCvLoading(true);
+    setError('');
+
+    try {
+      const profile = await uploadCvAndExtract(cvFile);
+
+      setForm(prev => ({
+        ...prev,
+        fullName: profile.fullName || prev.fullName,
+        headline: profile.headline || prev.headline,
+        location: profile.location || prev.location,
+        summary: profile.summary || prev.summary,
+        primarySkills: (profile.primarySkills || [])
+          .join(', '),
+        yearsOfExperience:
+          profile.yearsOfExperience || prev.yearsOfExperience || '',
+        linkedin: profile.links?.linkedin || prev.linkedin,
+        github: profile.links?.github || prev.github,
+        portfolio: profile.links?.portfolio || prev.portfolio,
+      }));
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Failed to use CV');
+    } finally {
+      setCvLoading(false);
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,10 +136,31 @@ const ProfilePage = () => {
     <main className="profile-page">
     <div className="profile-container">
       {/* Title */}
-      <h1 className="profile-title">Profile{/* or {user?.username} */}</h1>
+      <h1 className="profile-title">{user?.username}</h1>
 
       {/* Card */}
       <form className="profile-card" onSubmit={handleSubmit}>
+      <div className="profile-cv-section">
+            <label className="profile-cv-label">
+              Upload CV (PDF) 
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={handleCvChange}
+              />
+            </label>
+            <button
+              type="button"
+              className="profile-use-cv-btn"
+              onClick={handleUseCv}
+              disabled={!cvFile || cvLoading}
+            >
+              {cvLoading ? 'Reading CV…' : 'Use CV to Fill Profile'}
+            </button>
+          </div>
+
+
+
         <div className="profile-fields">
           <input
             type="text"

@@ -45,7 +45,6 @@ const saveMyProfile = async (profileData) => {
     });
 
     const data = await res.json();
-
     if (data.err) {
       throw new Error(data.err);
     }
@@ -56,8 +55,33 @@ const saveMyProfile = async (profileData) => {
     throw new Error(err.message || 'Failed to save profile');
   }
 };
+const uploadCvAndExtract = async (file) => {
+  const formData = new FormData();
+  formData.append('cv', file);
+
+  const url = `${BASE_URL}/my-profile/cv`;
+  console.log('Uploading to:', url);
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      // IMPORTANT: do NOT set Content-Type for FormData
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: formData,
+  });
+
+  console.log('response status:', res.status, 'content-type:', res.headers.get('content-type'));
+
+  const data = await res.json(); // this is where the '<!DOCTYPE' blows up
+  return data;
+};
+
+
+
 
 export {
   getMyProfile,
   saveMyProfile,
+  uploadCvAndExtract
 };

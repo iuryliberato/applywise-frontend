@@ -137,6 +137,35 @@
     text-align: center;
     margin-top: 0.5rem;
   }
+
+  .profile-use-cv-btn {
+    width: 400px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 50;
+    border-radius: 8px;
+    border: 2px solid var(--accent);
+    background: #356b5c;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  .profile-cv-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 150px;
+    gap: 20px;
+    font-size: 17px;
+  }
+
+  
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  } 
   
   /* Mobile tweaks */
   @media (max-width: 768px) {
