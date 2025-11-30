@@ -1,0 +1,212 @@
+/* src/pages/ApplicationsPage/ApplicationsPage.css */
+
+.apps-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 1rem 3rem;
+  }
+  
+  .apps-container {
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  /* Title */
+  .apps-title {
+    margin: 0 0 1.8rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #1f3529;
+  }
+  
+  /* Controls row */
+  .apps-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .apps-search {
+    flex: 1;
+    border-radius: 999px;
+    border: none;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.95rem;
+    background-color: #f8f5ef;
+    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.18);
+    outline: none;
+  }
+  
+  .apps-search:focus {
+    box-shadow: 0 0 0 2px rgba(47, 91, 67, 0.35);
+  }
+  
+  /* Filter button + menu */
+  .apps-filter-wrapper {
+    position: relative;
+  }
+  
+  .apps-filter-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: #f8f5ef;
+    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.18);
+    cursor: pointer;
+  }
+  
+  .apps-filter-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.4rem);
+    z-index: 10;
+    background-color: #ffffff;
+    border-radius: 0.9rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    padding: 0.4rem;
+    min-width: 150px;
+  }
+  
+  .apps-filter-option {
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 0.6rem;
+  }
+  
+  .apps-filter-option:hover {
+    background-color: #f5f0df;
+  }
+  
+  .apps-filter-option--active {
+    background-color: #e3efe7;
+    color: #2f5b43;
+  }
+  
+  /* Meta text */
+  .apps-meta-text {
+    font-size: 0.9rem;
+    color: #6b776e;
+    margin-bottom: 0.5rem;
+  }
+  
+  .apps-error {
+    font-size: 0.9rem;
+    color: #b91c1c;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Table */
+  .apps-table-wrapper {
+    background-color: #fdfaf1;
+    border-radius: 1rem;
+    border: 1px solid rgba(47, 91, 67, 0.18);
+    padding: 0.4rem 1.2rem 0.8rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+  }
+  
+  .apps-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  .apps-table thead tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  
+  .apps-table th,
+  .apps-table td {
+    padding: 0.8rem 0;
+    text-align: left;
+  }
+  
+  .apps-table th {
+    font-weight: 600;
+    color: #1f3529;
+  }
+  
+  .apps-status-header {
+    text-align: right;
+  }
+  
+  .apps-row {
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  
+  .apps-row:last-child {
+    border-bottom: none;
+  }
+  
+  .apps-row:hover {
+    background-color: #f7f3e8;
+  }
+  
+  .apps-status-cell {
+    text-align: right;
+  }
+  
+  /* Status pill */
+  .apps-status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fdfaf1;
+  }
+  
+  /* Individual status colours */
+  .apps-status-pill--idea {
+    background-color: #f97316;
+  }
+  .apps-status-pill--applied {
+    background-color: #22c55e;
+  }
+  .apps-status-pill--interviewing {
+    background-color: #38bdf8;
+  }
+  .apps-status-pill--tech-test {
+    background-color: #fb923c;
+  }
+  .apps-status-pill--offer {
+    background-color: #1d4ed8;
+  }
+  .apps-status-pill--rejected {
+    background-color: #dc2626;
+  }
+  
+  /* Empty state */
+  .apps-empty {
+    text-align: center;
+    padding: 1.2rem 0;
+    font-size: 0.9rem;
+    color: #6b776e;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .apps-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .apps-table-wrapper {
+      padding: 0.4rem 0.8rem 0.8rem;
+    }
+  }
+  

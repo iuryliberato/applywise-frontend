@@ -6,7 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Footer from './components/Footer/Footer';
-import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/Dashboard/DashboardPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import AddApplicationPage from './components/AddApplicationPage/AddApplicationPage'
 import SingleApplicationPage from './components/SingleApplication/SingleApplication';

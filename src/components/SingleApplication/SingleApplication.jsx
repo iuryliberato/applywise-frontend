@@ -299,16 +299,6 @@ const [statusMenuOpen, setStatusMenuOpen] = useState(false);
           </div>
         </section>
 
-        {/* Optional: raw snippet */}
-        {app.rawTextSnippet && (
-          <section className="single-app-card single-app-raw-card">
-            <div className="single-app-raw-header">
-              <h2 className="single-app-section-title">Source snippet</h2>
-              <span className="single-app-ai-badge">AI generated</span>
-            </div>
-            <p className="single-app-raw-text">{app.rawTextSnippet}</p>
-          </section>
-        )}
       </div>
     </main>
   );

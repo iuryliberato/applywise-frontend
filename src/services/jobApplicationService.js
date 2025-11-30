@@ -42,20 +42,26 @@ const getOneApplication = async (id) => {
 };
 
 
-// OPTIONAL — GET ALL JOBS FOR LOGGED-IN USER
-const getMyApplications = async () => {
-  const res = await fetch(`${BASE_URL}/my-application`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...getAuthHeaders(),
-    },
-  });
-
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Failed to fetch applications');
-
-  return data;
-};
+// GET ALL JOBS FOR LOGGED-IN USER (optional status)
+const getMyApplications = async (status) => {
+    const url = status
+      ? `${BASE_URL}/my-applications?status=${encodeURIComponent(status)}`
+      : `${BASE_URL}/my-applications`;
+  
+    const res = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to fetch applications');
+  
+    return data;
+  };
+  
+  
 const updateApplicationStatus = async (id, status) => {
     const res = await fetch(`${BASE_URL}/${id}/status`, {
       method: 'PATCH',
@@ -73,9 +79,30 @@ const updateApplicationStatus = async (id, status) => {
   };
   
 
+  const getApplicationsSummary = async () => {
+    const res = await fetch(`${BASE_URL}/my-applications/summary`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+    });
+  
+    if (!res.ok) {
+      let msg = 'Failed to fetch summary';
+      try {
+        const data = await res.json();
+        msg = data.error || msg;
+      } catch (_) {}
+      throw new Error(msg);
+    }
+  
+    return res.json();
+  }
+  
 export {
   createFromLink,
   getOneApplication,
   getMyApplications,
   updateApplicationStatus,
+  getApplicationsSummary,
 };
