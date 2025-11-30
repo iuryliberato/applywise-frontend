@@ -8,6 +8,8 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Footer from './components/Footer/Footer';
 import Dashboard from './components/Dashboard/Dashboard';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import AddApplicationPage from './components/AddApplicationPage/AddApplicationPage'
+import SingleApplicationPage from './components/SingleApplication/SingleApplication';
 
 
 import { UserContext } from './contexts/UserContext';
@@ -27,6 +29,9 @@ const App = () => {
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/add-application" element={<AddApplicationPage />} />
+        <Route path="/application/:id" element={<SingleApplicationPage />} />
+
       </Routes>
       <Footer />
       </main>

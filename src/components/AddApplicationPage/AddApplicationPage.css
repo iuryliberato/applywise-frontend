@@ -1,0 +1,259 @@
+/* src/pages/AddApplicationPage/AddApplicationPage.css */
+
+.add-app-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: radial-gradient(circle at top left, #f6f0dd, #f0ead9 40%, #e8dfc7 80%);
+  }
+  
+  .add-app-container {
+    width: 100%;
+    max-width: 960px;
+  }
+  
+  .add-app-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1f3529;
+    margin-bottom: 0.25rem;
+  }
+  
+  .add-app-subtitle {
+    font-size: 0.95rem;
+    color: #6b776e;
+    margin-bottom: 1.5rem;
+  }
+  
+  .add-app-card {
+    background-color: #fdfaf1;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(47, 91, 67, 0.16);
+    padding: 1.8rem 2rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Link card */
+  .add-app-link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .add-app-link-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    color: #374139;
+    gap: 0.35rem;
+  }
+  
+  .add-app-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(47, 91, 67, 0.3);
+    background-color: #f7f2e3;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  
+  .add-app-input:focus {
+    border-color: #2f5b43;
+    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.2);
+  }
+  
+  .add-app-btn {
+    margin-top: 0.6rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: linear-gradient(135deg, #2f5b43, #3f7b5a);
+    color: #fdfaf1;
+    box-shadow: 0 4px 10px rgba(18, 59, 39, 0.25);
+    transition: transform 0.05s ease, box-shadow 0.05s ease, opacity 0.15s ease;
+  }
+  
+  .add-app-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+    box-shadow: none;
+  }
+  
+  .add-app-btn:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(18, 59, 39, 0.3);
+  }
+  
+  /* Messages */
+  .add-app-error {
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: #b42318;
+  }
+  
+  .add-app-success {
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: #166534;
+  }
+  
+  /* Details card */
+  .add-app-section-title {
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #1f3529;
+  }
+  
+  .add-app-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .add-app-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .add-app-field label {
+    font-size: 0.85rem;
+    color: #374139;
+  }
+  
+  .full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .add-app-textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+  
+  /* Two-column textareas rows */
+  .add-app-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 0.8rem;
+  }
+  
+  .add-app-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  /* Dropdown wrapper */
+.status-dropdown {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+  }
+  
+  /* Pill used as dropdown toggle */
+  .status-pill--toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4b5563; /* will be overridden by color modifiers */
+  }
+  
+  /* Little arrow on the right */
+  .status-dropdown-arrow {
+    margin-left: 0.75rem;
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+  
+  /* Dropdown menu */
+  .status-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 20;
+    background-color: #1f293324;
+    padding: 0.5rem;
+    border-radius: 0.9rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 180px;
+  }
+  
+  /* Base pill style shared */
+  .status-pill {
+    border: none;
+    border-radius: 999px;
+    padding: 0.45rem 1.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    color: #fdfaf1;
+    background-color: #9ca3af;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+    transition:
+      transform 0.05s ease,
+      box-shadow 0.05s ease,
+      filter 0.1s ease,
+      opacity 0.1s ease;
+  }
+  
+  .status-pill:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.22);
+  }
+  
+  /* Highlight the selected option inside the dropdown */
+  .status-pill--active-option {
+    box-shadow: 0 0 0 2px rgba(253, 250, 241, 0.9),
+      0 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Specific pill colors */
+  .status-pill--Idea {
+    background: #f97316;
+  }
+  
+  .status-pill--Applied {
+    background: #22c55e;
+  }
+  
+  .status-pill--Interviewing {
+    background: #38bdf8;
+  }
+  
+  .status-pill--Tech-Test {
+    background: #fb923c;
+  }
+  
+  .status-pill--Offer {
+    background: #1d4ed8;
+  }
+  
+  .status-pill--Rejected {
+    background: #dc2626;
+  }
+  
+  @media (max-width: 768px) {
+    .add-app-card {
+      padding: 1.4rem 1.2rem;
+    }
+  
+    .add-app-grid,
+    .add-app-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  
