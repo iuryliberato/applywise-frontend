@@ -1,16 +1,17 @@
 // src/pages/ApplicationsPage/ApplicationsPage.jsx
+import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+
 import { getMyApplications } from '../../services/jobApplicationService';
 import './DashboardPage.css';
 
 const STATUS_LABELS = {
-  'Idea': 'Idea',
-  'Applied': 'Applied',
-  'Interviewing': 'Interviewing',
-  'Tech-Test': 'Tech Test',
-  'Offer': 'Offer',
-  'Rejected': 'Rejected',
+  idea: 'Idea',
+  applied: 'Applied',
+  interviewing: 'Interviewing',
+  'tech-test': 'Tech Test',
+  offer: 'Offer',
+  rejected: 'Rejected',
 };
 
 const STATUS_OPTIONS = [
@@ -31,8 +32,13 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const location = useLocation();
   const navigate = useNavigate();
 
+  const [toast, setToast] = useState('');
+  const [showToast, setShowToast] = useState(false);
+
+  // Load apps
   useEffect(() => {
     const load = async () => {
       try {
@@ -48,6 +54,32 @@ const DashboardPage = () => {
     };
     load();
   }, []);
+
+  // 1) Read toastMessage from navigation state
+  useEffect(() => {
+    const state = location.state;
+
+    if (state?.toastMessage) {
+      setToast(state.toastMessage);
+      setShowToast(true);
+
+      // Clear router state so it doesn’t reappear on refresh/back
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
+  // 2) Auto-hide toast after 3s whenever toast changes
+  useEffect(() => {
+    if (!toast) return;
+
+    const hideTimer = setTimeout(() => setShowToast(false), 2600);
+    const clearTimer = setTimeout(() => setToast(''), 3000);
+
+    return () => {
+      clearTimeout(hideTimer);
+      clearTimeout(clearTimer);
+    };
+  }, [toast]);
 
   const handleRowClick = (id) => {
     navigate(`/application/${id}`);
@@ -76,7 +108,7 @@ const DashboardPage = () => {
           <input
             type="text"
             className="apps-search"
-            placeholder="Search by job title or company's name"
+            placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -134,7 +166,7 @@ const DashboardPage = () => {
               {filteredApps.length === 0 && !loading ? (
                 <tr>
                   <td colSpan="3" className="apps-empty">
-                    No applications found. Try adjusting your search or filters.
+                    No applications found. Try adjusting your search or filters or adding new application.
                   </td>
                 </tr>
               ) : (
@@ -146,22 +178,21 @@ const DashboardPage = () => {
                   >
                     <td>{app.jobTitle || 'Untitled role'}</td>
                     <td>{app.companyName || 'Unknown company'}</td>
-                   
-                    <td className="apps-status-cell">
-  {(() => {
-    const statusKey = (app.status || 'idea').toLowerCase();
 
-    return (
-      <span
-        className={
-          'apps-status-pill apps-status-pill--' + statusKey
-        }
-      >
-        {STATUS_LABELS[statusKey] || statusKey}
-      </span>
-    );
-  })()}
-</td>
+                    <td className="apps-status-cell">
+                      {(() => {
+                        const statusKey = (app.status || 'Idea').toLowerCase();
+                        return (
+                          <span
+                            className={
+                              'apps-status-pill apps-status-pill--' + statusKey
+                            }
+                          >
+                            {STATUS_LABELS[statusKey] || statusKey}
+                          </span>
+                        );
+                      })()}
+                    </td>
                   </tr>
                 ))
               )}
@@ -169,6 +200,16 @@ const DashboardPage = () => {
           </table>
         </div>
       </div>
+
+      {toast && (
+        <div
+          className={
+            'apps-toast ' + (showToast ? 'apps-toast--visible' : '')
+          }
+        >
+          {toast}
+        </div>
+      )}
     </main>
   );
 };

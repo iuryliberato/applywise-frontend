@@ -25,7 +25,7 @@ const App = () => {
       <NavBar />
       <main className="main-content">
       <Routes>
-        <Route path='/' element={user ? <Dashboard /> : <SignInForm /> } />
+        <Route path='/dashboard' element={user ? <Dashboard /> : <SignInForm /> } />
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/profile" element={<ProfilePage />} />

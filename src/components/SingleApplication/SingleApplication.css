@@ -1,3 +1,10 @@
+.status-pill--idea       { background: #f97316; }
+.status-pill--applied    { background: #22c55e; }
+.status-pill--interviewing { background: #38bdf8; }
+.status-pill--tech-test  { background: #fb923c; }
+.status-pill--offer      { background: #1d4ed8; }
+.status-pill--rejected   { background: #dc2626; }
+
 .single-app-page {
     min-height: 100vh;
     padding: 2rem 1rem 3rem;
@@ -63,26 +70,18 @@
     color: #fdfaf1;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   }
+  .status-dropdown {
+    position: relative;
+  }
   
-  /* color variants */
-  .status-pill--idea {
-    background: #f97316;
+  .status-dropdown-menu {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
   }
-  .status-pill--applied {
-    background: #22c55e;
-  }
-  .status-pill--interviewing {
-    background: #38bdf8;
-  }
-  .status-pill--tech-test {
-    background: #fb923c;
-  }
-  .status-pill--offer {
-    background: #1d4ed8;
-  }
-  .status-pill--rejected {
-    background: #dc2626;
-  }
+  
   
   .single-app-link-btn {
     border-radius: 999px;
@@ -94,6 +93,7 @@
     background-color: #2f5b43;
     color: #fdfaf1;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    width: 120px;
   }
   
   /* Cards */
@@ -271,4 +271,105 @@
     border-color: #2f5b43;
     box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.25);
   }
-      
+  .single-app-cover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .single-app-cover-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 0.45rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: linear-gradient(135deg, #2f5b43, #3f7b5a);
+    color: #fdfaf1;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+  
+  .single-app-cover-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+    box-shadow: none;
+  }
+  
+.single-app-cover-copy-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 0.4rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background-color: #fdfaf1;
+    color: #2f5b43;
+    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.25);
+    cursor: pointer;
+  }
+  
+  .single-app-cover-copy-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .single-app-cover-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .single-app-cover-text {
+    margin: 0.8rem 0 0;
+    padding: 0.8rem 0.9rem;
+    border-radius: 0.9rem;
+    background-color: #f7f3e7;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: #1f2933;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  
+  .single-app-delete-btn {
+    margin-top: 0.4rem;
+    border: none;
+    border-radius: 999px;
+    padding: 0.35rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: #fef2f2;
+    color: #b91c1c;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.3);
+  }
+  
+  .single-app-delete-btn:hover {
+    background-color: #fee2e2;
+  }
+  .apps-toast {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 1500;
+    background: #c7c7c71c;
+    color: #fdfaf1;
+    padding: 0.8rem 1.3rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+  }
+  
+  .fade-in-out {
+    animation: toastFade 3s ease-out forwards;
+  }
+  
+  @keyframes toastFade {
+    0%   { opacity: 0; transform: translateY(8px); }
+    10%  { opacity: 1; transform: translateY(0); }
+    70%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  

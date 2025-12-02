@@ -98,6 +98,52 @@ const updateApplicationStatus = async (id, status) => {
   
     return res.json();
   }
+
+  const generateCoverLetter = async (id) => {
+    const res = await fetch(`${BASE_URL}/${id}/cover-letter`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to generate cover letter');
+  
+    return data; // { coverLetter: '...' }
+  };
+  
+  const deleteApplication = async (id) => {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to delete application');
+  
+    return data; // { message: 'Application deleted' }
+  };
+  const createManualApplication = async (payload) => {
+    const res = await fetch(`${BASE_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+      body: JSON.stringify(payload),
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to create application');
+  
+    return data; // created job with _id
+  };
+  
   
 export {
   createFromLink,
@@ -105,4 +151,7 @@ export {
   getMyApplications,
   updateApplicationStatus,
   getApplicationsSummary,
+  generateCoverLetter,
+  deleteApplication,
+  createManualApplication
 };

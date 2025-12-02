@@ -17,8 +17,8 @@ const NavBar = () => {
     <header className="navbar">
       <div className="navbar-inner">
         {/* Brand / logo */}
-        <Link to="/" className="brand">
-          <img src={logo} alt="ApplyWise logo" className="brand-logo" />
+        <Link to="/dashboard" className="brand">
+          <p className="logo">Applio/</p>
         </Link>
 
         {/* Right-side links */}
@@ -27,7 +27,7 @@ const NavBar = () => {
           {user && (
             <>
               <NavLink
-                to="/"
+                to="/dashboard"
                 end
                 className={({ isActive }) =>
                   'nav-link' + (isActive ? ' nav-link--active' : '')
@@ -49,11 +49,11 @@ const NavBar = () => {
                   'nav-link' + (isActive ? ' nav-link--active' : '')
                 }
               >
-                Add Application
+                <span className="plus">+</span>Application
               </NavLink>
 
               <NavLink
-               to="/"
+               to="/sign-in"
                 type="button"
                 className="nav-link nav-link--ghost"
                 onClick={handleSignOut}

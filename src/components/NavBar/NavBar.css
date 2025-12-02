@@ -1,93 +1,94 @@
-:root {
-    --app-bg: #fdf6e3;      /* warm cream */
-    --accent: #356b5c;      /* green for inputs/buttons */
-    --text-main: #222222;
-    --nav-border: #e7dcc0;
+/* ===== NavBar layout ===== */
+
+.navbar {
+    padding: 0.5rem 3rem 1.4rem;
+    border-bottom: 1px solid transparent;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
   }
   
-  body {
-    margin: 0;
-    background-color: var(--app-bg);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  }
-  
-  /* Top navbar shell */
-  .navbar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color:#fff8ec;
-    border-bottom: 1px solid var(--nav-border);
-  }
-  
-  /* Center content + spacing */
   .navbar-inner {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
-    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
-    box-sizing: border-box;
   }
   
-  /* Brand on the left */
+  /* ===== Brand / logo (left) ===== */
+  
   .brand {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
     text-decoration: none;
+    color: #111111;
+    font-size: 1.6rem;
+    font-style: italic;          /* Applio/ look */
+    letter-spacing: 0.04em;
+    font-weight: 600;
   }
   
   .brand-logo {
-    height: 50px;
-    border-radius: 10px;
+    height: 28px;
+    width: auto;
+    display: block;
   }
   
-  .brand-text {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-main);
-  }
+  /* ===== Links (center + right) ===== */
   
-  /* Right side links */
   .nav-links {
+    flex: 1;
     display: flex;
-    gap: 2rem;
     align-items: center;
+  
+    /* This makes first link sit closer to the center
+       and the second one hug the right edge */
+    justify-content: space-between;
+    margin-left: 5rem;           /* space between logo and links */
+    max-width: 720px;            /* controls how far apart SIGN IN / SIGN UP are */
   }
   
-  /* Base link/button style */
   .nav-link {
-    border: none;
-    background: none;
-  
-    font-size: 1rem;
-    color: var(--text-main);
     text-decoration: none;
-  
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-  
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 400;
+    color: #111111;
   }
   
-  /* Hover */
-  .nav-link:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+  .plus {
+    font-size: 20px;
   }
-  
-  /* Active pill state (current page) */
+  /* Active state (optional, subtle) */
   .nav-link--active {
-    border: 1px solid var(--accent);
-    background-color: #e6f1ed;
+    font-weight: 600;
+    color: #253ec1;
   }
   
-  /* Ghost style for sign out (no border when active) */
-  .nav-link--ghost.nav-link--active {
-    border: none;
-    background-color: transparent;
+  /* Ghost button style for Sign Out (still fine with this layout) */
+  .nav-link--ghost {
+    opacity: 0.8;
+  }
+  
+  /* ===== Responsive tweaks ===== */
+  
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 1.2rem 1.5rem;
+    }
+  
+    .navbar-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  
+    .nav-links {
+      margin-left: 0;
+      max-width: none;
+      width: 100%;
+      justify-content: flex-start;
+      gap: 2rem;
+    }
   }
   

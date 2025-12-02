@@ -1,69 +1,229 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { createFromLink } from '../../services/jobApplicationService';
+import { createFromLink, createManualApplication } from '../../services/jobApplicationService';
 import './AddApplicationPage.css';
 
+const STATUS_OPTIONS = [
+  { value: 'Idea',        label: 'Idea' },
+  { value: 'Applied',     label: 'Applied' },
+  { value: 'Interviewing',label: 'Interviewing' },
+  { value: 'Tech-Test',   label: 'Tech Test' },
+  { value: 'Offer',       label: 'Offer' },
+  { value: 'Rejected',    label: 'Rejected' },
+];
+
 const AddApplicationPage = () => {
-  const [link, setLink] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  
   const navigate = useNavigate();
 
-  const handleAdd = async () => {
-    setError('');
+  const [jobUrl, setJobUrl] = useState('');
+  const [linkLoading, setLinkLoading] = useState(false);
+  const [linkError, setLinkError] = useState('');
 
-    if (!link.trim()) {
-      setError('Please paste a job link.');
-      return;
-    }
+  const [manualOpen, setManualOpen] = useState(false);
+  const [manualSaving, setManualSaving] = useState(false);
+  const [manualError, setManualError] = useState('');
+
+  const [manualForm, setManualForm] = useState({
+    jobTitle: '',
+    companyName: '',
+    location: '',
+    summary: '',
+    responsibilities: '',
+    requirements: '',
+    status: 'Idea',
+  });
+
+  const handleLinkSubmit = async (e) => {
+    e.preventDefault();
+    if (!jobUrl.trim()) return;
+
+    setLinkError('');
+    setLinkLoading(true);
 
     try {
-      setLoading(true);
-
-      // Create the job application
-      const newApp = await createFromLink(link);
-
-      if (!newApp || !newApp._id) {
-        throw new Error('Invalid response from server.');
-      }
-
-      // Redirect to the single job application page
-      navigate(`/application/${newApp._id}`);
-
+      const job = await createFromLink(jobUrl, 'Idea');
+      navigate(`/application/${job._id}`);
     } catch (err) {
-      setError(err.message || 'Failed to add application');
+      console.error(err);
+      setLinkError(err.message || 'Failed to create from link');
+      // 👇 optionally auto-open manual form if link fails
+      setManualOpen(true);
     } finally {
-      setLoading(false);
+      setLinkLoading(false);
+    }
+  };
+
+  const handleManualChange = (e) => {
+    const { name, value } = e.target;
+    setManualForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleManualSubmit = async (e) => {
+    e.preventDefault();
+    setManualError('');
+    setManualSaving(true);
+
+    try {
+      const payload = {
+        jobTitle: manualForm.jobTitle || 'Untitled role',
+        companyName: manualForm.companyName || 'Unknown company',
+        location: manualForm.location || '',
+        summary: manualForm.summary || '',
+        // split by newline into arrays
+        responsibilities: manualForm.responsibilities
+          ? manualForm.responsibilities.split('\n').map((l) => l.trim()).filter(Boolean)
+          : [],
+        requirements: manualForm.requirements
+          ? manualForm.requirements.split('\n').map((l) => l.trim()).filter(Boolean)
+          : [],
+        status: manualForm.status,
+        source: 'Manual',
+      };
+
+      const job = await createManualApplication(payload);
+      navigate(`/application/${job._id}`);
+    } catch (err) {
+      console.error(err);
+      setManualError(err.message || 'Failed to save manual application');
+    } finally {
+      setManualSaving(false);
     }
   };
 
   return (
-    <main className="add-app-simple">
-      <h1 className="add-app-title">Add Application</h1>
+    <main className="add-app-page">
+      <div className="add-app-container">
+        <h1 className="add-app-title">Add Application</h1>
 
-      <div className="add-app-card">
-        <p className="add-app-instructions">
-          Paste the Link from the job application below:
-        </p>
+        {/* Existing link card */}
+        <section className="add-app-card">
+          <p className="add-app-subtitle">
+            Paste the link from the job application below:
+          </p>
 
-        <input
-          type="url"
-          placeholder="https://www.linkedin.com/jobs/..."
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
-          className="add-app-input"
-        />
+          <form onSubmit={handleLinkSubmit} className="add-app-link-form">
+            <input
+              type="url"
+              className="add-app-input"
+              placeholder="https://www.linkedin.com/jobs/..."
+              value={jobUrl}
+              onChange={(e) => setJobUrl(e.target.value)}
+              required
+            />
 
-        {error && <p className="add-app-error">{error}</p>}
+            <button
+              type="submit"
+              className="add-app-primary-btn"
+              disabled={linkLoading}
+            >
+              {linkLoading ? 'Adding…' : 'Add Application'}
+            </button>
+          </form>
 
-        <button
-          onClick={handleAdd}
-          disabled={loading}
-          className="add-app-button"
-        >
-          {loading ? 'Adding...' : 'Add Application'}
-        </button>
+          {linkError && (
+            <p className="add-app-error">{linkError}</p>
+          )}
+
+          <div className="add-app-divider">
+            <span>or</span>
+          </div>
+
+          <button
+            type="button"
+            className="add-app-secondary-btn"
+            onClick={() => setManualOpen((prev) => !prev)}
+          >
+            {manualOpen ? 'Hide manual form' : 'Add application manually'}
+          </button>
+        </section>
+
+        {/* Manual form */}
+        {manualOpen && (
+          <section className="add-app-card add-app-manual-card">
+            <h2 className="add-app-section-title">Manual application</h2>
+
+            <form className="add-app-manual-form" onSubmit={handleManualSubmit}>
+              <div className="add-app-two-col">
+                <input
+                  type="text"
+                  name="jobTitle"
+                  className="add-app-input"
+                  placeholder="Job title"
+                  value={manualForm.jobTitle}
+                  onChange={handleManualChange}
+                />
+                <input
+                  type="text"
+                  name="companyName"
+                  className="add-app-input"
+                  placeholder="Company"
+                  value={manualForm.companyName}
+                  onChange={handleManualChange}
+                />
+              </div>
+
+              <div className="add-app-two-col">
+                <input
+                  type="text"
+                  name="location"
+                  className="add-app-input"
+                  placeholder="Location"
+                  value={manualForm.location}
+                  onChange={handleManualChange}
+                />
+
+                <select
+                  name="status"
+                  className="add-app-input add-app-select"
+                  value={manualForm.status}
+                  onChange={handleManualChange}
+                >
+                  {STATUS_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <textarea
+                name="summary"
+                className="add-app-input add-app-textarea"
+                placeholder="Summary (optional)"
+                value={manualForm.summary}
+                onChange={handleManualChange}
+              />
+
+              <textarea
+                name="responsibilities"
+                className="add-app-input add-app-textarea"
+                placeholder="Responsibilities (one per line)"
+                value={manualForm.responsibilities}
+                onChange={handleManualChange}
+              />
+
+              <textarea
+                name="requirements"
+                className="add-app-input add-app-textarea"
+                placeholder="Requirements (one per line)"
+                value={manualForm.requirements}
+                onChange={handleManualChange}
+              />
+
+              {manualError && (
+                <p className="add-app-error">{manualError}</p>
+              )}
+
+              <button
+                type="submit"
+                className="add-app-primary-btn"
+                disabled={manualSaving}
+              >
+                {manualSaving ? 'Saving…' : 'Save Manual Application'}
+              </button>
+            </form>
+          </section>
+        )}
       </div>
     </main>
   );
