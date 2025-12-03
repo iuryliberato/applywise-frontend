@@ -27,9 +27,14 @@ const AddApplicationPage = () => {
     jobTitle: '',
     companyName: '',
     location: '',
+    employmentType: '',
+    salaryInfo: '',
+    seniorityLevel: '',
     summary: '',
     responsibilities: '',
     requirements: '',
+    niceToHave: '',
+    perksAndBenefits: '',
     status: 'Idea',
   });
 
@@ -68,13 +73,22 @@ const AddApplicationPage = () => {
         jobTitle: manualForm.jobTitle || 'Untitled role',
         companyName: manualForm.companyName || 'Unknown company',
         location: manualForm.location || '',
+        employmentType: manualForm.employmentType || '',
         summary: manualForm.summary || '',
+        salaryInfo: manualForm.salaryInfo || '',
+        seniorityLevel: manualForm.seniorityLevel || '',
         // split by newline into arrays
         responsibilities: manualForm.responsibilities
           ? manualForm.responsibilities.split('\n').map((l) => l.trim()).filter(Boolean)
           : [],
         requirements: manualForm.requirements
           ? manualForm.requirements.split('\n').map((l) => l.trim()).filter(Boolean)
+          : [],
+          niceToHave: manualForm.niceToHave
+          ? manualForm.niceToHave.split('\n').map((l) => l.trim()).filter(Boolean)
+          : [],
+          perksAndBenefits: manualForm.perksAndBenefits
+          ? manualForm.perksAndBenefits.split('\n').map((l) => l.trim()).filter(Boolean)
           : [],
         status: manualForm.status,
         source: 'Manual',
@@ -184,6 +198,36 @@ const AddApplicationPage = () => {
                   className="add-app-input"
                   placeholder="Location"
                   value={manualForm.location}
+                  onChange={handleManualChange}
+                />
+              </div>
+              <div className="add-app-two-col">
+                <input
+                  type="text"
+                  name="employmentType"
+                  className="add-app-input"
+                  placeholder="Employment Type"
+                  value={manualForm.employmentType}
+                  onChange={handleManualChange}
+                />
+              </div>
+              <div className="add-app-two-col">
+                <input
+                  type="text"
+                  name="salaryInfo"
+                  className="add-app-input"
+                  placeholder="Salary"
+                  value={manualForm.salaryInfo}
+                  onChange={handleManualChange}
+                />
+              </div>
+              <div className="add-app-two-col">
+                <input
+                  type="text"
+                  name="seniorityLevel"
+                  className="add-app-input"
+                  placeholder="Level"
+                  value={manualForm.seniorityLevel}
                   onChange={handleManualChange}
                 />
               </div>
