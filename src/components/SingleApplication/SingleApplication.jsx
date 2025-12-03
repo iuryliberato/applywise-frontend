@@ -2,11 +2,15 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import './SingleApplication.css';
 import {
-  getOneApplication,
-  updateApplicationStatus,
-  generateCoverLetter,
-  deleteApplication,
+    getOneApplication,
+    updateApplicationStatus,
+    generateCoverLetter,
+    deleteApplication,
+    addNote,
+    updateNote,
+    deleteNote,
 } from '../../services/jobApplicationService';
+
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModel';
 
 const STATUS_OPTIONS = [
@@ -35,6 +39,11 @@ const SingleApplicationPage = () => {
   const [copied, setCopied] = useState(false);
 
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const [noteText, setNoteText] = useState('');
+const [noteSaving, setNoteSaving] = useState(false);
+const [noteError, setNoteError] = useState('');
+
 
   useEffect(() => {
     const load = async () => {
@@ -135,7 +144,37 @@ const SingleApplicationPage = () => {
       setDeleteOpen(false);
     }
   };
-
+  const handleAddNote = async (e) => {
+    e.preventDefault();
+    const trimmed = noteText.trim();
+    if (!trimmed) return;
+  
+    setNoteError('');
+    setNoteSaving(true);
+  
+    try {
+      const updated = await addNote(app._id, trimmed);
+      setApp(updated);
+      setNoteText('');
+    } catch (err) {
+      console.error(err);
+      setNoteError(err.message || 'Failed to add note');
+    } finally {
+      setNoteSaving(false);
+    }
+  };
+  
+  const handleDeleteNote = async (noteId) => {
+    setNoteError('');
+    try {
+      const updated = await deleteNote(app._id, noteId);
+      setApp(updated);
+    } catch (err) {
+      console.error(err);
+      setNoteError(err.message || 'Failed to delete note');
+    }
+  };
+  
   const statusKey = app.status || 'Idea';
   const statusLabel =
     STATUS_OPTIONS.find((opt) => opt.value === statusKey)?.label || statusKey;
@@ -374,6 +413,61 @@ const SingleApplicationPage = () => {
               </div>
             </div>
           </section>
+{/* Notes */}
+<section className="single-app-card single-app-notes-card">
+  <div className="single-app-notes-header">
+    <h2 className="single-app-title">Notes</h2>
+  </div>
+
+  <form className="single-app-notes-form" onSubmit={handleAddNote}>
+    <textarea
+      className="single-app-notes-textarea"
+      placeholder="Add a note about this application (interview prep, feedback, follow-ups)…"
+      value={noteText}
+      onChange={(e) => setNoteText(e.target.value)}
+    />
+    <button
+      type="submit"
+      className="underline-btn add-note"
+      disabled={noteSaving || !noteText.trim()}
+    >
+      {noteSaving ? 'Saving…' : 'Add note'}
+    </button>
+  </form>
+
+  {noteError && <p className="single-app-error">{noteError}</p>}
+
+  {app.notes && app.notes.length > 0 ? (
+    <ul className="single-app-notes-list">
+      {app.notes
+        .slice()
+        .reverse()
+        .map((note) => (
+          <li key={note._id} className="single-app-note-item">
+            <div className="single-app-note-top">
+              <span className="single-app-note-date">
+                {note.createdAt
+                  ? new Date(note.createdAt).toLocaleString()
+                  : ''}
+              </span>
+              <button
+                type="button"
+                className="single-app-note-delete"
+                onClick={() => handleDeleteNote(note._id)}
+              >
+                Delete
+              </button>
+            </div>
+            <p className="single-app-note-text">{note.text}</p>
+          </li>
+        ))}
+    </ul>
+  ) : (
+    <p className="single-app-empty">
+      No notes yet. Use the box above to jot down anything relevant.
+    </p>
+  )}
+</section>
 
           {/* Cover letter */}
           <section className="single-app-card single-app-cover-card">

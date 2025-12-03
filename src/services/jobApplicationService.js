@@ -145,13 +145,68 @@ const updateApplicationStatus = async (id, status) => {
   };
   
   
-export {
-  createFromLink,
-  getOneApplication,
-  getMyApplications,
-  updateApplicationStatus,
-  getApplicationsSummary,
-  generateCoverLetter,
-  deleteApplication,
-  createManualApplication
-};
+
+
+const addNote = async (appId, text) => {
+    const res = await fetch(`${BASE_URL}/${appId}/notes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+      body: JSON.stringify({ text }),
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to add note');
+  
+    // backend returns updated job application
+    return data;
+  };
+  
+  const updateNote = async (appId, noteId, text) => {
+    const res = await fetch(`${BASE_URL}/${appId}/notes/${noteId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+      body: JSON.stringify({ text }),
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to update note');
+  
+    return data;
+  };
+  
+  const deleteNote = async (appId, noteId) => {
+    const res = await fetch(`${BASE_URL}/${appId}/notes/${noteId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+    });
+  
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to delete note');
+  
+    return data;
+  };
+  
+  export {
+    createFromLink,
+    createManualApplication,
+    getOneApplication,
+    getMyApplications,
+    updateApplicationStatus,
+    getApplicationsSummary,
+    generateCoverLetter,
+    deleteApplication,
+    addNote,
+    updateNote,
+    deleteNote,
+
+  };
+  
