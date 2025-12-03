@@ -21,7 +21,7 @@ const App = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <>
+    <div className="app-shell">
       <NavBar />
       <main className="main-content">
       <Routes>
@@ -33,10 +33,11 @@ const App = () => {
         <Route path="/application/:id" element={<SingleApplicationPage />} />
 
       </Routes>
-      <Footer />
       </main>
+      <Footer />
+      
      
-    </>
+    </div>
   );
 };
 

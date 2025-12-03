@@ -1,25 +1,23 @@
-.status-pill--idea       { background: #f97316; }
-.status-pill--applied    { background: #22c55e; }
-.status-pill--interviewing { background: #38bdf8; }
-.status-pill--tech-test  { background: #fb923c; }
-.status-pill--offer      { background: #1d4ed8; }
-.status-pill--rejected   { background: #dc2626; }
+/* ============ PAGE LAYOUT ============ */
 
 .single-app-page {
     min-height: 100vh;
-    padding: 2rem 1rem 3rem;
     display: flex;
     justify-content: center;
+    padding: 3rem 1.5rem 4rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
   }
   
   .single-app-container {
     width: 100%;
-    max-width: 960px;
+    max-width: 720px;
   }
   
-  /* Header */
+  /* ============ HEADER ============ */
+  
   .single-app-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
   }
   
   .single-app-back-link {
@@ -27,180 +25,287 @@
     border: none;
     padding: 0;
     color: #2f5b43;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.6rem;
   }
   
   .single-app-header-main {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: flex-start;
+    margin-top: 40px;
   }
   
   .single-app-title {
     margin: 0;
-    font-size: 1.9rem;
+    font-size: 3rem;
     font-weight: 600;
-    color: #1f3529;
+    color: #111111;
   }
   
   .single-app-company {
-    margin: 0.2rem 0 0;
-    font-size: 1rem;
-    color: #2f5b43;
+    margin: 0.25rem 0 0;
+    font-size: 0.8rem;
+    color: #555555;
   }
   
   .single-app-header-right {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   
-  /* Status pill (read-only) */
-  .status-pill {
-    border: none;
-    border-radius: 999px;
-    padding: 0.3rem 1.1rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    color: #fdfaf1;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
-  }
+  /* ============ STATUS (TEXT ONLY) ============ */
+  
   .status-dropdown {
     position: relative;
+    z-index: 10;        /* create a stacking context */
+  }
+  
+  .status-pill {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  
+  /* colours (same palette as your add-application page) */
+  .status-pill--idea {
+    color: #b05601;
+  }
+  
+  .status-pill--applied {
+    color: #107435;
+  }
+  
+  .status-pill--interviewing {
+    color: #b45309;
+  }
+  
+  .status-pill--tech-test {
+    color: #3000a1;
+  }
+  
+  .status-pill--offer {
+    color: #1e6d61;
+  }
+  
+  .status-pill--rejected {
+    color: #c90000;
+  }
+  
+  .status-dropdown-arrow {
+    margin-left: 0.3rem;
+    font-size: 0.7rem;
   }
   
   .status-dropdown-menu {
     position: absolute;
-    top: 110%;
+    top: 140%;
     right: 0;
     display: flex;
     flex-direction: column;
+    background: #efeeeb;
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    padding: 0.3rem 0;
+    min-width: 160px;
+    z-index: 10;        /* create a stacking context */
   }
   
+  .status-dropdown-menu .status-pill {
+    text-align: left;
+    padding: 0.35rem 0.9rem;
+    width: 100%;
+  }
+  
+  .status-pill--active-option {
+    text-decoration: underline;
+  }
+  
+  /* ============ HEADER LINKS (VIEW / DELETE) ============ */
+  
+  .single-app-link-btn,
+  .single-app-delete-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+  }
   
   .single-app-link-btn {
-    border-radius: 999px;
-    padding: 0.4rem 1.2rem;
-    border: none;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    background-color: #2f5b43;
-    color: #fdfaf1;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-    width: 120px;
+    color: #14532d;
+    border-bottom: 2px solid #14532d;
+    width: 150px;
   }
   
-  /* Cards */
+  .single-app-delete-btn {
+    color: #14532d;
+    border-bottom: 2px solid #14532d;
+    margin-top: 0.3rem;
+  }
+  
+  /* ============ GENERIC SECTIONS ============ */
+  
   .single-app-card {
-    background-color: #fdfaf1;
-    border-radius: 1.2rem;
-    border: 1px solid rgba(47, 91, 67, 0.16);
-    padding: 1.6rem 1.9rem;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-    margin-bottom: 1.2rem;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 2rem;
   }
   
-  /* Meta grid */
+  .single-app-section-title {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111111;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    border-bottom: 1px solid #111111;
+    padding-bottom: 0.35rem;
+  }
+  
+  /* ============ META GRID (LOCATION, TYPE, LEVEL...) ============ */
+  
+  .single-app-meta-card {
+    margin-bottom: 2.5rem;
+  }
+  
   .single-app-meta-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem 1.4rem;
+    gap: 1.8rem 3rem;
   }
   
   .single-app-meta-item {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.25rem;
   }
   
   .single-app-meta-label {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: #6b776e;
+    color: #444444;
   }
   
   .single-app-meta-value {
-    font-size: 0.95rem;
-    color: #1f3529;
+    min-height: 1.1rem;
+    font-size: 0.85rem;
+    color: #111111;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #111111;
   }
   
-  /* Summary */
-  .single-app-section-title {
-    margin: 0 0 0.75rem;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #1f3529;
-  }
+  /* ============ SUMMARY ============ */
   
   .single-app-summary {
-    margin: 0;
-    font-size: 0.95rem;
+    margin: 0.4rem 0 0;
+    font-size: 0.9rem;
     line-height: 1.6;
-    color: #374139;
+    color: #333333;
   }
   
-  /* Two-column sections */
+  /* ============ TWO-COLUMN SECTIONS ============ */
+  
   .single-app-columns {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.2rem;
+    gap: 2rem;
   }
   
   .single-app-column {
     min-width: 0;
   }
   
-  /* Lists */
+  /* list items as clean lines (no bullets) */
+  
   .single-app-list {
-    margin: 0.25rem 0 0;
-    padding-left: 1.1rem;
-    font-size: 0.92rem;
-    color: #374139;
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    font-size: 0.9rem;
+    color: #333333;
   }
   
-  .single-app-list li + li {
-    margin-top: 0.25rem;
+  .single-app-list li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #111111;
+  }
+  
+  .single-app-list li:last-child {
+    margin-bottom: 0.2rem;
   }
   
   .single-app-empty {
-    margin: 0.25rem 0 0;
-    font-size: 0.86rem;
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
     color: #6b776e;
   }
   
-  /* Raw snippet */
-  .single-app-raw-header {
+  /* ============ COVER LETTER ============ */
+  
+  .single-app-cover-card {
+    margin-top: 3rem;
+  }
+  
+  .single-app-cover-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1rem;
-    align-items: baseline;
+    flex-direction: column;
   }
   
-  .single-app-ai-badge {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    background-color: #e5f3ec;
-    color: #2f5b43;
+  /* Big “Cover Letter” heading */
+  .single-app-cover-card .single-app-section-title {
+    border: none;
+    font-size: 3rem;
+    letter-spacing: 0;
+    font-weight: 500;
   }
   
-  .single-app-raw-text {
-    margin: 0.6rem 0 0;
-    font-size: 0.85rem;
-    color: #4b5563;
-    white-space: pre-line;
+  .single-app-cover-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
   }
   
-  /* Loading & error */
+  /* Use your global underline button style */
+  .single-app-cover-btn,
+  .single-app-cover-copy-btn {
+    margin-top: 0.6rem;
+  }
+  
+  /* cover text box */
+  .single-app-cover-text {
+    margin: 1.4rem 0 0;
+    padding: 0.8rem 0.2rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: #111111;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  
+  /* ============ LOADING / ERROR / BACK (ERROR STATE) ============ */
+  
   .single-app-loading,
   .single-app-error {
     font-size: 0.95rem;
@@ -211,17 +316,39 @@
     color: #b91c1c;
   }
   
+  /* back button in error state – underline style */
   .single-app-back-btn {
-    margin-top: 0.6rem;
-    border: none;
-    background-color: #2f5b43;
-    color: #fdfaf1;
-    border-radius: 999px;
-    padding: 0.45rem 1.3rem;
-    cursor: pointer;
+    margin-top: 0.8rem;
   }
   
-  /* Responsive */
+  /* ============ STATUS TEXT COLOUR CLASSES (if you reuse elsewhere) ============ */
+  
+  .status-idea {
+    color: #b05601;
+  }
+  
+  .status-applied {
+    color: #107435;
+  }
+  
+  .status-interviewing {
+    color: #b45309;
+  }
+  
+  .status-tech-test {
+    color: #3000a1;
+  }
+  
+  .status-offer {
+    color: #1e6d61;
+  }
+  
+  .status-rejected {
+    color: #c90000;
+  }
+  
+  /* ============ RESPONSIVE ============ */
+  
   @media (max-width: 768px) {
     .single-app-header-main {
       flex-direction: column;
@@ -232,144 +359,14 @@
       align-items: flex-start;
     }
   
-    .single-app-card {
-      padding: 1.4rem 1.3rem;
-    }
-  
     .single-app-meta-grid,
     .single-app-columns {
       grid-template-columns: 1fr;
     }
-  }
-  .single-app-status-select {
-    margin-top: 0.3rem;
-    border-radius: 999px;
-    border: 1px solid rgba(47, 91, 67, 0.35);
-    padding: 0.3rem 0.8rem;
-    font-size: 0.85rem;
-    background-color: #fdfaf1;
-    color: #1f3529;
-    outline: none;
-  }
   
-  .single-app-status-select:focus {
-    border-color: #2f5b43;
-    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.25);
+    .single-app-cover-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
-  .single-app-status-select {
-    margin-top: 0.3rem;
-    border-radius: 999px;
-    border: 1px solid rgba(47, 91, 67, 0.35);
-    padding: 0.3rem 0.8rem;
-    font-size: 0.85rem;
-    background-color: #fdfaf1;
-    color: #1f3529;
-    outline: none;
-  }
-  
-  .single-app-status-select:focus {
-    border-color: #2f5b43;
-    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.25);
-  }
-  .single-app-cover-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .single-app-cover-btn {
-    border: none;
-    border-radius: 999px;
-    padding: 0.45rem 1.3rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    background: linear-gradient(135deg, #2f5b43, #3f7b5a);
-    color: #fdfaf1;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-  }
-  
-  .single-app-cover-btn:disabled {
-    opacity: 0.6;
-    cursor: default;
-    box-shadow: none;
-  }
-  
-.single-app-cover-copy-btn {
-    border: none;
-    border-radius: 999px;
-    padding: 0.4rem 1.1rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    background-color: #fdfaf1;
-    color: #2f5b43;
-    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.25);
-    cursor: pointer;
-  }
-  
-  .single-app-cover-copy-btn:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-  .single-app-cover-actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-  .single-app-cover-text {
-    margin: 0.8rem 0 0;
-    padding: 0.8rem 0.9rem;
-    border-radius: 0.9rem;
-    background-color: #f7f3e7;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    color: #1f2933;
-    max-height: 420px;
-    overflow-y: auto;
-  }
-  
-  .single-app-delete-btn {
-    margin-top: 0.4rem;
-    border: none;
-    border-radius: 999px;
-    padding: 0.35rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    background-color: #fef2f2;
-    color: #b91c1c;
-    cursor: pointer;
-    box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.3);
-  }
-  
-  .single-app-delete-btn:hover {
-    background-color: #fee2e2;
-  }
-  .apps-toast {
-    position: fixed;
-    right: 1.5rem;
-    bottom: 1.5rem;
-    z-index: 1500;
-    background: #c7c7c71c;
-    color: #fdfaf1;
-    padding: 0.8rem 1.3rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
-  }
-  
-  .fade-in-out {
-    animation: toastFade 3s ease-out forwards;
-  }
-  
-  @keyframes toastFade {
-    0%   { opacity: 0; transform: translateY(8px); }
-    10%  { opacity: 1; transform: translateY(0); }
-    70%  { opacity: 1; }
-    100% { opacity: 0; }
-  }
-  
   

@@ -110,14 +110,14 @@ const AddApplicationPage = () => {
               onChange={(e) => setJobUrl(e.target.value)}
               required
             />
+<button
+  type="submit"
+  className="underline-btn add-app-btn"
+  disabled={linkLoading}
+>
+  {linkLoading ? 'Adding…' : 'Save Application'}
+</button>
 
-            <button
-              type="submit"
-              className="add-app-primary-btn"
-              disabled={linkLoading}
-            >
-              {linkLoading ? 'Adding…' : 'Add Application'}
-            </button>
           </form>
 
           {linkError && (
@@ -129,12 +129,13 @@ const AddApplicationPage = () => {
           </div>
 
           <button
-            type="button"
-            className="add-app-secondary-btn"
-            onClick={() => setManualOpen((prev) => !prev)}
-          >
-            {manualOpen ? 'Hide manual form' : 'Add application manually'}
-          </button>
+  type="button"
+  className="underline-btn add-app-btn"
+  onClick={() => setManualOpen(prev => !prev)}
+>
+  {manualOpen ? 'Hide manual form' : 'Add application manually'}
+</button>
+
         </section>
 
         {/* Manual form */}
@@ -144,6 +145,20 @@ const AddApplicationPage = () => {
 
             <form className="add-app-manual-form" onSubmit={handleManualSubmit}>
               <div className="add-app-two-col">
+
+              <select
+  name="status"
+  className={`add-app-input status add-app-select status-${manualForm.status.toLowerCase()}`}
+  value={manualForm.status}
+  onChange={handleManualChange}
+>
+  {STATUS_OPTIONS.map((opt) => (
+    <option key={opt.value} value={opt.value}>
+      {opt.label}
+    </option>
+  ))}
+</select>
+
                 <input
                   type="text"
                   name="jobTitle"
@@ -171,19 +186,6 @@ const AddApplicationPage = () => {
                   value={manualForm.location}
                   onChange={handleManualChange}
                 />
-
-                <select
-                  name="status"
-                  className="add-app-input add-app-select"
-                  value={manualForm.status}
-                  onChange={handleManualChange}
-                >
-                  {STATUS_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
               </div>
 
               <textarea
@@ -209,18 +211,32 @@ const AddApplicationPage = () => {
                 value={manualForm.requirements}
                 onChange={handleManualChange}
               />
+              <textarea
+                name="requirements"
+                className="add-app-input add-app-textarea"
+                placeholder="Nice to Have (one per line)"
+                value={manualForm.niceToHave}
+                onChange={handleManualChange}
+              />
+              <textarea
+                name="requirements"
+                className="add-app-input add-app-textarea"
+                placeholder="Perks And Benefits (one per line)"
+                value={manualForm.perksAndBenefits}
+                onChange={handleManualChange}
+              />
 
               {manualError && (
                 <p className="add-app-error">{manualError}</p>
               )}
+<button
+  type="submit"
+  className="underline-btn add-app-btn add-app-btn--left"
+  disabled={manualSaving}
+>
+  {manualSaving ? 'Saving…' : 'Save manual application'}
+</button>
 
-              <button
-                type="submit"
-                className="add-app-primary-btn"
-                disabled={manualSaving}
-              >
-                {manualSaving ? 'Saving…' : 'Save Manual Application'}
-              </button>
             </form>
           </section>
         )}

@@ -139,8 +139,13 @@
   .apps-row {
     cursor: pointer;
     border-bottom: 1px solid #111111;
+    transition: background-color 0.15s ease, transform 0.15s ease;
   }
   
+  .apps-row:hover {
+    background-color: #efeeeb;   /* soft beige highlight */
+    transform: translateX(4px);  /* small movement right */
+  }
   .apps-row:last-child {
     border-bottom: 1px solid #111111;
   }

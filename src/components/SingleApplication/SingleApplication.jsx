@@ -153,13 +153,15 @@ const SingleApplicationPage = () => {
         <div className="single-app-container">
           {/* Header */}
           <header className="single-app-header">
-            <button
-              type="button"
-              className="single-app-back-link"
-              onClick={() => navigate(-1)}
-            >
-              ← Back
-            </button>
+          <button
+  className="underline-btn single-app-back-btn"
+  onClick={() => navigate('/add-application')}
+>
+  Back to Add Application
+</button>
+
+
+
 
             <div className="single-app-header-main">
               <div>
@@ -233,13 +235,14 @@ const SingleApplicationPage = () => {
                   </a>
                 )}
 
-                <button
-                  type="button"
-                  className="single-app-delete-btn"
-                  onClick={() => setDeleteOpen(true)}
-                >
-                  Delete
-                </button>
+<button
+  type="button"
+  className="underline-btn single-app-delete-btn"
+  onClick={() => setDeleteOpen(true)}
+>
+  Delete
+</button>
+
               </div>
             </div>
           </header>
@@ -378,24 +381,25 @@ const SingleApplicationPage = () => {
               <h2 className="single-app-section-title">Cover letter</h2>
 
               <div className="single-app-cover-actions">
-                <button
-                  type="button"
-                  className="single-app-cover-btn"
-                  onClick={handleGenerateCoverLetter}
-                  disabled={coverLoading}
-                >
-                  {coverLoading ? 'Generating…' : 'Generate cover letter'}
-                </button>
+  <button
+    type="button"
+    className="underline-btn single-app-cover-btn"
+    onClick={handleGenerateCoverLetter}
+    disabled={coverLoading}
+  >
+    {coverLoading ? 'Generating…' : 'Generate cover letter'}
+  </button>
 
-                <button
-                  type="button"
-                  className="single-app-cover-copy-btn"
-                  onClick={handleCopyCoverLetter}
-                  disabled={!coverLetter}
-                >
-                  {copied ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
+  <button
+    type="button"
+    className="underline-btn single-app-cover-copy-btn"
+    onClick={handleCopyCoverLetter}
+    disabled={!coverLetter}
+  >
+    {copied ? 'Copied!' : 'Copy'}
+  </button>
+</div>
+
             </div>
 
             {coverError && (

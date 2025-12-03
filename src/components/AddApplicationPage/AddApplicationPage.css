@@ -1,203 +1,230 @@
 /* ===========================
-   Layout
+   Page layout
    =========================== */
 
    .add-app-page {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    padding: 2rem 1rem;
+    padding: 3rem 1.5rem 4rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
   }
   
   .add-app-container {
     width: 100%;
-    max-width: 960px;
+    max-width: 720px;
+    text-align: center;
+  }
+  
+  /* Hide big title – the screen is very minimal */
+  .add-app-title {
+    display: none;
   }
   
   /* ===========================
-     Typography
+     Top link form
      =========================== */
   
-  .add-app-title {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #1f3529;
-    margin-bottom: 0.25rem;
+  /* no card look – just free elements on the page */
+  .add-app-card {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
   }
   
   .add-app-subtitle {
-    font-size: 0.95rem;
-    color: #6b776e;
-    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.15rem;
+    font-weight: 250;
   }
   
-  /* Section / card wrapper */
-  
-  .add-app-card {
-    background-color: #fdfaf1;
-    border-radius: 1.4rem;
-    border: 1px solid rgba(47, 91, 67, 0.16);
-    padding: 1.8rem 2rem;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-    margin-bottom: 1.5rem;
+  /* Inline form: input left, button right */
+  .add-app-link-form {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
   }
   
-  .add-app-section-title {
-    margin: 0 0 1rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #1f3529;
-  }
-  
-  /* ===========================
-     Inputs
-     =========================== */
-  
+  /* underline-only input */
   .add-app-input {
-    width: 100%;
-    padding: 0.6rem 0.8rem;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(47, 91, 67, 0.3);
-    background-color: #f7f2e3;
-    font-size: 0.9rem;
+    border: none;
+    border-bottom: 1px solid #111111;
+    border-radius: 0;
+    padding: 0.15rem 0 0.3rem;
+    background: transparent;
+    font-size: 0.8rem;
+    max-width: 720px;
     outline: none;
+    text-align: left;
+  }
+  
+  .add-app-input::placeholder {
+    font-size: 0.8rem;
+    color: #555555;
   }
   
   .add-app-input:focus {
-    border-color: #2f5b43;
-    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.2);
-  }
-  
-  .add-app-textarea {
-    min-height: 90px;
-    resize: vertical;
-  }
-  
-  .add-app-select {
-    appearance: none;
-    background-image: none;
-  }
-  
-  /* Field layout */
-  
-  .add-app-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem 1.1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .add-app-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  .add-app-field label {
-    font-size: 0.85rem;
-    color: #374139;
-  }
-  
-  .full-width {
-    grid-column: 1 / -1;
-  }
-  
-  .add-app-columns,
-  .add-app-two-col {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin-top: 0.8rem;
-  }
-  
-  .add-app-column {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    border-bottom-width: 2px;
   }
   
   /* ===========================
-     Buttons
+     Primary button: +APPLICATION
      =========================== */
   
-  .add-app-btn,
   .add-app-primary-btn {
-    margin-top: 0.6rem;
-    padding: 0.6rem 1.4rem;
-    border-radius: 999px;
     border: none;
-    font-size: 0.95rem;
-    font-weight: 500;
+    background: #d4d4d4;
+    padding: 0.5rem 1.5rem;
+    border-radius: 999px;
     cursor: pointer;
-    background: linear-gradient(135deg, #2f5b43, #3f7b5a);
-    color: #fdfaf1;
-    box-shadow: 0 4px 10px rgba(18, 59, 39, 0.25);
-    transition:
-      transform 0.05s ease,
-      box-shadow 0.05s ease,
-      opacity 0.15s ease;
+  
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #111111;
+  
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
   
-  .add-app-btn:disabled,
+  .add-app-primary-btn::before {
+    content: '+';
+    color: #15803d; /* green plus */
+    font-weight: 700;
+  }
+  
   .add-app-primary-btn:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: default;
-    box-shadow: none;
-  }
-  
-  .add-app-btn:not(:disabled):hover,
-  .add-app-primary-btn:not(:disabled):hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(18, 59, 39, 0.3);
-  }
-  
-  /* Secondary toggle button (for manual form) */
-  
-  .add-app-secondary-btn {
-    margin-top: 0.75rem;
-    border-radius: 999px;
-    border: none;
-    padding: 0.5rem 1.2rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    background-color: #f8f5ef;
-    color: #2f5b43;
-    box-shadow: 0 0 0 1px rgba(47, 91, 67, 0.25);
-    cursor: pointer;
-  }
-  
-  .add-app-secondary-btn:hover {
-    background-color: #f1ebe0;
   }
   
   /* ===========================
-     Manual application section
+     "Or" + secondary button
      =========================== */
   
-  .add-app-manual-card {
+  .add-app-divider {
+    margin-top: 4rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #888;
+  }
+  
+/* layout helpers for underline buttons on this page */
+.add-app-btn {
     margin-top: 1.5rem;
   }
   
-  .add-app-manual-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  /* Top inline button next to the URL input */
+  .add-app-link-form .add-app-btn {
+    margin-top: 0;
+    margin-left: 2rem; /* tweak as needed */
+  }
+  
+  /* Manual form submit alignment */
+  .add-app-btn--left {
+    align-self: flex-start;
+    margin-top: 2rem;
   }
   
   /* ===========================
-     Messages
+     Errors
      =========================== */
   
   .add-app-error {
-    margin-top: 0.25rem;
-    font-size: 0.85rem;
-    color: #b42318;
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: #b91c1c;
   }
   
-  .add-app-success {
-    margin-top: 0.25rem;
-    font-size: 0.85rem;
-    color: #166534;
+  /* ===========================
+     Manual application form
+     =========================== */
+  
+  .add-app-manual-card {
+    margin-top: 3rem;
+  }
+  
+  .add-app-section-title {
+    margin: 5rem 0 3rem;
+    font-size: 4rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: left;
+  }
+  .status {
+    font-size: 20px;
+    width: 210px;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+  }
+  /* underline style for manual fields as well */
+  .add-app-manual-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    text-align: left;
+  }
+  
+  .add-app-two-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  /* reuse underline input look */
+  .add-app-textarea {
+    min-height: 72px;
+    resize: vertical;
+  }
+  
+  /* select should visually match inputs */
+  .add-app-select {
+    padding: 0.15rem 0 0.3rem;
+    background: transparent;
+    appearance: none;
+  }
+  
+  /* manual submit button shares style with primary */
+  .add-app-manual-form .add-app-primary-btn {
+    align-self: flex-start;
+    margin-top: 1.6rem;
+  }
+  /* ===========================
+   Status Colors (same as dashboard)
+   =========================== */
+
+.status-idea {
+    color: #b05601; /* blue */
+  }
+  
+  .status-applied {
+    color: #107435; /* green */
+  }
+  
+  .status-interviewing {
+    color: #b45309; /* brown/orange */
+  }
+  
+  .status-tech-test {
+    color: #3000a1; /* purple */
+  }
+  
+  .status-offer {
+    color: #1e6d61; /* blue */
+  }
+  
+  .status-rejected {
+    color: #c90000; /* red */
   }
   
   /* ===========================
@@ -205,14 +232,22 @@
      =========================== */
   
   @media (max-width: 768px) {
-    .add-app-card {
-      padding: 1.4rem 1.2rem;
+    .add-app-link-form {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.5rem;
     }
   
-    .add-app-grid,
-    .add-app-columns,
+    .add-app-input {
+      width: 100%;
+    }
+  
     .add-app-two-col {
       grid-template-columns: 1fr;
+    }
+  
+    .add-app-manual-form .add-app-primary-btn {
+      align-self: center;
     }
   }
   

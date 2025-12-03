@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { NavLink, Link } from 'react-router'; // or react-router-dom if you're using that
 import './NavBar.css';
 import { UserContext } from '../../contexts/UserContext';
-import logo from '../../../public/images/Logo.png';
+
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);

@@ -1,6 +1,59 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+/* Flex column for the whole app */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* This is your <main> */
 .main-content {
+  flex: 1;              /* <-- this is what pushes the footer down */
   max-width: 960px;
-  margin: 0 auto;
+  margin: 120px auto 60px;
   box-sizing: border-box;
-  padding-bottom: 6rem;
+  width: 100%;
+}
+
+/* === Minimal underline button used across the app === */
+.underline-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #14532d;
+
+  position: relative;
+}
+
+/* Underline */
+.underline-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background-color: #1f3529;
+}
+
+/* Disabled state */
+.underline-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

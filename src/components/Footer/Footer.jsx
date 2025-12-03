@@ -6,15 +6,14 @@ const Footer = () => {
       <div className="footer-line"></div>
 
       <div className="footer-links">
-        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/iuryliberato" target="_blank" rel="noopener noreferrer">
           GitHub
         </a>
 
-        <a href="https://yourportfolio.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://iuryliberatodev.netlify.app/" target="_blank" rel="noopener noreferrer">
           Portfolio
         </a>
-
-        <a href="mailto:you@email.com">
+        <a href="mailto:iuryliberatocode@gmail.com">
           Contact
         </a>
       </div>

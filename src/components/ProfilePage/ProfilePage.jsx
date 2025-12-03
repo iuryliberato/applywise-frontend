@@ -152,7 +152,7 @@ const ProfilePage = () => {
     <main className="profile-page">
       <div className="profile-container">
         {/* Title */}
-        <h1 className="profile-title">{user?.username}</h1>
+        <h1 className="profile-title">  {form.fullName || user?.username}</h1>
 
         {/* Card */}
         <form className="profile-card" onSubmit={handleSubmit}>
@@ -204,7 +204,14 @@ const ProfilePage = () => {
               value={form.location}
               onChange={handleChange}
             />
-
+            <input
+              type="number"
+              name="yearsOfExperience"
+              placeholder="Years of Experience"
+              className="profile-input"
+              value={form.yearsOfExperience}
+              onChange={handleChange}
+            />
             <textarea
               name="summary"
               placeholder="Summary"
@@ -219,15 +226,6 @@ const ProfilePage = () => {
               placeholder="Primary Skills (comma separated)"
               className="profile-input"
               value={form.primarySkills}
-              onChange={handleChange}
-            />
-
-            <input
-              type="number"
-              name="yearsOfExperience"
-              placeholder="Years of Experience"
-              className="profile-input"
-              value={form.yearsOfExperience}
               onChange={handleChange}
             />
           </div>
