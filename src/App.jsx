@@ -25,13 +25,13 @@ const App = () => {
       <NavBar />
       <main className="main-content">
       <Routes>
-        <Route path='/dashboard' element={user ? <Dashboard /> : <SignInForm /> } />
+        <Route path="/" element={<SignUpForm />} />
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
+        <Route path='/dashboard' element={user ? <Dashboard /> : <SignInForm /> } />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/add-application" element={<AddApplicationPage />} />
         <Route path="/application/:id" element={<SingleApplicationPage />} />
-
       </Routes>
       </main>
       <Footer />
