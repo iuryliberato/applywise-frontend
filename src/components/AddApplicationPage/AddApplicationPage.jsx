@@ -212,14 +212,14 @@ const AddApplicationPage = () => {
                 onChange={handleManualChange}
               />
               <textarea
-                name="requirements"
+                name="niceToHave"
                 className="add-app-input add-app-textarea"
                 placeholder="Nice to Have (one per line)"
                 value={manualForm.niceToHave}
                 onChange={handleManualChange}
               />
               <textarea
-                name="requirements"
+                name="perksAndBenefits"
                 className="add-app-input add-app-textarea"
                 placeholder="Perks And Benefits (one per line)"
                 value={manualForm.perksAndBenefits}
