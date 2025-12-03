@@ -241,7 +241,9 @@
     .add-app-input {
       width: 100%;
     }
-  
+    .add-app-section-title {
+        font-size: 2rem;
+    }
     .add-app-two-col {
       grid-template-columns: 1fr;
     }

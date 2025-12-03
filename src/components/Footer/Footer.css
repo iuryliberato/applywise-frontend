@@ -35,4 +35,14 @@
   .footer-links a:hover {
     opacity: 0.7;
   }
-  
+  @media (max-width: 768px) {
+    .footer-links {
+    flex-direction: column;
+    }
+    .footer-links a {
+        margin: 0.5rem;
+    }
+    .footer {
+        padding: 0 0 1rem 0;
+    }
+  }

@@ -339,6 +339,9 @@
     .profile-links-section {
       max-width: 100%;
     }
+    .profile-cv-section {
+        margin: 0;
+    }
   
     .profile-links-grid {
       grid-template-columns: 1fr;

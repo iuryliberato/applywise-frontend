@@ -32,13 +32,13 @@
   /* Search imitates "SEARCH" label + long underline */
   
   .apps-search {
-    flex: 1;
     border: none;
     border-bottom: 2px solid #111111;
     background: transparent;
     padding: 0.3rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    width: 200px;
   }
   
   .apps-search::placeholder {
@@ -252,7 +252,6 @@
     }
   
     .apps-controls {
-      flex-direction: column;
       align-items: stretch;
       gap: 1.4rem;
     }
