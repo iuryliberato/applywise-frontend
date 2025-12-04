@@ -418,25 +418,6 @@ const [noteError, setNoteError] = useState('');
   <div className="single-app-notes-header">
     <h2 className="single-app-title">Notes</h2>
   </div>
-
-  <form className="single-app-notes-form" onSubmit={handleAddNote}>
-    <textarea
-      className="single-app-notes-textarea"
-      placeholder="Add a note about this application (interview prep, feedback, follow-ups)…"
-      value={noteText}
-      onChange={(e) => setNoteText(e.target.value)}
-    />
-    <button
-      type="submit"
-      className="underline-btn add-note"
-      disabled={noteSaving || !noteText.trim()}
-    >
-      {noteSaving ? 'Saving…' : 'Add note'}
-    </button>
-  </form>
-
-  {noteError && <p className="single-app-error">{noteError}</p>}
-
   {app.notes && app.notes.length > 0 ? (
     <ul className="single-app-notes-list">
       {app.notes
@@ -467,6 +448,25 @@ const [noteError, setNoteError] = useState('');
       No notes yet. Use the box above to jot down anything relevant.
     </p>
   )}
+  <form className="single-app-notes-form" onSubmit={handleAddNote}>
+    <textarea
+      className="single-app-notes-textarea"
+      placeholder="Add a note about this application (interview prep, feedback, follow-ups)…"
+      value={noteText}
+      onChange={(e) => setNoteText(e.target.value)}
+    />
+    <button
+      type="submit"
+      className="underline-btn add-note"
+      disabled={noteSaving || !noteText.trim()}
+    >
+      {noteSaving ? 'Saving…' : 'Add note'}
+    </button>
+  </form>
+
+  {noteError && <p className="single-app-error">{noteError}</p>}
+
+ 
 </section>
 
           {/* Cover letter */}
@@ -475,14 +475,22 @@ const [noteError, setNoteError] = useState('');
               <h2 className="single-app-section-title">Cover letter</h2>
 
               <div className="single-app-cover-actions">
-  <button
-    type="button"
-    className="underline-btn single-app-cover-btn"
-    onClick={handleGenerateCoverLetter}
-    disabled={coverLoading}
-  >
-    {coverLoading ? 'Generating…' : 'Generate cover letter'}
-  </button>
+              <button
+  type="button"
+  className="underline-btn single-app-cover-btn"
+  onClick={handleGenerateCoverLetter}
+  disabled={coverLoading}
+>
+  {coverLoading ? (
+    <span className="cover-loading-msg">
+      <span className="cv-spinner"></span>
+      Generating cover letter…
+    </span>
+  ) : (
+    'Generate cover letter'
+  )}
+</button>
+
 
   <button
     type="button"

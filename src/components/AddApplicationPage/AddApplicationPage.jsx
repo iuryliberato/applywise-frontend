@@ -129,8 +129,16 @@ const AddApplicationPage = () => {
   className="underline-btn add-app-btn"
   disabled={linkLoading}
 >
-  {linkLoading ? 'Adding…' : 'Save Application'}
+  {linkLoading ? (
+    <span className="link-loading-msg">
+      <span className="cv-spinner"></span>
+      Adding application…
+    </span>
+  ) : (
+    'Save Application'
+  )}
 </button>
+
 
           </form>
 

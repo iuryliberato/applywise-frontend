@@ -414,6 +414,14 @@
   .underline-btn:hover::after {
     opacity: 0.6;
   }
+  .cover-loading-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #2f5b43;
+  }
   
   
   .single-app-notes-list {

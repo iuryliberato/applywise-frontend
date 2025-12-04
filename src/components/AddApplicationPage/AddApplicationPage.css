@@ -33,6 +33,14 @@
     padding: 0;
     margin: 0;
   }
+  .link-loading-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #2f5b43;
+  }
   
   .add-app-subtitle {
     font-size: 1rem;

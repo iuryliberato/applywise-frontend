@@ -73,16 +73,17 @@ const ProfilePage = () => {
     setCvFile(e.target.files[0] || null);
   };
 
-  const handleUseCv = async () => {
-    if (!cvFile) return;
+  const handleUseCv = async (fileFromInput) => {
+    const file = fileFromInput || cvFile; // use passed file or state
+    if (!file) return;
+  
     setCvLoading(true);
     setError('');
-
+  
     try {
-      const profile = await uploadCvAndExtract(cvFile);
+      const profile = await uploadCvAndExtract(file);
       console.log('Profile after CV upload:', profile);
-
-      // update form fields
+  
       setForm(prev => ({
         ...prev,
         fullName: profile.fullName || prev.fullName,
@@ -96,8 +97,7 @@ const ProfilePage = () => {
         github: profile.links?.github || prev.github,
         portfolio: profile.links?.portfolio || prev.portfolio,
       }));
-
-      // ⭐ CRUCIAL: update experience & education from CV result
+  
       setExperience(profile.experience || []);
       setEducation(profile.education || []);
     } catch (err) {
@@ -107,7 +107,7 @@ const ProfilePage = () => {
       setCvLoading(false);
     }
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -158,23 +158,28 @@ const ProfilePage = () => {
         <form className="profile-card" onSubmit={handleSubmit}>
           {/* CV upload section */}
           <div className="profile-cv-section">
-            <label className="profile-cv-label">
-              Upload CV (PDF)
-              <input
-                type="file"
-                accept=".pdf"
-                onChange={handleCvChange}
-              />
-            </label>
-            <button
-              type="button"
-              className="profile-use-cv-btn"
-              onClick={handleUseCv}
-              disabled={!cvFile || cvLoading}
-            >
-              {cvLoading ? 'Reading CV…' : 'Use CV to Fill Profile'}
-            </button>
-          </div>
+          <label className="profile-cv-label">
+  {cvLoading ?  <p className="cv-loading-msg">
+    <span className="cv-spinner"></span>
+    <span class="loading">Reading CV and filling your profile…</span>
+  </p> : <span className="upload-message">Upload CV to fill profile</span>}
+
+  <input
+    type="file"
+    accept=".pdf"
+    disabled={cvLoading}
+    onChange={(e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      handleCvChange(e);
+      handleUseCv(file);
+    }}
+  />
+</label>
+</div>
+
+
 
           {/* Form fields */}
           <div className="profile-fields">

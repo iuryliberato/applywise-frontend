@@ -1,7 +1,6 @@
 
 import './App.css'
 import { Routes, Route } from 'react-router';
-import { useContext } from 'react';
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
@@ -10,35 +9,60 @@ import Dashboard from './components/Dashboard/DashboardPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import AddApplicationPage from './components/AddApplicationPage/AddApplicationPage'
 import SingleApplicationPage from './components/SingleApplication/SingleApplication';
-
-
-import { UserContext } from './contexts/UserContext';
-
-
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-
-  const { user } = useContext(UserContext);
-
   return (
     <div className="app-shell">
       <NavBar />
       <main className="main-content">
-      <Routes>
-        <Route path="/" element={<SignUpForm />} />
-        <Route path='/sign-up' element={<SignUpForm />} />
-        <Route path="/sign-in" element={<SignInForm />} />
-        <Route path='/dashboard' element={user ? <Dashboard /> : <SignInForm /> } />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/add-application" element={<AddApplicationPage />} />
-        <Route path="/application/:id" element={<SingleApplicationPage />} />
-      </Routes>
+        <Routes>
+
+          <Route path="/" element={<SignUpForm />} />
+          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/sign-in" element={<SignInForm />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/add-application"
+            element={
+              <ProtectedRoute>
+                <AddApplicationPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/application/:id"
+            element={
+              <ProtectedRoute>
+                <SingleApplicationPage />
+              </ProtectedRoute>
+            }
+          />
+
+        </Routes>
       </main>
       <Footer />
-      
-     
     </div>
   );
 };
+
 
 export default App;

@@ -35,6 +35,11 @@
     color: #111111;
   }
   
+  .upload-message {
+    background-color: #cdcdcd;
+    padding:0.7rem 1rem;;
+    border-radius: 0.5rem 1rem;
+  }
   /* === MAIN FORM WRAPPER === */
   
   .profile-card {
@@ -49,9 +54,8 @@
   .profile-cv-section {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    max-width: 520px;
-    margin: 0 12rem 0.5rem;
+    justify-content: center;
+    margin: 3rem 0;
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     cursor: pointer;
@@ -61,7 +65,6 @@
   
   .profile-cv-label {
     cursor: pointer;
-    background: #d3d3d3;
     color: #191919;
     padding: 5px;
     border-radius: 5px;
@@ -322,6 +325,34 @@
     font-size: 0.8rem;
     margin-top: 0.4rem;
   }
+  .cv-spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #ccc;
+    border-top: 3px solid #2f5b43;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .cv-loading-msg {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #2f5b43;
+    display: flex;
+    align-items: center;
+  }
+  .cv-loading-msg {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
   
   /* === RESPONSIVE === */
   

@@ -1,6 +1,6 @@
 // src/components/NavBar/NavBar.jsx
 import { useContext, useState } from 'react';
-import { NavLink, Link } from 'react-router';
+import { NavLink, Link, useNavigate } from 'react-router';
 import './NavBar.css';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -8,10 +8,15 @@ const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
 
+  const navigate = useNavigate()
+
+
   const handleSignOut = () => {
     localStorage.removeItem('token');
     setUser(null);
     setIsOpen(false);
+    navigate('/sign-in')
+     
   };
 
   const closeMenu = () => setIsOpen(false);
