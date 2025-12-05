@@ -50,8 +50,7 @@ const AddApplicationPage = () => {
       navigate(`/application/${job._id}`);
     } catch (err) {
       console.error(err);
-      setLinkError(err.message || 'Failed to create from link');
-      // 👇 optionally auto-open manual form if link fails
+      setLinkError('Failed to create from link');
       setManualOpen(true);
     } finally {
       setLinkLoading(false);

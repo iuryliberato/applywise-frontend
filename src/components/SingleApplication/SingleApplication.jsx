@@ -8,6 +8,7 @@ import {
     deleteApplication,
     addNote,
     updateNote,
+    updateCoverLetter,  
     deleteNote,
 } from '../../services/jobApplicationService';
 
@@ -45,11 +46,15 @@ const [noteSaving, setNoteSaving] = useState(false);
 const [noteError, setNoteError] = useState('');
 
 
+
+
+
   useEffect(() => {
     const load = async () => {
       try {
         const data = await getOneApplication(id);
         setApp(data);
+        setCoverLetter(data.coverLetter || '');
       } catch (err) {
         console.error(err);
         setError(err.message || 'Failed to load application');
@@ -99,9 +104,10 @@ const [noteError, setNoteError] = useState('');
     if (!app) return;
     setCoverError('');
     setCoverLoading(true);
-
+  
     try {
       const data = await generateCoverLetter(app._id);
+      setApp(data.job || app);
       setCoverLetter(data.coverLetter || '');
     } catch (err) {
       console.error(err);
@@ -110,6 +116,7 @@ const [noteError, setNoteError] = useState('');
       setCoverLoading(false);
     }
   };
+  
 
   const handleStatusChangeClick = async (newStatus) => {
     if (!app || newStatus === app.status) {
@@ -468,16 +475,14 @@ const [noteError, setNoteError] = useState('');
 
  
 </section>
+<section className="single-app-card single-app-cover-card">
+  <div className="single-app-cover-header">
+    <h2 className="single-app-section-title">Cover letter</h2>
 
-          {/* Cover letter */}
-          <section className="single-app-card single-app-cover-card">
-            <div className="single-app-cover-header">
-              <h2 className="single-app-section-title">Cover letter</h2>
-
-              <div className="single-app-cover-actions">
-              <button
+    <div className="single-app-cover-actions">
+    <button
   type="button"
-  className="underline-btn single-app-cover-btn"
+  className="single-app-cover-btn"
   onClick={handleGenerateCoverLetter}
   disabled={coverLoading}
 >
@@ -487,33 +492,56 @@ const [noteError, setNoteError] = useState('');
       Generating cover letter…
     </span>
   ) : (
-    'Generate cover letter'
+    "Generate cover letter"
   )}
 </button>
 
 
+      <button
+        type="button"
+        className="single-app-cover-copy-btn"
+        onClick={handleCopyCoverLetter}
+        disabled={!coverLetter}
+      >
+        {copied ? 'Copied!' : 'Copy'}
+      </button>
+    </div>
+  </div>
+
+  {coverError && <p className="single-app-error">{coverError}</p>}
+
+  <textarea
+    className="single-app-cover-textarea"
+    placeholder="Your cover letter will appear here. You can edit it before sending."
+    value={coverLetter}
+    onChange={(e) => setCoverLetter(e.target.value)}
+  />
+
   <button
     type="button"
-    className="underline-btn single-app-cover-copy-btn"
-    onClick={handleCopyCoverLetter}
-    disabled={!coverLetter}
+    className="single-app-cover-btn
+    single-app-cover-copy-btn"
+    onClick={async () => {
+      try {
+        setCoverError('');
+        setCoverLoading(true);
+        const updated = await updateCoverLetter(app._id, coverLetter);
+        setApp(updated);
+      } catch (err) {
+        console.error(err);
+        setCoverError(err.message || 'Failed to save cover letter');
+      } finally {
+        setCoverLoading(false);
+      }
+    }}
+    disabled={coverLoading || !coverLetter.trim()}
   >
-    {copied ? 'Copied!' : 'Copy'}
+    Save changes
   </button>
-</div>
+</section>
 
-            </div>
-
-            {coverError && (
-              <p className="single-app-error">{coverError}</p>
-            )}
-
-            {coverLetter && (
-              <pre className="single-app-cover-text">
-                {coverLetter}
-              </pre>
-            )}
-          </section>
+        
+         
         </div>
       </main>
     </>

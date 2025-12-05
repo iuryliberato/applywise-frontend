@@ -99,20 +99,56 @@ const updateApplicationStatus = async (id, status) => {
     return res.json();
   }
 
-  const generateCoverLetter = async (id) => {
+  
+const generateCoverLetter = async(id) => {
+  const token = localStorage.getItem('token'); // or from context if you prefer
+
+  if (!token) {
+    throw new Error('No auth token found – please sign in again.');
+  }
+  const res = await fetch(`${BASE_URL}/${id}/cover-letter`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  // Debug: log the raw response if it's not JSON
+  const contentType = res.headers.get('content-type') || '';
+
+  if (!contentType.includes('application/json')) {
+    const text = await res.text();
+    console.error('Non-JSON response from backend:\n', text);
+    throw new Error('Server did not return JSON');
+  }
+
+  if (!res.ok) {
+    const errorBody = await res.json().catch(() => ({}));
+    throw new Error(errorBody.error || `Request failed with ${res.status}`);
+  }
+
+  const data = await res.json();
+  return data; 
+}
+  
+  const updateCoverLetter = async (id, coverLetter) => {
     const res = await fetch(`${BASE_URL}/${id}/cover-letter`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         ...getAuthHeaders(),
       },
+      body: JSON.stringify({ coverLetter }),
     });
   
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Failed to generate cover letter');
+    if (!res.ok) throw new Error(data.error || 'Failed to save cover letter');
   
-    return data; // { coverLetter: '...' }
+    return data; // updated job
   };
+  
+  
   
   const deleteApplication = async (id) => {
     const res = await fetch(`${BASE_URL}/${id}`, {
@@ -207,6 +243,6 @@ const addNote = async (appId, text) => {
     addNote,
     updateNote,
     deleteNote,
-
+    updateCoverLetter,
   };
   

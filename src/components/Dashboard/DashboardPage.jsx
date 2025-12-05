@@ -102,7 +102,15 @@ const DashboardPage = () => {
     <main className="apps-page">
       <div className="apps-container">
         <h1 className="apps-title">Dashboard</h1>
-
+        {toast && (
+        <div
+          className={
+            'apps-toast ' + (showToast ? 'apps-toast--visible' : '')
+          }
+        >
+          {toast}
+        </div>
+      )}
         {/* Search + filter row */}
         <div className="apps-controls">
           <input
@@ -200,16 +208,6 @@ const DashboardPage = () => {
           </table>
         </div>
       </div>
-
-      {toast && (
-        <div
-          className={
-            'apps-toast ' + (showToast ? 'apps-toast--visible' : '')
-          }
-        >
-          {toast}
-        </div>
-      )}
     </main>
   );
 };

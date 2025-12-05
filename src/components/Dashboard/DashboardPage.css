@@ -220,28 +220,26 @@
   }
   
   /* === TOAST (unchanged) === */
-  
   .apps-toast {
     position: fixed;
-    right: 1.5rem;
-    bottom: 1.5rem;
-    z-index: 1500;
-    background: #2f5b43;
-    color: #fdfaf1;
-    padding: 0.8rem 1.3rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    top: 50px;           
+    left: 50%;
+    transform: translateX(-50%);  /* centers it horizontally */
+    background: #f4f4f4;
+    color: #3f3f3f;
+    padding: 1.5rem 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(171, 171, 171, 0.527);
     opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 0.4s ease-out,
-      transform 0.4s ease-out;
+    font-size: 20px;
+    font-weight: 400;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 9999;         /* stays above everything */
   }
   
   .apps-toast--visible {
     opacity: 1;
-    transform: translateY(0);
   }
   
   /* === RESPONSIVE === */
