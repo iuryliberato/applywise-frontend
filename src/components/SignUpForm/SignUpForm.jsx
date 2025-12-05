@@ -1,15 +1,12 @@
-// src/components/SignUpForm/SignUpForm.jsx
-
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router';
-import './SignUpForm.css'; // <-- shared styles
-
 import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
@@ -24,6 +21,10 @@ const SignUpForm = () => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
+  const isFormInvalid = () => {
+    return !(username && password && password === passwordConf);
+  };
+
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
@@ -33,10 +34,6 @@ const SignUpForm = () => {
     } catch (err) {
       setMessage(err.message);
     }
-  };
-
-  const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
   };
 
   return (

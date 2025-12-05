@@ -1,385 +1,355 @@
 /* === PAGE LAYOUT === */
 
 .profile-page {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 3rem 1.5rem 4rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1.5rem 4rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+}
+
+.profile-page-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f5f1;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 700px;
+}
+
+/* === TITLE (NAME) === */
+
+.profile-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin: 0 0 2.5rem;
+  font-weight: 500;
+  color: #111111;
+}
+
+.upload-message {
+  background-color: #cdcdcd;
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem 1rem;
+}
+
+/* === MAIN FORM WRAPPER === */
+
+.profile-card {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* === CV UPLOAD ROW === */
+
+.profile-cv-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.profile-cv-label {
+  cursor: pointer;
+  color: #191919;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.profile-cv-label input {
+  display: none;
+}
+
+.profile-use-cv-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-transform: none;
+  color: #15803d;
+  position: relative;
+  letter-spacing: 0.04em;
+}
+
+.profile-use-cv-btn::before {
+  content: '+ ';
+  font-weight: 600;
+}
+
+.profile-use-cv-btn::after {
+  content: '';
+  position: absolute;
+  left: -0.4rem;
+  right: 0;
+  bottom: -0.25rem;
+  height: 1px;
+  background: #111111;
+}
+
+.profile-use-cv-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* === TOP PROFILE FIELDS (FULL NAME, ROLE, etc.) === */
+
+.profile-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
+  row-gap: 0.8rem;
+}
+
+.profile-fields textarea,
+.profile-fields input[name='summary'],
+.profile-fields input[name='primarySkills'] {
+  grid-column: 1 / -1;
+  font-family: inherit;
+}
+
+.profile-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #111111;
+  border-radius: 0;
+  padding: 0.25rem 0 0.35rem;
+  background: transparent;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.profile-input::placeholder {
+  font-size: 0.75rem;
+  color: #555555;
+}
+
+.profile-input:focus {
+  border-bottom-width: 2px;
+}
+
+.profile-textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+/* === GENERIC SECTION (EXPERIENCE / EDUCATION) === */
+
+.profile-section {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.profile-section-title {
+  margin: 0 0 1.5rem;
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111111;
+  text-align: left;
+}
+
+.profile-section:first-of-type .profile-section-title {
+  text-align: right;
+}
+
+.profile-section-empty {
+  font-size: 0.8rem;
+  color: #666666;
+}
+
+/* === EXPERIENCE / EDUCATION ITEMS === */
+
+.profile-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-card-item {
+  padding: 0.5rem 0 0.7rem;
+  border-bottom: 1px solid #111111;
+  background: transparent;
+}
+
+.profile-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-card-header h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111111;
+}
+
+.profile-card-company {
+  font-size: 0.8rem;
+  color: #444444;
+}
+
+.profile-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  font-size: 0.75rem;
+  color: #666666;
+  margin-bottom: 0.25rem;
+}
+
+.profile-card-description {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  color: #444444;
+}
+
+/* === LINKS SECTION === */
+
+.profile-links-section {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.profile-links-title {
+  margin: 0 0 1.2rem;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #111111;
+  text-align: left;
+}
+
+.profile-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 3rem;
+  row-gap: 0.7rem;
+}
+
+.profile-link-field label {
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 0.2rem;
+  color: #444444;
+}
+
+.profile-link-field .profile-input {
+  font-size: 0.8rem;
+}
+
+/* === SAVE BUTTON === */
+
+.profile-save-btn {
+  display: block;
+  margin: 3rem auto 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #14532d;
+  position: relative;
+}
+
+.profile-save-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2rem;
+  height: 1px;
+  background: #111111;
+}
+
+.profile-save-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* === ERROR TEXT === */
+
+.profile-error {
+  text-align: center;
+  color: #b3261e;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+/* === CV LOADING SPINNER === */
+
+.cv-spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ccc;
+  border-top: 3px solid #2f5b43;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .profile-page-loading {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f6f5f1;
+}
+
+.cv-loading-msg {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #2f5b43;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 2.2rem 1.2rem 3rem;
   }
-  
-  /* Center column */
-  
-  .profile-container {
-    width: 100%;
-    max-width: 700px;
-  }
-  
-  /* === TITLE (NAME) === */
-  
-  .profile-title {
-    text-align: center;
-    font-size: 2.4rem;
-    margin: 0 0 2.5rem;
-    font-weight: 500;
-    color: #111111;
-  }
-  
-  .upload-message {
-    background-color: #cdcdcd;
-    padding:0.7rem 1rem;;
-    border-radius: 0.5rem 1rem;
-  }
-  /* === MAIN FORM WRAPPER === */
-  
-  .profile-card {
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-  
-  /* === CV UPLOAD ROW === */
-  
-  .profile-cv-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 3rem 0;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-  }
-  
-  /* Just text “Upload CV PDF” – clicking it will open the file dialog */
-  
-  .profile-cv-label {
-    cursor: pointer;
-    color: #191919;
-    padding: 5px;
-    border-radius: 5px;
-    font-weight: 600;
-  }
-  
-  .profile-cv-label input {
-    display: none; /* hide default file input */
-  }
-  
-  /* Right side link-style button */
-  
-  .profile-use-cv-btn {
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    font-size: 0.8rem;
-    text-transform: none;
-    color: #15803d; /* green */
-    position: relative;
-    letter-spacing: 0.04em;
-  }
-  
-  /* little "+" in front */
-  
-  .profile-use-cv-btn::before {
-    content: '+ ';
-    font-weight: 600;
-  }
-  
-  /* underline */
-  
-  .profile-use-cv-btn::after {
-    content: '';
-    position: absolute;
-    left: -0.4rem;
-    right: 0;
-    bottom: -0.25rem;
-    height: 1px;
-    background: #111111;
-  }
-  
-  .profile-use-cv-btn:disabled {
-    opacity: 0.4;
-    cursor: default;
-  }
-  
-  /* === TOP PROFILE FIELDS (FULL NAME, ROLE, etc.) === */
-  
+
   .profile-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 3rem;
-    row-gap: 0.8rem;
+    grid-template-columns: 1fr;
+    max-width: 100%;
   }
-  
-  /* Make some rows span full width */
-  
-  .profile-fields textarea,
-  .profile-fields input[name='summary'],
-  .profile-fields input[name='primarySkills'] {
-    grid-column: 1 / -1;
-    font-family: inherit;
-  }
-  
-  /* Underline-only inputs */
-  
-  .profile-input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #111111;
-    border-radius: 0;
-    padding: 0.25rem 0 0.35rem;
-    background: transparent;
-    font-size: 0.8rem;
-    outline: none;
-  }
-  
-  .profile-input::placeholder {
-    font-size: 0.75rem;
-    color: #555555;
-  }
-  
-  /* focus: keep it subtle */
-  
-  .profile-input:focus {
-    border-bottom-width: 2px;
-  }
-  
-  /* Textarea behaves like a longer underline */
-  
-  .profile-textarea {
-    resize: vertical;
-    min-height: 72px;
-  }
-  
-  /* === GENERIC SECTION (EXPERIENCE / EDUCATION) === */
-  
-  .profile-section {
-    padding: 0;          /* no card background */
-    border: none;
-    background: transparent;
-  }
-  
-  /* headings: all caps & spaced */
-  
-  .profile-section-title {
-    margin: 0 0 1.5rem;
-    font-size: 2.5rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #111111;
-    text-align: left;
-  }
-  
-  /* first section (Experience) title right-aligned */
-  
-  .profile-section:first-of-type .profile-section-title {
-    text-align: right;
-  }
-  
-  /* Empty text (if no data) */
-  
-  .profile-section-empty {
-    font-size: 0.8rem;
-    color: #666666;
-  }
-  
-  /* === EXPERIENCE / EDUCATION ITEMS === */
-  
-  .profile-card-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .profile-card-item {
-    padding: 0.5rem 0 0.7rem;
-    border-bottom: 1px solid #111111;
-    background: transparent;
-  }
-  
-  /* title + company on one line if possible */
-  
-  .profile-card-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.25rem;
-  }
-  
-  .profile-card-header h3 {
-    margin: 0;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #111111;
-  }
-  
-  .profile-card-company {
-    font-size: 0.8rem;
-    color: #444444;
-  }
-  
-  /* meta row: location + dates */
-  
-  .profile-card-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    font-size: 0.75rem;
-    color: #666666;
-    margin-bottom: 0.25rem;
-  }
-  
-  .profile-card-description {
-    margin: 0.1rem 0 0;
-    font-size: 0.8rem;
-    color: #444444;
-  }
-  
-  /* === LINKS SECTION (keep, but make it flat & simple) === */
-  
+
+  .profile-section,
   .profile-links-section {
-    padding: 0;
-    background: transparent;
-    border: none;
+    max-width: 100%;
   }
-  
-  .profile-links-title {
-    margin: 0 0 1.2rem;
-    font-size: 1rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 400;
-    color: #111111;
+
+  .profile-cv-section {
+    margin: 0;
+  }
+
+  .profile-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-section:first-of-type .profile-section-title {
     text-align: left;
   }
-  
-  .profile-links-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 3rem;
-    row-gap: 0.7rem;
-  }
-  
-  .profile-link-field label {
-    display: block;
-    font-size: 0.78rem;
-    margin-bottom: 0.2rem;
-    color: #444444;
-  }
-  
-  /* reuse underline-style input */
-  .profile-link-field .profile-input {
-    font-size: 0.8rem;
-  }
-  
-  /* === SAVE BUTTON === */
-  
-  .profile-save-btn {
-    display: block;
-    margin: 3rem auto 0;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 0.85rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #14532d;
-    position: relative;
-  }
-  
-  /* underline for the button */
-  
-  .profile-save-btn::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -0.2rem;
-    height: 1px;
-    background: #111111;
-  }
-  
-  .profile-save-btn:disabled {
-    opacity: 0.4;
-    cursor: default;
-  }
-  
-  /* === ERROR TEXT === */
-  
-  .profile-error {
-    text-align: center;
-    color: #b3261e;
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
-  }
-  .cv-spinner {
-    width: 18px;
-    height: 18px;
-    border: 3px solid #ccc;
-    border-top: 3px solid #2f5b43;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: inline-block;
-    margin-right: 8px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-  
-  .cv-loading-msg {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: #2f5b43;
-    display: flex;
-    align-items: center;
-  }
-  .cv-loading-msg {
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  
-  /* === RESPONSIVE === */
-  
-  @media (max-width: 768px) {
-    .profile-page {
-      padding: 2.2rem 1.2rem 3rem;
-    }
-  
-    .profile-fields {
-      grid-template-columns: 1fr;
-      max-width: 100%;
-    }
-  
-    .profile-section,
-    .profile-links-section {
-      max-width: 100%;
-    }
-    .profile-cv-section {
-        margin: 0;
-    }
-  
-    .profile-links-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .profile-section:first-of-type .profile-section-title {
-      text-align: left; /* easier on small screens */
-    }
-  }
-  
+}

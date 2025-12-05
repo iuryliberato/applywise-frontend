@@ -15,13 +15,13 @@ const STATUS_LABELS = {
 };
 
 const STATUS_OPTIONS = [
-  { value: 'all',         label: 'All' },
-  { value: 'Idea',        label: 'Idea' },
-  { value: 'Applied',     label: 'Applied' },
-  { value: 'Interviewing',label: 'Interviewing' },
-  { value: 'Tech-Test',   label: 'Tech Test' },
-  { value: 'Offer',       label: 'Offer' },
-  { value: 'Rejected',    label: 'Rejected' },
+  { value: 'all', label: 'All' },
+  { value: 'Idea', label: 'Idea' },
+  { value: 'Applied', label: 'Applied' },
+  { value: 'Interviewing', label: 'Interviewing' },
+  { value: 'Tech-Test', label: 'Tech Test' },
+  { value: 'Offer', label: 'Offer' },
+  { value: 'Rejected', label: 'Rejected' },
 ];
 
 const DashboardPage = () => {
@@ -38,7 +38,6 @@ const DashboardPage = () => {
   const [toast, setToast] = useState('');
   const [showToast, setShowToast] = useState(false);
 
-  // Load apps
   useEffect(() => {
     const load = async () => {
       try {
@@ -55,7 +54,6 @@ const DashboardPage = () => {
     load();
   }, []);
 
-  // 1) Read toastMessage from navigation state
   useEffect(() => {
     const state = location.state;
 
@@ -63,12 +61,10 @@ const DashboardPage = () => {
       setToast(state.toastMessage);
       setShowToast(true);
 
-      // Clear router state so it doesn’t reappear on refresh/back
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location, navigate]);
 
-  // 2) Auto-hide toast after 3s whenever toast changes
   useEffect(() => {
     if (!toast) return;
 
@@ -102,16 +98,17 @@ const DashboardPage = () => {
     <main className="apps-page">
       <div className="apps-container">
         <h1 className="apps-title">Dashboard</h1>
+
         {toast && (
-        <div
-          className={
-            'apps-toast ' + (showToast ? 'apps-toast--visible' : '')
-          }
-        >
-          {toast}
-        </div>
-      )}
-        {/* Search + filter row */}
+          <div
+            className={
+              'apps-toast ' + (showToast ? 'apps-toast--visible' : '')
+            }
+          >
+            {toast}
+          </div>
+        )}
+
         <div className="apps-controls">
           <input
             type="text"
@@ -160,7 +157,6 @@ const DashboardPage = () => {
         )}
         {error && <p className="apps-error">{error}</p>}
 
-        {/* Table */}
         <div className="apps-table-wrapper">
           <table className="apps-table">
             <thead>
@@ -174,7 +170,8 @@ const DashboardPage = () => {
               {filteredApps.length === 0 && !loading ? (
                 <tr>
                   <td colSpan="3" className="apps-empty">
-                    No applications found. Try adjusting your search or filters or adding new application.
+                    No applications found. Try adjusting your search or
+                    filters or adding new application.
                   </td>
                 </tr>
               ) : (
@@ -193,7 +190,8 @@ const DashboardPage = () => {
                         return (
                           <span
                             className={
-                              'apps-status-pill apps-status-pill--' + statusKey
+                              'apps-status-pill apps-status-pill--' +
+                              statusKey
                             }
                           >
                             {STATUS_LABELS[statusKey] || statusKey}

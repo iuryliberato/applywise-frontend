@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { createFromLink, createManualApplication } from '../../services/jobApplicationService';
+import {
+  createFromLink,
+  createManualApplication,
+} from '../../services/jobApplicationService';
 import './AddApplicationPage.css';
 
 const STATUS_OPTIONS = [
-  { value: 'Idea',        label: 'Idea' },
-  { value: 'Applied',     label: 'Applied' },
-  { value: 'Interviewing',label: 'Interviewing' },
-  { value: 'Tech-Test',   label: 'Tech Test' },
-  { value: 'Offer',       label: 'Offer' },
-  { value: 'Rejected',    label: 'Rejected' },
+  { value: 'Idea', label: 'Idea' },
+  { value: 'Applied', label: 'Applied' },
+  { value: 'Interviewing', label: 'Interviewing' },
+  { value: 'Tech-Test', label: 'Tech Test' },
+  { value: 'Offer', label: 'Offer' },
+  { value: 'Rejected', label: 'Rejected' },
 ];
 
 const AddApplicationPage = () => {
@@ -50,7 +53,7 @@ const AddApplicationPage = () => {
       navigate(`/application/${job._id}`);
     } catch (err) {
       console.error(err);
-      setLinkError('Failed to create from link');
+      setLinkError(err.message || 'Failed to create from link');
       setManualOpen(true);
     } finally {
       setLinkLoading(false);
@@ -76,18 +79,29 @@ const AddApplicationPage = () => {
         summary: manualForm.summary || '',
         salaryInfo: manualForm.salaryInfo || '',
         seniorityLevel: manualForm.seniorityLevel || '',
-        // split by newline into arrays
         responsibilities: manualForm.responsibilities
-          ? manualForm.responsibilities.split('\n').map((l) => l.trim()).filter(Boolean)
+          ? manualForm.responsibilities
+              .split('\n')
+              .map((l) => l.trim())
+              .filter(Boolean)
           : [],
         requirements: manualForm.requirements
-          ? manualForm.requirements.split('\n').map((l) => l.trim()).filter(Boolean)
+          ? manualForm.requirements
+              .split('\n')
+              .map((l) => l.trim())
+              .filter(Boolean)
           : [],
-          niceToHave: manualForm.niceToHave
-          ? manualForm.niceToHave.split('\n').map((l) => l.trim()).filter(Boolean)
+        niceToHave: manualForm.niceToHave
+          ? manualForm.niceToHave
+              .split('\n')
+              .map((l) => l.trim())
+              .filter(Boolean)
           : [],
-          perksAndBenefits: manualForm.perksAndBenefits
-          ? manualForm.perksAndBenefits.split('\n').map((l) => l.trim()).filter(Boolean)
+        perksAndBenefits: manualForm.perksAndBenefits
+          ? manualForm.perksAndBenefits
+              .split('\n')
+              .map((l) => l.trim())
+              .filter(Boolean)
           : [],
         status: manualForm.status,
         source: 'Manual',
@@ -108,7 +122,6 @@ const AddApplicationPage = () => {
       <div className="add-app-container">
         <h1 className="add-app-title">Add Application</h1>
 
-        {/* Existing link card */}
         <section className="add-app-card">
           <p className="add-app-subtitle">
             Paste the link from the job application below:
@@ -123,62 +136,55 @@ const AddApplicationPage = () => {
               onChange={(e) => setJobUrl(e.target.value)}
               required
             />
-<button
-  type="submit"
-  className="underline-btn add-app-btn"
-  disabled={linkLoading}
->
-  {linkLoading ? (
-    <span className="link-loading-msg">
-      <span className="cv-spinner"></span>
-      Adding application…
-    </span>
-  ) : (
-    'Save Application'
-  )}
-</button>
-
-
+            <button
+              type="submit"
+              className="underline-btn add-app-btn"
+              disabled={linkLoading}
+            >
+              {linkLoading ? (
+                <span className="link-loading-msg">
+                  <span className="cv-spinner"></span>
+                  Adding application…
+                </span>
+              ) : (
+                'Save Application'
+              )}
+            </button>
           </form>
 
-          {linkError && (
-            <p className="add-app-error">{linkError}</p>
-          )}
+          {linkError && <p className="add-app-error">{linkError}</p>}
 
           <div className="add-app-divider">
             <span>or</span>
           </div>
 
           <button
-  type="button"
-  className="underline-btn add-app-btn"
-  onClick={() => setManualOpen(prev => !prev)}
->
-  {manualOpen ? 'Hide manual form' : 'Add application manually'}
-</button>
-
+            type="button"
+            className="underline-btn add-app-btn"
+            onClick={() => setManualOpen((prev) => !prev)}
+          >
+            {manualOpen ? 'Hide manual form' : 'Add application manually'}
+          </button>
         </section>
 
-        {/* Manual form */}
         {manualOpen && (
           <section className="add-app-card add-app-manual-card">
             <h2 className="add-app-section-title">Manual application</h2>
 
             <form className="add-app-manual-form" onSubmit={handleManualSubmit}>
               <div className="add-app-two-col">
-
-              <select
-  name="status"
-  className={`add-app-input status add-app-select status-${manualForm.status.toLowerCase()}`}
-  value={manualForm.status}
-  onChange={handleManualChange}
->
-  {STATUS_OPTIONS.map((opt) => (
-    <option key={opt.value} value={opt.value}>
-      {opt.label}
-    </option>
-  ))}
-</select>
+                <select
+                  name="status"
+                  className={`add-app-input status add-app-select status-${manualForm.status.toLowerCase()}`}
+                  value={manualForm.status}
+                  onChange={handleManualChange}
+                >
+                  {STATUS_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
 
                 <input
                   type="text"
@@ -208,6 +214,7 @@ const AddApplicationPage = () => {
                   onChange={handleManualChange}
                 />
               </div>
+
               <div className="add-app-two-col">
                 <input
                   type="text"
@@ -218,6 +225,7 @@ const AddApplicationPage = () => {
                   onChange={handleManualChange}
                 />
               </div>
+
               <div className="add-app-two-col">
                 <input
                   type="text"
@@ -228,6 +236,7 @@ const AddApplicationPage = () => {
                   onChange={handleManualChange}
                 />
               </div>
+
               <div className="add-app-two-col">
                 <input
                   type="text"
@@ -262,6 +271,7 @@ const AddApplicationPage = () => {
                 value={manualForm.requirements}
                 onChange={handleManualChange}
               />
+
               <textarea
                 name="niceToHave"
                 className="add-app-input add-app-textarea"
@@ -269,6 +279,7 @@ const AddApplicationPage = () => {
                 value={manualForm.niceToHave}
                 onChange={handleManualChange}
               />
+
               <textarea
                 name="perksAndBenefits"
                 className="add-app-input add-app-textarea"
@@ -280,14 +291,14 @@ const AddApplicationPage = () => {
               {manualError && (
                 <p className="add-app-error">{manualError}</p>
               )}
-<button
-  type="submit"
-  className="underline-btn add-app-btn add-app-btn--left"
-  disabled={manualSaving}
->
-  {manualSaving ? 'Saving…' : 'Save manual application'}
-</button>
 
+              <button
+                type="submit"
+                className="underline-btn add-app-btn add-app-btn--left"
+                disabled={manualSaving}
+              >
+                {manualSaving ? 'Saving…' : 'Save manual application'}
+              </button>
             </form>
           </section>
         )}

@@ -1,265 +1,248 @@
 /* === PAGE LAYOUT === */
 
 .apps-page {
-    display: flex;
-    justify-content: center;
-    padding: 3rem 1.5rem 4rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      sans-serif;
-      margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  margin-top: 20px;
+}
+
+.apps-container {
+  width: 100%;
+  max-width: 900px;
+}
+
+.apps-title {
+  display: none;
+}
+
+/* === SEARCH + FILTER ROW === */
+
+.apps-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.apps-search {
+  border: none;
+  border-bottom: 2px solid #111111;
+  background: transparent;
+  padding: 0.3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  width: 200px;
+}
+
+.apps-search::placeholder {
+  color: #111111;
+}
+
+.apps-search:focus {
+  outline: none;
+}
+
+.apps-filter-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.apps-filter-btn {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 2px solid #111111;
+}
+
+.apps-filter-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.6rem);
+  z-index: 10;
+  background-color: #efeeeb;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 0.3rem 0;
+  min-width: 150px;
+}
+
+.apps-filter-option {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.apps-filter-option:hover {
+  background-color: #f3f0e5;
+}
+
+.apps-filter-option--active {
+  font-weight: 600;
+}
+
+/* === META / ERROR TEXT === */
+
+.apps-meta-text {
+  font-size: 0.85rem;
+  color: #666666;
+  margin-bottom: 0.5rem;
+}
+
+.apps-error {
+  font-size: 0.85rem;
+  color: #b91c1c;
+  margin-bottom: 0.5rem;
+}
+
+/* === TABLE AREA === */
+
+.apps-table-wrapper {
+  margin-top: 0.5rem;
+}
+
+.apps-table thead {
+  display: none;
+}
+
+.apps-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.apps-row {
+  cursor: pointer;
+  border-bottom: 1px solid #111111;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.apps-row:hover {
+  background-color: #efeeeb;
+  transform: translateX(4px);
+}
+
+.apps-row:last-child {
+  border-bottom: 1px solid #111111;
+}
+
+.apps-table td {
+  padding: 0.85rem 0;
+  vertical-align: middle;
+}
+
+.apps-table td:nth-child(1) {
+  font-weight: 500;
+}
+
+.apps-table td:nth-child(2) {
+  text-align: center;
+}
+
+.apps-status-cell {
+  text-align: right;
+}
+
+/* === STATUS TEXT === */
+
+.apps-status-pill {
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  background: none;
+  letter-spacing: 0.03rem;
+}
+
+.apps-status-pill--idea {
+  color: #1d4ed8;
+}
+
+.apps-status-pill--applied {
+  color: #166534;
+}
+
+.apps-status-pill--interviewing {
+  color: #7c2d12;
+}
+
+.apps-status-pill--tech-test {
+  color: #7e22ce;
+}
+
+.apps-status-pill--offer {
+  color: #1e3a8a;
+}
+
+.apps-status-pill--rejected {
+  color: #b91c1c;
+}
+
+/* === EMPTY STATE === */
+
+.apps-empty {
+  text-align: left;
+  padding: 1.2rem 0;
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+/* === TOAST === */
+
+.apps-toast {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f4f4f4;
+  color: #3f3f3f;
+  padding: 1.5rem 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(171, 171, 171, 0.527);
+  opacity: 0;
+  font-size: 20px;
+  font-weight: 400;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+}
+
+.apps-toast--visible {
+  opacity: 1;
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+  .apps-page {
+    padding: 2rem 1.2rem 3rem;
   }
-  
-  .apps-container {
-    width: 100%;
-    max-width: 900px;
-  }
-  
-  /* You can hide the title if you want the super-minimal look */
-  .apps-title {
-    display: none;
-  }
-  
-  /* === SEARCH + FILTER ROW === */
-  
+
   .apps-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    align-items: stretch;
+    gap: 1.4rem;
   }
-  
-  /* Search imitates "SEARCH" label + long underline */
-  
-  .apps-search {
-    border: none;
-    border-bottom: 2px solid #111111;
-    background: transparent;
-    padding: 0.3rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    width: 200px;
-  }
-  
-  .apps-search::placeholder {
-    color: #111111;
-  }
-  
-  /* keep focus minimal */
-  .apps-search:focus {
-    outline: none;
-  }
-  
-  /* Filter word with short underline */
-  
-  .apps-filter-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    position: relative;          
-  }
-  
-  .apps-filter-btn {
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 0;
-    font-size: 0.9rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-bottom: 2px solid #111111;
-  }
-  
 
-  /* Filter dropdown keeps your old behavior, just slightly simplified */
-  
-  .apps-filter-menu {
-    position: absolute;
-    right: 0;
-    top: calc(100% + 0.6rem);
-    z-index: 10;
-    background-color: #efeeeb;
-    border-radius: 0.5rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    padding: 0.3rem 0;
-    min-width: 150px;
-  }
-  
-  .apps-filter-option {
-    width: 100%;
-    text-align: left;
-    border: none;
-    background: none;
-    padding: 0.4rem 0.9rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-  }
-  
-  .apps-filter-option:hover {
-    background-color: #f3f0e5;
-  }
-  
-  .apps-filter-option--active {
-    font-weight: 600;
-  }
-  
-  /* === META / ERROR TEXT === */
-  
-  .apps-meta-text {
-    font-size: 0.85rem;
-    color: #666666;
-    margin-bottom: 0.5rem;
-  }
-  
-  .apps-error {
-    font-size: 0.85rem;
-    color: #b91c1c;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* === TABLE AREA === */
-  
-  /* No card / border – just rows and lines */
-  .apps-table-wrapper {
-    margin-top: 0.5rem;
-  }
-  
-  /* hide the header row to match the wireframe */
-  .apps-table thead {
-    display: none;
-  }
-  
-  .apps-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-  }
-  
-  /* rows are just thin underlines */
-  .apps-row {
-    cursor: pointer;
-    border-bottom: 1px solid #111111;
-    transition: background-color 0.15s ease, transform 0.15s ease;
-  }
-  
-  .apps-row:hover {
-    background-color: #efeeeb;   /* soft beige highlight */
-    transform: translateX(4px);  /* small movement right */
-  }
-  .apps-row:last-child {
-    border-bottom: 1px solid #111111;
-  }
-  
-  .apps-table td {
-    padding: 0.85rem 0;
-    vertical-align: middle;
-  }
-  
-  /* First column: job title left */
-  .apps-table td:nth-child(1) {
-    font-weight: 500;
-  }
-  
-  /* Second column: company center-ish */
   .apps-table td:nth-child(2) {
-    text-align: center;
-  }
-  
-  /* Third column: status right */
-  .apps-status-cell {
-    text-align: right;
-  }
-  
-  /* === STATUS TEXT (no pills, just coloured words) === */
-  
-  .apps-status-pill {
-    display: inline;
-    padding: 0;
-    border-radius: 0;
-    min-width: 0;
-    font-size: 1rem;
-    font-weight: 500;
-    background: none;
-    letter-spacing: 0.03rem;
-
-  }
-  
-  /* Using your existing modifier classes, just colors now */
-  
-  .apps-status-pill--idea {
-    color: #1d4ed8;        /* blue Idea */
-  }
-  
-  .apps-status-pill--applied {
-    color: #166534;        /* green Applied */
-  }
-  
-  .apps-status-pill--interviewing {
-    color: #7c2d12;        /* brown Interviewing */
-  }
-  
-  .apps-status-pill--tech-test {
-    color: #7e22ce;        /* purple Tech test */
-  }
-  
-  .apps-status-pill--offer {
-    color: #1e3a8a;        /* deep blue Offer */
-  }
-  
-  .apps-status-pill--rejected {
-    color: #b91c1c;        /* red Rejected */
-  }
-  
-  /* Empty state */
-  
-  .apps-empty {
     text-align: left;
-    padding: 1.2rem 0;
-    font-size: 0.9rem;
-    color: #666666;
   }
-  
-  /* === TOAST (unchanged) === */
-  .apps-toast {
-    position: fixed;
-    top: 50px;           
-    left: 50%;
-    transform: translateX(-50%);  /* centers it horizontally */
-    background: #f4f4f4;
-    color: #3f3f3f;
-    padding: 1.5rem 1.8rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(171, 171, 171, 0.527);
-    opacity: 0;
-    font-size: 20px;
-    font-weight: 400;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    z-index: 9999;         /* stays above everything */
+
+  .apps-status-cell {
+    text-align: left;
   }
-  
-  .apps-toast--visible {
-    opacity: 1;
-  }
-  
-  /* === RESPONSIVE === */
-  
-  @media (max-width: 768px) {
-    .apps-page {
-      padding: 2rem 1.2rem 3rem;
-    }
-  
-    .apps-controls {
-      align-items: stretch;
-      gap: 1.4rem;
-    }
-  
-    .apps-table td:nth-child(2) {
-      text-align: left;
-    }
-  
-    .apps-status-cell {
-      text-align: left;
-    }
-  }
-  
+}

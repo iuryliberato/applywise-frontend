@@ -1,7 +1,5 @@
-
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/profile`;
 
-// Helper to get token & headers
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
 
@@ -18,9 +16,8 @@ const getMyProfile = async () => {
       headers: getAuthHeaders(),
     });
 
-    // If profile doesn't exist yet, backend might send 404
     if (res.status === 404) {
-      return null; // handle this in the component (e.g. empty form)
+      return null;
     }
 
     const data = await res.json();
@@ -45,6 +42,7 @@ const saveMyProfile = async (profileData) => {
     });
 
     const data = await res.json();
+
     if (data.err) {
       throw new Error(data.err);
     }
@@ -55,33 +53,36 @@ const saveMyProfile = async (profileData) => {
     throw new Error(err.message || 'Failed to save profile');
   }
 };
+
 const uploadCvAndExtract = async (file) => {
   const formData = new FormData();
   formData.append('cv', file);
 
   const url = `${BASE_URL}/my-profile/cv`;
-  console.log('Uploading to:', url);
 
   const res = await fetch(url, {
     method: 'POST',
     headers: {
-      // IMPORTANT: do NOT set Content-Type for FormData
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
     body: formData,
   });
 
-  console.log('response status:', res.status, 'content-type:', res.headers.get('content-type'));
+  const contentType = res.headers.get('content-type') || '';
 
-  const data = await res.json(); // this is where the '<!DOCTYPE' blows up
+  if (!contentType.includes('application/json')) {
+    const text = await res.text();
+    console.error('Non-JSON response from /my-profile/cv:', text.slice(0, 500));
+    throw new Error('Server did not return JSON');
+  }
+
+  const data = await res.json();
+
+  if (data.err) {
+    throw new Error(data.err);
+  }
+
   return data;
 };
 
-
-
-
-export {
-  getMyProfile,
-  saveMyProfile,
-  uploadCvAndExtract
-};
+export { getMyProfile, saveMyProfile, uploadCvAndExtract };

@@ -7,8 +7,7 @@
     display: flex;
     justify-content: center;
     padding: 3rem 1.5rem 4rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   
   .add-app-container {
@@ -17,7 +16,6 @@
     text-align: center;
   }
   
-  /* Hide big title – the screen is very minimal */
   .add-app-title {
     display: none;
   }
@@ -26,13 +24,13 @@
      Top link form
      =========================== */
   
-  /* no card look – just free elements on the page */
   .add-app-card {
     background: transparent;
     border: none;
     padding: 0;
     margin: 0;
   }
+  
   .link-loading-msg {
     display: flex;
     align-items: center;
@@ -49,7 +47,6 @@
     font-weight: 250;
   }
   
-  /* Inline form: input left, button right */
   .add-app-link-form {
     margin-top: 2.5rem;
     display: flex;
@@ -58,7 +55,6 @@
     gap: 2.5rem;
   }
   
-  /* underline-only input */
   .add-app-input {
     border: none;
     border-bottom: 1px solid #111111;
@@ -90,13 +86,11 @@
     padding: 0.5rem 1.5rem;
     border-radius: 999px;
     cursor: pointer;
-  
     text-transform: uppercase;
     letter-spacing: 0.16em;
     font-size: 0.75rem;
     font-weight: 500;
     color: #111111;
-  
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
@@ -104,7 +98,7 @@
   
   .add-app-primary-btn::before {
     content: '+';
-    color: #15803d; /* green plus */
+    color: #15803d;
     font-weight: 700;
   }
   
@@ -125,18 +119,15 @@
     color: #888;
   }
   
-/* layout helpers for underline buttons on this page */
-.add-app-btn {
+  .add-app-btn {
     margin-top: 1.5rem;
   }
   
-  /* Top inline button next to the URL input */
   .add-app-link-form .add-app-btn {
     margin-top: 0;
-    margin-left: 2rem; /* tweak as needed */
+    margin-left: 2rem;
   }
   
-  /* Manual form submit alignment */
   .add-app-btn--left {
     align-self: flex-start;
     margin-top: 2rem;
@@ -168,13 +159,14 @@
     font-weight: 600;
     text-align: left;
   }
+  
   .status {
     font-size: 20px;
     width: 210px;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
   }
-  /* underline style for manual fields as well */
+  
   .add-app-manual-form {
     display: flex;
     flex-direction: column;
@@ -189,50 +181,48 @@
     gap: 1.5rem;
   }
   
-  /* reuse underline input look */
   .add-app-textarea {
     min-height: 72px;
     resize: vertical;
   }
   
-  /* select should visually match inputs */
   .add-app-select {
     padding: 0.15rem 0 0.3rem;
     background: transparent;
     appearance: none;
   }
   
-  /* manual submit button shares style with primary */
   .add-app-manual-form .add-app-primary-btn {
     align-self: flex-start;
     margin-top: 1.6rem;
   }
+  
   /* ===========================
-   Status Colors (same as dashboard)
-   =========================== */
-
-.status-idea {
-    color: #b05601; /* blue */
+     Status Colors
+     =========================== */
+  
+  .status-idea {
+    color: #b05601;
   }
   
   .status-applied {
-    color: #107435; /* green */
+    color: #107435;
   }
   
   .status-interviewing {
-    color: #b45309; /* brown/orange */
+    color: #b45309;
   }
   
   .status-tech-test {
-    color: #3000a1; /* purple */
+    color: #3000a1;
   }
   
   .status-offer {
-    color: #1e6d61; /* blue */
+    color: #1e6d61;
   }
   
   .status-rejected {
-    color: #c90000; /* red */
+    color: #c90000;
   }
   
   /* ===========================
@@ -249,9 +239,11 @@
     .add-app-input {
       width: 100%;
     }
+  
     .add-app-section-title {
-        font-size: 2rem;
+      font-size: 2rem;
     }
+  
     .add-app-two-col {
       grid-template-columns: 1fr;
     }

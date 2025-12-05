@@ -1,4 +1,3 @@
-// src/components/SignInForm/SignInForm.jsx
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router';
 import './SignInForm.css';
@@ -9,6 +8,7 @@ import { UserContext } from '../../contexts/UserContext';
 const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
@@ -69,4 +69,3 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-

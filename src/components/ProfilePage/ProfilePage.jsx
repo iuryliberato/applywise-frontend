@@ -1,8 +1,12 @@
 import './ProfilePage.css';
 import { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router';
-import { getMyProfile, saveMyProfile, uploadCvAndExtract } from '../../services/profileService';
+import { UserContext } from '../../contexts/UserContext';
+import {
+  getMyProfile,
+  saveMyProfile,
+  uploadCvAndExtract,
+} from '../../services/profileService';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -14,7 +18,6 @@ const ProfilePage = () => {
   const [cvLoading, setCvLoading] = useState(false);
   const [cvFile, setCvFile] = useState(null);
 
-  // ⭐ NEW: experience & education state
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
 
@@ -30,7 +33,6 @@ const ProfilePage = () => {
     portfolio: '',
   });
 
-  // Load existing profile
   useEffect(() => {
     const load = async () => {
       try {
@@ -50,7 +52,6 @@ const ProfilePage = () => {
             portfolio: profile.links?.portfolio || '',
           });
 
-          // ⭐ also store experience & education from backend
           setExperience(profile.experience || []);
           setEducation(profile.education || []);
         }
@@ -66,7 +67,7 @@ const ProfilePage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCvChange = (e) => {
@@ -74,17 +75,17 @@ const ProfilePage = () => {
   };
 
   const handleUseCv = async (fileFromInput) => {
-    const file = fileFromInput || cvFile; // use passed file or state
+    const file = fileFromInput || cvFile;
     if (!file) return;
-  
+
     setCvLoading(true);
     setError('');
-  
+
     try {
       const profile = await uploadCvAndExtract(file);
       console.log('Profile after CV upload:', profile);
-  
-      setForm(prev => ({
+
+      setForm((prev) => ({
         ...prev,
         fullName: profile.fullName || prev.fullName,
         headline: profile.headline || prev.headline,
@@ -97,7 +98,7 @@ const ProfilePage = () => {
         github: profile.links?.github || prev.github,
         portfolio: profile.links?.portfolio || prev.portfolio,
       }));
-  
+
       setExperience(profile.experience || []);
       setEducation(profile.education || []);
     } catch (err) {
@@ -107,7 +108,7 @@ const ProfilePage = () => {
       setCvLoading(false);
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -121,7 +122,7 @@ const ProfilePage = () => {
         summary: form.summary,
         primarySkills: form.primarySkills
           .split(',')
-          .map(s => s.trim())
+          .map((s) => s.trim())
           .filter(Boolean),
         yearsOfExperience: form.yearsOfExperience
           ? Number(form.yearsOfExperience)
@@ -131,8 +132,6 @@ const ProfilePage = () => {
           github: form.github,
           portfolio: form.portfolio,
         },
-        // experience & education are already saved by CV route,
-        // but you could also send them here if you add editing later
       };
 
       await saveMyProfile(payload);
@@ -151,37 +150,39 @@ const ProfilePage = () => {
   return (
     <main className="profile-page">
       <div className="profile-container">
-        {/* Title */}
-        <h1 className="profile-title">  {form.fullName || user?.username}</h1>
+        <h1 className="profile-title">{form.fullName || user?.username}</h1>
 
-        {/* Card */}
         <form className="profile-card" onSubmit={handleSubmit}>
-          {/* CV upload section */}
           <div className="profile-cv-section">
-          <label className="profile-cv-label">
-  {cvLoading ?  <p className="cv-loading-msg">
-    <span className="cv-spinner"></span>
-    <span class="loading">Reading CV and filling your profile…</span>
-  </p> : <span className="upload-message">Upload CV to fill profile</span>}
+            <label className="profile-cv-label">
+              {cvLoading ? (
+                <p className="cv-loading-msg">
+                  <span className="cv-spinner"></span>
+                  <span className="loading">
+                    Reading CV and filling your profile…
+                  </span>
+                </p>
+              ) : (
+                <span className="upload-message">
+                  Upload CV to fill profile
+                </span>
+              )}
 
-  <input
-    type="file"
-    accept=".pdf"
-    disabled={cvLoading}
-    onChange={(e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
+              <input
+                type="file"
+                accept=".pdf"
+                disabled={cvLoading}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
 
-      handleCvChange(e);
-      handleUseCv(file);
-    }}
-  />
-</label>
-</div>
+                  handleCvChange(e);
+                  handleUseCv(file);
+                }}
+              />
+            </label>
+          </div>
 
-
-
-          {/* Form fields */}
           <div className="profile-fields">
             <input
               type="text"
@@ -209,6 +210,7 @@ const ProfilePage = () => {
               value={form.location}
               onChange={handleChange}
             />
+
             <input
               type="number"
               name="yearsOfExperience"
@@ -217,6 +219,7 @@ const ProfilePage = () => {
               value={form.yearsOfExperience}
               onChange={handleChange}
             />
+
             <textarea
               name="summary"
               placeholder="Summary"
@@ -235,13 +238,13 @@ const ProfilePage = () => {
             />
           </div>
 
-          {/* Experience */}
           <section className="profile-section">
             <h2 className="profile-section-title">Experience</h2>
 
             {experience.length === 0 ? (
               <p className="profile-section-empty">
-                No experience data yet. Upload your CV to auto-populate this section.
+                No experience data yet. Upload your CV to auto-populate this
+                section.
               </p>
             ) : (
               <ul className="profile-card-list">
@@ -250,7 +253,9 @@ const ProfilePage = () => {
                     <div className="profile-card-header">
                       <h3>{exp.jobTitle || 'Role'}</h3>
                       {exp.company && (
-                        <span className="profile-card-company">{exp.company}</span>
+                        <span className="profile-card-company">
+                          {exp.company}
+                        </span>
                       )}
                     </div>
 
@@ -266,7 +271,9 @@ const ProfilePage = () => {
                     </div>
 
                     {exp.description && (
-                      <p className="profile-card-description">{exp.description}</p>
+                      <p className="profile-card-description">
+                        {exp.description}
+                      </p>
                     )}
                   </li>
                 ))}
@@ -274,13 +281,13 @@ const ProfilePage = () => {
             )}
           </section>
 
-          {/* Education */}
           <section className="profile-section">
             <h2 className="profile-section-title">Education</h2>
 
             {education.length === 0 ? (
               <p className="profile-section-empty">
-                No education data yet. Upload your CV to auto-populate this section.
+                No education data yet. Upload your CV to auto-populate this
+                section.
               </p>
             ) : (
               <ul className="profile-card-list">
@@ -289,7 +296,9 @@ const ProfilePage = () => {
                     <div className="profile-card-header">
                       <h3>{edu.fieldOfStudy || 'Course'}</h3>
                       {edu.institution && (
-                        <span className="profile-card-company">{edu.institution}</span>
+                        <span className="profile-card-company">
+                          {edu.institution}
+                        </span>
                       )}
                     </div>
 
@@ -309,8 +318,6 @@ const ProfilePage = () => {
             )}
           </section>
 
-
-          {/* Links block */}
           <section className="profile-links-section">
             <h2 className="profile-links-title">Links</h2>
 

@@ -2,25 +2,25 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import './SingleApplication.css';
 import {
-    getOneApplication,
-    updateApplicationStatus,
-    generateCoverLetter,
-    deleteApplication,
-    addNote,
-    updateNote,
-    updateCoverLetter,  
-    deleteNote,
+  getOneApplication,
+  updateApplicationStatus,
+  generateCoverLetter,
+  deleteApplication,
+  addNote,
+  updateNote,
+  updateCoverLetter,
+  deleteNote,
 } from '../../services/jobApplicationService';
 
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModel';
 
 const STATUS_OPTIONS = [
-  { value: 'Idea',         label: 'Idea' },
-  { value: 'Applied',      label: 'Applied' },
+  { value: 'Idea', label: 'Idea' },
+  { value: 'Applied', label: 'Applied' },
   { value: 'Interviewing', label: 'Interviewing' },
-  { value: 'Tech-Test',    label: 'Tech Test' },
-  { value: 'Offer',        label: 'Offer' },
-  { value: 'Rejected',     label: 'Rejected' },
+  { value: 'Tech-Test', label: 'Tech Test' },
+  { value: 'Offer', label: 'Offer' },
+  { value: 'Rejected', label: 'Rejected' },
 ];
 
 const SingleApplicationPage = () => {
@@ -42,12 +42,8 @@ const SingleApplicationPage = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const [noteText, setNoteText] = useState('');
-const [noteSaving, setNoteSaving] = useState(false);
-const [noteError, setNoteError] = useState('');
-
-
-
-
+  const [noteSaving, setNoteSaving] = useState(false);
+  const [noteError, setNoteError] = useState('');
 
   useEffect(() => {
     const load = async () => {
@@ -104,7 +100,7 @@ const [noteError, setNoteError] = useState('');
     if (!app) return;
     setCoverError('');
     setCoverLoading(true);
-  
+
     try {
       const data = await generateCoverLetter(app._id);
       setApp(data.job || app);
@@ -116,7 +112,6 @@ const [noteError, setNoteError] = useState('');
       setCoverLoading(false);
     }
   };
-  
 
   const handleStatusChangeClick = async (newStatus) => {
     if (!app || newStatus === app.status) {
@@ -140,7 +135,6 @@ const [noteError, setNoteError] = useState('');
   const handleDeleteConfirm = async () => {
     try {
       await deleteApplication(app._id);
-
       navigate('/dashboard', {
         state: { toastMessage: 'Application Deleted ❌' },
       });
@@ -151,14 +145,15 @@ const [noteError, setNoteError] = useState('');
       setDeleteOpen(false);
     }
   };
+
   const handleAddNote = async (e) => {
     e.preventDefault();
     const trimmed = noteText.trim();
     if (!trimmed) return;
-  
+
     setNoteError('');
     setNoteSaving(true);
-  
+
     try {
       const updated = await addNote(app._id, trimmed);
       setApp(updated);
@@ -170,7 +165,7 @@ const [noteError, setNoteError] = useState('');
       setNoteSaving(false);
     }
   };
-  
+
   const handleDeleteNote = async (noteId) => {
     setNoteError('');
     try {
@@ -181,11 +176,11 @@ const [noteError, setNoteError] = useState('');
       setNoteError(err.message || 'Failed to delete note');
     }
   };
-  
+
   const statusKey = app.status || 'Idea';
   const statusLabel =
     STATUS_OPTIONS.find((opt) => opt.value === statusKey)?.label || statusKey;
-  const statusClassKey = statusKey.toLowerCase(); // matches .status-pill--idea, .status-pill--tech-test, etc.
+  const statusClassKey = statusKey.toLowerCase();
 
   return (
     <>
@@ -197,17 +192,13 @@ const [noteError, setNoteError] = useState('');
 
       <main className="single-app-page">
         <div className="single-app-container">
-          {/* Header */}
           <header className="single-app-header">
-          <button
-  className="underline-btn single-app-back-btn"
-  onClick={() => navigate('/add-application')}
->
-  Back to Add Application
-</button>
-
-
-
+            <button
+              className="underline-btn single-app-back-btn"
+              onClick={() => navigate('/add-application')}
+            >
+              Back to Add Application
+            </button>
 
             <div className="single-app-header-main">
               <div>
@@ -220,7 +211,6 @@ const [noteError, setNoteError] = useState('');
               </div>
 
               <div className="single-app-header-right">
-                {/* Status pill dropdown */}
                 <div className="status-dropdown">
                   <button
                     type="button"
@@ -258,9 +248,7 @@ const [noteError, setNoteError] = useState('');
                                 ? ' status-pill--active-option'
                                 : '')
                             }
-                            onClick={() =>
-                              handleStatusChangeClick(opt.value)
-                            }
+                            onClick={() => handleStatusChangeClick(opt.value)}
                           >
                             {opt.label}
                           </button>
@@ -281,19 +269,17 @@ const [noteError, setNoteError] = useState('');
                   </a>
                 )}
 
-<button
-  type="button"
-  className="underline-btn single-app-delete-btn"
-  onClick={() => setDeleteOpen(true)}
->
-  Delete
-</button>
-
+                <button
+                  type="button"
+                  className="underline-btn single-app-delete-btn"
+                  onClick={() => setDeleteOpen(true)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </header>
 
-          {/* Meta info card */}
           <section className="single-app-card single-app-meta-card">
             <div className="single-app-meta-grid">
               <div className="single-app-meta-item">
@@ -342,7 +328,6 @@ const [noteError, setNoteError] = useState('');
             </div>
           </section>
 
-          {/* Summary */}
           {app.summary && (
             <section className="single-app-card">
               <h2 className="single-app-section-title">Summary</h2>
@@ -350,7 +335,6 @@ const [noteError, setNoteError] = useState('');
             </section>
           )}
 
-          {/* Responsibilities / Requirements */}
           <section className="single-app-card">
             <div className="single-app-columns">
               <div className="single-app-column">
@@ -383,7 +367,6 @@ const [noteError, setNoteError] = useState('');
             </div>
           </section>
 
-          {/* Nice to have / Perks & benefits */}
           <section className="single-app-card">
             <div className="single-app-columns">
               <div className="single-app-column">
@@ -405,8 +388,7 @@ const [noteError, setNoteError] = useState('');
                 <h2 className="single-app-section-title">
                   Perks & benefits
                 </h2>
-                {app.perksAndBenefits &&
-                app.perksAndBenefits.length > 0 ? (
+                {app.perksAndBenefits && app.perksAndBenefits.length > 0 ? (
                   <ul className="single-app-list">
                     {app.perksAndBenefits.map((item, idx) => (
                       <li key={idx}>{item}</li>
@@ -420,128 +402,126 @@ const [noteError, setNoteError] = useState('');
               </div>
             </div>
           </section>
-{/* Notes */}
-<section className="single-app-card single-app-notes-card">
-  <div className="single-app-notes-header">
-    <h2 className="single-app-title">Notes</h2>
-  </div>
-  {app.notes && app.notes.length > 0 ? (
-    <ul className="single-app-notes-list">
-      {app.notes
-        .slice()
-        .reverse()
-        .map((note) => (
-          <li key={note._id} className="single-app-note-item">
-            <div className="single-app-note-top">
-              <span className="single-app-note-date">
-                {note.createdAt
-                  ? new Date(note.createdAt).toLocaleString()
-                  : ''}
-              </span>
-              <button
-                type="button"
-                className="single-app-note-delete"
-                onClick={() => handleDeleteNote(note._id)}
-              >
-                Delete
-              </button>
+
+          <section className="single-app-card single-app-notes-card">
+            <div className="single-app-notes-header">
+              <h2 className="single-app-title">Notes</h2>
             </div>
-            <p className="single-app-note-text">{note.text}</p>
-          </li>
-        ))}
-    </ul>
-  ) : (
-    <p className="single-app-empty">
-      No notes yet. Use the box above to jot down anything relevant.
-    </p>
-  )}
-  <form className="single-app-notes-form" onSubmit={handleAddNote}>
-    <textarea
-      className="single-app-notes-textarea"
-      placeholder="Add a note about this application (interview prep, feedback, follow-ups)…"
-      value={noteText}
-      onChange={(e) => setNoteText(e.target.value)}
-    />
-    <button
-      type="submit"
-      className="underline-btn add-note"
-      disabled={noteSaving || !noteText.trim()}
-    >
-      {noteSaving ? 'Saving…' : 'Add note'}
-    </button>
-  </form>
 
-  {noteError && <p className="single-app-error">{noteError}</p>}
+            {app.notes && app.notes.length > 0 ? (
+              <ul className="single-app-notes-list">
+                {app.notes
+                  .slice()
+                  .reverse()
+                  .map((note) => (
+                    <li key={note._id} className="single-app-note-item">
+                      <div className="single-app-note-top">
+                        <span className="single-app-note-date">
+                          {note.createdAt
+                            ? new Date(note.createdAt).toLocaleString()
+                            : ''}
+                        </span>
+                        <button
+                          type="button"
+                          className="single-app-note-delete"
+                          onClick={() => handleDeleteNote(note._id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                      <p className="single-app-note-text">{note.text}</p>
+                    </li>
+                  ))}
+              </ul>
+            ) : (
+              <p className="single-app-empty">
+                No notes yet. Use the box above to jot down anything relevant.
+              </p>
+            )}
 
- 
-</section>
-<section className="single-app-card single-app-cover-card">
-  <div className="single-app-cover-header">
-    <h2 className="single-app-section-title">Cover letter</h2>
+            <form className="single-app-notes-form" onSubmit={handleAddNote}>
+              <textarea
+                className="single-app-notes-textarea"
+                placeholder="Add a note about this application (interview prep, feedback, follow-ups)…"
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="underline-btn add-note"
+                disabled={noteSaving || !noteText.trim()}
+              >
+                {noteSaving ? 'Saving…' : 'Add note'}
+              </button>
+            </form>
 
-    <div className="single-app-cover-actions">
-    <button
-  type="button"
-  className="single-app-cover-btn"
-  onClick={handleGenerateCoverLetter}
-  disabled={coverLoading}
->
-  {coverLoading ? (
-    <span className="cover-loading-msg">
-      <span className="cv-spinner"></span>
-      Generating cover letter…
-    </span>
-  ) : (
-    "Generate cover letter"
-  )}
-</button>
+            {noteError && <p className="single-app-error">{noteError}</p>}
+          </section>
 
+          <section className="single-app-card single-app-cover-card">
+            <div className="single-app-cover-header">
+              <h2 className="single-app-section-title">Cover letter</h2>
 
-      <button
-        type="button"
-        className="single-app-cover-copy-btn"
-        onClick={handleCopyCoverLetter}
-        disabled={!coverLetter}
-      >
-        {copied ? 'Copied!' : 'Copy'}
-      </button>
-    </div>
-  </div>
+              <div className="single-app-cover-actions">
+                <button
+                  type="button"
+                  className="single-app-cover-btn"
+                  onClick={handleGenerateCoverLetter}
+                  disabled={coverLoading}
+                >
+                  {coverLoading ? (
+                    <span className="cover-loading-msg">
+                      <span className="cv-spinner"></span>
+                      Generating cover letter…
+                    </span>
+                  ) : (
+                    'Generate cover letter'
+                  )}
+                </button>
 
-  {coverError && <p className="single-app-error">{coverError}</p>}
+                <button
+                  type="button"
+                  className="single-app-cover-copy-btn"
+                  onClick={handleCopyCoverLetter}
+                  disabled={!coverLetter}
+                >
+                  {copied ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+            </div>
 
-  <textarea
-    className="single-app-cover-textarea"
-    placeholder="Your cover letter will appear here. You can edit it before sending."
-    value={coverLetter}
-    onChange={(e) => setCoverLetter(e.target.value)}
-  />
+            {coverError && <p className="single-app-error">{coverError}</p>}
 
-  <button
-    type="button"
-    className="single-app-cover-btn
-    single-app-cover-copy-btn"
-    onClick={async () => {
-      try {
-        setCoverError('');
-        setCoverLoading(true);
-        const updated = await updateCoverLetter(app._id, coverLetter);
-        setApp(updated);
-      } catch (err) {
-        console.error(err);
-        setCoverError(err.message || 'Failed to save cover letter');
-      } finally {
-        setCoverLoading(false);
-      }
-    }}
-    disabled={coverLoading || !coverLetter.trim()}
-  >
-    Save changes
-  </button>
-</section>
+            <textarea
+              className="single-app-cover-textarea"
+              placeholder="Your cover letter will appear here. You can edit it before sending."
+              value={coverLetter}
+              onChange={(e) => setCoverLetter(e.target.value)}
+            />
 
-        
-         
+            <button
+              type="button"
+              className="single-app-cover-btn single-app-cover-copy-btn"
+              onClick={async () => {
+                try {
+                  setCoverError('');
+                  setCoverLoading(true);
+                  const updated = await updateCoverLetter(app._id, coverLetter);
+                  setApp(updated);
+                } catch (err) {
+                  console.error(err);
+                  setCoverError(
+                    err.message || 'Failed to save cover letter'
+                  );
+                } finally {
+                  setCoverLoading(false);
+                }
+              }}
+              disabled={coverLoading || !coverLetter.trim()}
+            >
+              Save changes
+            </button>
+          </section>
         </div>
       </main>
     </>

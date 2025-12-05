@@ -7,16 +7,13 @@ import { UserContext } from '../../contexts/UserContext';
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
-
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
     setUser(null);
     setIsOpen(false);
-    navigate('/sign-in')
-     
+    navigate('/sign-in');
   };
 
   const closeMenu = () => setIsOpen(false);
@@ -24,25 +21,20 @@ const NavBar = () => {
   return (
     <header className="navbar">
       <div className="navbar-inner">
-
-        {/* Brand */}
         <Link to="/dashboard" className="brand" onClick={closeMenu}>
           <p className="logo">Applio/</p>
         </Link>
 
-        {/* BURGER BUTTON (MOBILE) */}
         <button
-          className={`burger ${isOpen ? "burger--open" : ""}`}
-          onClick={() => setIsOpen(prev => !prev)}
+          className={`burger ${isOpen ? 'burger--open' : ''}`}
+          onClick={() => setIsOpen((prev) => !prev)}
         >
           <span />
           <span />
           <span />
         </button>
 
-        {/* NAV LINKS */}
-        <nav className={`nav-links ${isOpen ? "nav-links--open" : ""}`}>
-
+        <nav className={`nav-links ${isOpen ? 'nav-links--open' : ''}`}>
           {user && (
             <>
               <NavLink
