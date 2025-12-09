@@ -1,17 +1,117 @@
-# React + Vite
+# Applio/
+### Smart Job Application Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live App:** https://applio-job-tracker-025135847b67.herokuapp.com/
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Goal
+Applio/ helps job seekers organize and track their entire application process in one place. Instead of scattered notes, browser tabs, and spreadsheets, users can add job links, summarize job descriptions, generate custom cover letters, upload CVs, and follow each application from idea → offer.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧠 Overview & Concept
+Applio/ is a full-stack web application built to simplify job hunting.
 
-## Expanding the ESLint configuration
+Users can:
+- Add job applications manually or using a job URL
+- Automatically extract and clean job-posting content
+- Generate AI-powered summaries and cover letters
+- Upload their CV and auto-fill profile fields
+- Track application status visually (Idea, Applied, Interviewing, Tech Test, Offer, Rejected)
+- Store and edit notes per application
+- Enjoy a clean, responsive UI focused on clarity
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# applywise-frontend
+This project blends **full-stack CRUD**, **web scraping**, **authentication**, and **AI integration** into one polished tool.
+
+---
+
+## 🛠️ Technologies Used
+
+### **Frontend**
+- React (Vite)
+- React Router
+- Context API (Auth state)
+- CSS custom design system (status pills, gradients, animations)
+- Fetch API
+- Heroku (Frontend hosting)
+
+### **Backend**
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT Authentication
+- pdf-parse for CV extraction
+- OpenAI API (summaries + cover letters)
+- node-fetch for scraping
+- CORS, Morgan, dotenv
+- Heroku (Backend hosting)
+
+### **Other Tools**
+- Git / GitHub
+- Intersection Observer for animations
+- Custom URL normalizer utilities
+
+---
+
+## 🚀 Approach Taken
+1. **UI & Design First**  
+   Built a consistent design system: pills, gradients, spacing, and a clean dashboard layout.
+
+2. **Backend Architecture**  
+   Created RESTful routes for:
+   - Authentication
+   - Profile + CV upload/parsing
+   - Job applications CRUD
+   - URL scraping + AI generation endpoints
+
+3. **Scraping & Parsing**  
+   - Normalized job URLs  
+   - Stripped HTML into clean text  
+   - Handled redirects, 403 errors, and blocked pages  
+
+4. **AI Integration**  
+   Implemented endpoints to produce:
+   - Job summaries  
+   - Cover letters  
+
+5. **Frontend Implementation**  
+   - Protected routes with JWT
+   - Dashboard with search + filters
+   - Single application page with status, notes, and actions
+   - File upload UX with loading states
+   - Optimized animations + loaders
+
+6. **Deployment**  
+   Two separate Heroku apps: backend API and React frontend.
+
+---
+
+## 📚 Key Learnings
+- Handling blocked scraping requests (LinkedIn, Indeed)
+- Solving CORS issues between multiple Heroku dynos
+- Structuring scalable full-stack apps
+- Debugging Heroku Vite build errors
+- Clean error feedback and user-friendly loading UX
+- AI prompt tuning for consistency
+
+---
+
+## ⚠️ Challenges
+- 403 responses from job-board URLs
+- Heroku not detecting `server.js` during frontend deployment
+- Vite asset path issues in production
+- Occasional AI response formatting inconsistencies
+- Parsing large CV files with edge-case layouts
+- Overlapping dropdown menus due to absolute positioning
+
+---
+
+## 🐞 Known Bugs / Issues
+- Some job URLs may not scrape correctly (LinkedIn protection)
+- AI responses can take a few seconds on slow networks
+- JSON parse errors if backend returns HTML on failure
+- Dropdowns occasionally appear above overlays
+- Token persistence may break in incognito mode
+
+---
+
