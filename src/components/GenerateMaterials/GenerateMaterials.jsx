@@ -304,7 +304,9 @@ const GenerateMaterials = () => {
         <section className="single-app-card single-app-cover-card">
           <div className="single-app-cover-header">
             <h2 className="single-app-section-title">Cover letter</h2>
-
+            <p className="single-app-card-subtitle">
+              Generate a CV for this specific role based on your profile, then export as PDF.
+            </p>
             <div className="single-app-cover-actions">
               <button
                 type="button"
