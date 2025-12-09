@@ -21,8 +21,8 @@ const ProfilePage = () => {
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
 
-  const [projects, setProjects] = useState([]);       // projects array
-  const [interests, setInterests] = useState([]);   // interests array of strings
+  const [projects, setProjects] = useState([]);
+  const [interests, setInterests] = useState([]);
 
   const [form, setForm] = useState({
     fullName: '',
@@ -53,7 +53,6 @@ const ProfilePage = () => {
             linkedin: profile.links?.linkedin || '',
             github: profile.links?.github || '',
             portfolio: profile.links?.portfolio || '',
-            
           });
 
           setExperience(profile.experience || []);
@@ -107,8 +106,8 @@ const ProfilePage = () => {
 
       setExperience(profile.experience || []);
       setEducation(profile.education || []);
-      setProjects(profile.projects || []);         // NEW
-      setInterests(profile.interests || []);     // NEW
+      setProjects(profile.projects || []);
+      setInterests(profile.interests || []);
     } catch (err) {
       console.error(err);
       setError(err.message || 'Failed to use CV');
@@ -117,7 +116,6 @@ const ProfilePage = () => {
     }
   };
 
-  // ===== Experience helpers =====
   const handleExperienceChange = (index, field, value) => {
     setExperience((prev) =>
       prev.map((exp, i) => (i === index ? { ...exp, [field]: value } : exp))
@@ -126,7 +124,6 @@ const ProfilePage = () => {
 
   const handleAddExperience = () => {
     setExperience((prev) => [
-      
       {
         jobTitle: '',
         company: '',
@@ -143,7 +140,6 @@ const ProfilePage = () => {
     setExperience((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ===== Education helpers =====
   const handleEducationChange = (index, field, value) => {
     setEducation((prev) =>
       prev.map((edu, i) => (i === index ? { ...edu, [field]: value } : edu))
@@ -152,7 +148,6 @@ const ProfilePage = () => {
 
   const handleAddEducation = () => {
     setEducation((prev) => [
-     
       {
         fieldOfStudy: '',
         institution: '',
@@ -168,16 +163,14 @@ const ProfilePage = () => {
     setEducation((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ===== Projects helpers =====
   const handleProjectChange = (index, field, value) => {
     setProjects((prev) =>
       prev.map((proj, i) => (i === index ? { ...proj, [field]: value } : proj))
     );
   };
-  
+
   const handleAddProject = () => {
     setProjects((prev) => [
-      
       {
         name: '',
         tech: '',
@@ -186,13 +179,11 @@ const ProfilePage = () => {
       ...prev,
     ]);
   };
-  
+
   const handleRemoveProject = (index) => {
     setProjects((prev) => prev.filter((_, i) => i !== index));
   };
-  
 
-  // ===== Interests helpers =====
   const handleInterestChange = (index, value) => {
     setInterests((prev) =>
       prev.map((interest, i) => (i === index ? value : interest))
@@ -232,8 +223,8 @@ const ProfilePage = () => {
         },
         experience,
         education,
-        projects,     
-        interests,    
+        projects,
+        interests,
       };
 
       await saveMyProfile(payload);
@@ -284,7 +275,11 @@ const ProfilePage = () => {
               />
             </label>
           </div>
-          <p className="verify-profile">Please review your profile details before saving.</p>
+
+          <p className="verify-profile">
+            Please review your profile details before saving.
+          </p>
+
           <div className="profile-fields">
             <input
               type="text"
@@ -339,8 +334,8 @@ const ProfilePage = () => {
               onChange={handleChange}
             />
           </div>
-                {/* ===== Projects (Editable) ===== */}
-                <section className="profile-section">
+
+          <section className="profile-section">
             <div className="profile-section-heading">
               <h2 className="profile-section-title">Projects</h2>
               <button
@@ -397,7 +392,7 @@ const ProfilePage = () => {
                       className="profile-remove-btn"
                       onClick={() => handleRemoveProject(idx)}
                     >
-                       Remove project
+                      Remove project
                     </button>
                   </li>
                 ))}
@@ -405,7 +400,6 @@ const ProfilePage = () => {
             )}
           </section>
 
-          {/* ===== Experience (Editable) ===== */}
           <section className="profile-section">
             <div className="profile-section-heading">
               <h2 className="profile-section-title">Experience</h2>
@@ -433,7 +427,11 @@ const ProfilePage = () => {
                         placeholder="Job title"
                         value={exp.jobTitle || ''}
                         onChange={(e) =>
-                          handleExperienceChange(idx, 'jobTitle', e.target.value)
+                          handleExperienceChange(
+                            idx,
+                            'jobTitle',
+                            e.target.value
+                          )
                         }
                       />
                       <input
@@ -454,7 +452,11 @@ const ProfilePage = () => {
                         placeholder="Location"
                         value={exp.location || ''}
                         onChange={(e) =>
-                          handleExperienceChange(idx, 'location', e.target.value)
+                          handleExperienceChange(
+                            idx,
+                            'location',
+                            e.target.value
+                          )
                         }
                       />
                     </div>
@@ -466,7 +468,11 @@ const ProfilePage = () => {
                         placeholder="Start date (e.g. Jan 2022)"
                         value={exp.startDate || ''}
                         onChange={(e) =>
-                          handleExperienceChange(idx, 'startDate', e.target.value)
+                          handleExperienceChange(
+                            idx,
+                            'startDate',
+                            e.target.value
+                          )
                         }
                       />
                       <input
@@ -475,7 +481,11 @@ const ProfilePage = () => {
                         placeholder="End date (or Present)"
                         value={exp.endDate || ''}
                         onChange={(e) =>
-                          handleExperienceChange(idx, 'endDate', e.target.value)
+                          handleExperienceChange(
+                            idx,
+                            'endDate',
+                            e.target.value
+                          )
                         }
                       />
                     </div>
@@ -485,7 +495,11 @@ const ProfilePage = () => {
                       placeholder="Short description / key achievements"
                       value={exp.description || ''}
                       onChange={(e) =>
-                        handleExperienceChange(idx, 'description', e.target.value)
+                        handleExperienceChange(
+                          idx,
+                          'description',
+                          e.target.value
+                        )
                       }
                     />
 
@@ -502,7 +516,6 @@ const ProfilePage = () => {
             )}
           </section>
 
-          {/* ===== Education (Editable) ===== */}
           <section className="profile-section">
             <div className="profile-section-heading">
               <h2 className="profile-section-title">Education</h2>
@@ -571,7 +584,11 @@ const ProfilePage = () => {
                         placeholder="Start date"
                         value={edu.startDate || ''}
                         onChange={(e) =>
-                          handleEducationChange(idx, 'startDate', e.target.value)
+                          handleEducationChange(
+                            idx,
+                            'startDate',
+                            e.target.value
+                          )
                         }
                       />
                       <input
@@ -580,7 +597,11 @@ const ProfilePage = () => {
                         placeholder="End date (or Present)"
                         value={edu.endDate || ''}
                         onChange={(e) =>
-                          handleEducationChange(idx, 'endDate', e.target.value)
+                          handleEducationChange(
+                            idx,
+                            'endDate',
+                            e.target.value
+                          )
                         }
                       />
                     </div>
@@ -590,7 +611,7 @@ const ProfilePage = () => {
                       className="profile-remove-btn"
                       onClick={() => handleRemoveEducation(idx)}
                     >
-                       Remove education
+                      Remove education
                     </button>
                   </li>
                 ))}
@@ -598,7 +619,6 @@ const ProfilePage = () => {
             )}
           </section>
 
-          {/* ===== Interests (Editable) ===== */}
           <section className="profile-section">
             <div className="profile-section-heading">
               <h2 className="profile-section-title">Interests</h2>
@@ -613,12 +633,16 @@ const ProfilePage = () => {
 
             {interests.length === 0 ? (
               <p className="profile-section-empty">
-                No interests added yet. Add a few personal / professional interests.
+                No interests added yet. Add a few personal / professional
+                interests.
               </p>
             ) : (
               <ul className="profile-card-list">
                 {interests.map((interest, idx) => (
-                  <li key={idx} className="profile-card-item interests editable-card">
+                  <li
+                    key={idx}
+                    className="profile-card-item interests editable-card"
+                  >
                     <div className="profile-card-row">
                       <input
                         type="text"

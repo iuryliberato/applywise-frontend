@@ -1,11 +1,8 @@
-/* === PAGE LAYOUT === */
-
 .apps-page {
   display: flex;
   justify-content: center;
   padding: 3rem 1.5rem 4rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   margin-top: 20px;
 }
 
@@ -17,8 +14,6 @@
 .apps-title {
   display: none;
 }
-
-/* === SEARCH + FILTER ROW === */
 
 .apps-controls {
   display: flex;
@@ -94,8 +89,6 @@
   font-weight: 600;
 }
 
-/* === META / ERROR TEXT === */
-
 .apps-meta-text {
   font-size: 0.85rem;
   color: #666666;
@@ -107,8 +100,6 @@
   color: #b91c1c;
   margin-bottom: 0.5rem;
 }
-
-/* === TABLE AREA === */
 
 .apps-table-wrapper {
   margin-top: 0.5rem;
@@ -156,8 +147,6 @@
   text-align: right;
 }
 
-/* === STATUS TEXT === */
-
 .apps-status-pill {
   display: inline;
   padding: 0;
@@ -193,16 +182,12 @@
   color: #b91c1c;
 }
 
-/* === EMPTY STATE === */
-
 .apps-empty {
   text-align: left;
   padding: 1.2rem 0;
   font-size: 0.9rem;
   color: #666666;
 }
-
-/* === TOAST === */
 
 .apps-toast {
   position: fixed;
@@ -225,8 +210,6 @@
 .apps-toast--visible {
   opacity: 1;
 }
-
-/* === RESPONSIVE === */
 
 @media (max-width: 768px) {
   .apps-page {

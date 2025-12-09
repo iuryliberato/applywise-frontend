@@ -1,4 +1,3 @@
-// src/pages/ApplicationsPage/ApplicationsPage.jsx
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
@@ -37,7 +36,6 @@ const DashboardPage = () => {
 
   const [toast, setToast] = useState('');
   const [showToast, setShowToast] = useState(false);
-
 
   useEffect(() => {
     const load = async () => {

@@ -233,7 +233,7 @@ const generateAiCv = async (jobId) => {
     throw new Error(body.error || 'Failed to generate AI CV');
   }
 
-  return res.json(); // { cvData }
+  return res.json();
 };
 
 const updateAiCv = async (jobId, cvData) => {
@@ -251,7 +251,7 @@ const updateAiCv = async (jobId, cvData) => {
     throw new Error(body.error || 'Failed to save AI CV');
   }
 
-  return res.json(); // { cvData }
+  return res.json();
 };
 
 const downloadAiCvPdf = async (jobId) => {
@@ -278,8 +278,6 @@ const downloadAiCvPdf = async (jobId) => {
   window.URL.revokeObjectURL(url);
 };
 
-
-
 export {
   createFromLink,
   createManualApplication,
@@ -295,5 +293,5 @@ export {
   deleteNote,
   downloadAiCvPdf,
   updateAiCv,
-  generateAiCv
+  generateAiCv,
 };

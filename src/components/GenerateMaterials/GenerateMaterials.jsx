@@ -18,13 +18,11 @@ const GenerateMaterials = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Cover letter state
   const [coverLetter, setCoverLetter] = useState('');
   const [coverLoading, setCoverLoading] = useState(false);
   const [coverError, setCoverError] = useState('');
   const [copied, setCopied] = useState(false);
 
-  // AI CV state
   const [aiCvData, setAiCvData] = useState(null);
   const [aiCvJson, setAiCvJson] = useState('');
   const [aiCvLoading, setAiCvLoading] = useState(false);
@@ -51,7 +49,6 @@ const GenerateMaterials = () => {
     load();
   }, [id]);
 
-  // ===== Cover letter handlers =====
   const handleGenerateCoverLetter = async () => {
     if (!app) return;
     setCoverError('');
@@ -97,7 +94,6 @@ const GenerateMaterials = () => {
     }
   };
 
-  // ===== AI CV handlers =====
   const handleGenerateAiCv = async () => {
     if (!app) return;
     setAiCvError('');
@@ -140,13 +136,13 @@ const GenerateMaterials = () => {
     }
   };
 
-  // ===== AI CV field helpers =====
   const updateCvField = (field, value) => {
     setAiCvData((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
+
   const updateInterests = (text) => {
     const interests = text
       .split('\n')
@@ -158,8 +154,6 @@ const GenerateMaterials = () => {
       interests,
     }));
   };
-
-  // ========= Render =========
 
   if (loading) {
     return (
@@ -208,7 +202,6 @@ const GenerateMaterials = () => {
           </div>
         </header>
 
-        {/* AI CV card */}
         <section className="single-app-card single-app-cover-card">
           <header className="single-app-card-header">
             <h2 className="single-app-section-title">AI-Tailored CV</h2>
@@ -239,7 +232,6 @@ const GenerateMaterials = () => {
 
           {aiCvData && (
             <div className="single-app-cover-body ai-cv-editor">
-              {/* Top basics */}
               <div className="ai-cv-row">
                 <div className="ai-cv-field">
                   <label>Full name</label>
@@ -264,7 +256,6 @@ const GenerateMaterials = () => {
                 </div>
               </div>
 
-              {/* Summary */}
               <div className="ai-cv-section">
                 <h3>Professional Summary</h3>
                 <textarea
@@ -276,7 +267,6 @@ const GenerateMaterials = () => {
                 />
               </div>
 
-              {/* Actions */}
               <div className="single-app-cover-actions">
                 <button
                   type="button"
@@ -300,7 +290,6 @@ const GenerateMaterials = () => {
           )}
         </section>
 
-        {/* Cover letter card */}
         <section className="single-app-card single-app-cover-card">
           <div className="single-app-cover-header">
             <h2 className="single-app-section-title">Cover letter</h2>

@@ -1,254 +1,221 @@
-/* ===========================
-   Page layout
-   =========================== */
+.add-app-page {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
 
-   .add-app-page {
-    display: flex;
-    justify-content: center;
-    padding: 3rem 1.5rem 4rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-  
-  .add-app-container {
-    width: 100%;
-    max-width: 720px;
-    text-align: center;
-  }
-  
-  .add-app-title {
-    display: none;
-  }
-  
-  /* ===========================
-     Top link form
-     =========================== */
-  
-  .add-app-card {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .link-loading-msg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-weight: 600;
-    color: #2f5b43;
-  }
-  
-  .add-app-subtitle {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    margin: 0 0 0.15rem;
-    font-weight: 250;
-  }
-  
+.add-app-container {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+}
+
+.add-app-title {
+  display: none;
+}
+
+.add-app-card {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-loading-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #2f5b43;
+}
+
+.add-app-subtitle {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.15rem;
+  font-weight: 250;
+}
+
+.add-app-link-form {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.add-app-input {
+  border: none;
+  border-bottom: 1px solid #111111;
+  border-radius: 0;
+  padding: 0.15rem 0 0.3rem;
+  background: transparent;
+  font-size: 0.8rem;
+  max-width: 720px;
+  outline: none;
+  text-align: left;
+}
+
+.add-app-input::placeholder {
+  font-size: 0.8rem;
+  color: #555555;
+}
+
+.add-app-input:focus {
+  border-bottom-width: 2px;
+}
+
+.add-app-primary-btn {
+  border: none;
+  background: #d4d4d4;
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.add-app-primary-btn::before {
+  content: '+';
+  color: #15803d;
+  font-weight: 700;
+}
+
+.add-app-primary-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.add-app-divider {
+  margin-top: 4rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #888;
+}
+
+.add-app-btn {
+  margin-top: 1.5rem;
+}
+
+.add-app-link-form .add-app-btn {
+  margin-top: 0;
+  margin-left: 2rem;
+}
+
+.add-app-btn--left {
+  align-self: flex-start;
+  margin-top: 2rem;
+}
+
+.add-app-error {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #b91c1c;
+}
+
+.add-app-manual-card {
+  margin-top: 3rem;
+}
+
+.add-app-section-title {
+  margin: 5rem 0 3rem;
+  font-size: 4rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: left;
+}
+
+.status {
+  font-size: 20px;
+  width: 210px;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.add-app-manual-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  text-align: left;
+}
+
+.add-app-two-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.add-app-textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.add-app-select {
+  padding: 0.15rem 0 0.3rem;
+  background: transparent;
+  appearance: none;
+}
+
+.add-app-manual-form .add-app-primary-btn {
+  align-self: flex-start;
+  margin-top: 1.6rem;
+}
+
+.status-idea {
+  color: #b05601;
+}
+
+.status-applied {
+  color: #107435;
+}
+
+.status-interviewing {
+  color: #b45309;
+}
+
+.status-tech-test {
+  color: #3000a1;
+}
+
+.status-offer {
+  color: #1e6d61;
+}
+
+.status-rejected {
+  color: #c90000;
+}
+
+@media (max-width: 768px) {
   .add-app-link-form {
-    margin-top: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-  }
-  
-  .add-app-input {
-    border: none;
-    border-bottom: 1px solid #111111;
-    border-radius: 0;
-    padding: 0.15rem 0 0.3rem;
-    background: transparent;
-    font-size: 0.8rem;
-    max-width: 720px;
-    outline: none;
-    text-align: left;
-  }
-  
-  .add-app-input::placeholder {
-    font-size: 0.8rem;
-    color: #555555;
-  }
-  
-  .add-app-input:focus {
-    border-bottom-width: 2px;
-  }
-  
-  /* ===========================
-     Primary button: +APPLICATION
-     =========================== */
-  
-  .add-app-primary-btn {
-    border: none;
-    background: #d4d4d4;
-    padding: 0.5rem 1.5rem;
-    border-radius: 999px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: #111111;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-  
-  .add-app-primary-btn::before {
-    content: '+';
-    color: #15803d;
-    font-weight: 700;
-  }
-  
-  .add-app-primary-btn:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-  
-  /* ===========================
-     "Or" + secondary button
-     =========================== */
-  
-  .add-app-divider {
-    margin-top: 4rem;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #888;
-  }
-  
-  .add-app-btn {
-    margin-top: 1.5rem;
-  }
-  
-  .add-app-link-form .add-app-btn {
-    margin-top: 0;
-    margin-left: 2rem;
-  }
-  
-  .add-app-btn--left {
-    align-self: flex-start;
-    margin-top: 2rem;
-  }
-  
-  /* ===========================
-     Errors
-     =========================== */
-  
-  .add-app-error {
-    margin-top: 0.6rem;
-    font-size: 0.8rem;
-    color: #b91c1c;
-  }
-  
-  /* ===========================
-     Manual application form
-     =========================== */
-  
-  .add-app-manual-card {
-    margin-top: 3rem;
-  }
-  
-  .add-app-section-title {
-    margin: 5rem 0 3rem;
-    font-size: 4rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 600;
-    text-align: left;
-  }
-  
-  .status {
-    font-size: 20px;
-    width: 210px;
-    letter-spacing: 0.1rem;
-    text-transform: uppercase;
-  }
-  
-  .add-app-manual-form {
-    display: flex;
     flex-direction: column;
-    gap: 0.9rem;
-    text-align: left;
-  }
-  
-  .add-app-two-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: stretch;
     gap: 1.5rem;
   }
-  
-  .add-app-textarea {
-    min-height: 72px;
-    resize: vertical;
+
+  .add-app-input {
+    width: 100%;
   }
-  
-  .add-app-select {
-    padding: 0.15rem 0 0.3rem;
-    background: transparent;
-    appearance: none;
+
+  .add-app-section-title {
+    font-size: 2rem;
   }
-  
+
+  .add-app-two-col {
+    grid-template-columns: 1fr;
+  }
+
   .add-app-manual-form .add-app-primary-btn {
-    align-self: flex-start;
-    margin-top: 1.6rem;
+    align-self: center;
   }
-  
-  /* ===========================
-     Status Colors
-     =========================== */
-  
-  .status-idea {
-    color: #b05601;
-  }
-  
-  .status-applied {
-    color: #107435;
-  }
-  
-  .status-interviewing {
-    color: #b45309;
-  }
-  
-  .status-tech-test {
-    color: #3000a1;
-  }
-  
-  .status-offer {
-    color: #1e6d61;
-  }
-  
-  .status-rejected {
-    color: #c90000;
-  }
-  
-  /* ===========================
-     Responsive
-     =========================== */
-  
-  @media (max-width: 768px) {
-    .add-app-link-form {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1.5rem;
-    }
-  
-    .add-app-input {
-      width: 100%;
-    }
-  
-    .add-app-section-title {
-      font-size: 2rem;
-    }
-  
-    .add-app-two-col {
-      grid-template-columns: 1fr;
-    }
-  
-    .add-app-manual-form .add-app-primary-btn {
-      align-self: center;
-    }
-  }
-  
+}

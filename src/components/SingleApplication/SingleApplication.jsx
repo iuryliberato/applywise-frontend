@@ -310,7 +310,6 @@ const SingleApplicationPage = () => {
             </section>
           )}
 
-          {/* Responsibilities / Requirements */}
           <section className="single-app-card">
             <div className="single-app-columns">
               <div className="single-app-column">
@@ -343,7 +342,6 @@ const SingleApplicationPage = () => {
             </div>
           </section>
 
-          {/* Nice to have / Perks */}
           <section className="single-app-card">
             <div className="single-app-columns">
               <div className="single-app-column">
@@ -379,7 +377,6 @@ const SingleApplicationPage = () => {
               </div>
             </div>
           </section>
-           {/* 🔗 New: Generate materials card */}
            <section className="single-app-card single-app-cover-card">
             <header className="single-app-card-header">
               <p className="single-app-card-subtitle">
