@@ -142,10 +142,14 @@
 
 .profile-textarea {
   resize: vertical;
-  min-height: 72px;
+  height: 50px;
 }
 
 /* === GENERIC SECTION (EXPERIENCE / EDUCATION) === */
+
+.profile-card-row {
+  display: flex;
+}
 
 .profile-section {
   padding: 0;
@@ -163,9 +167,6 @@
   text-align: left;
 }
 
-.profile-section:first-of-type .profile-section-title {
-  text-align: right;
-}
 
 .profile-section-empty {
   font-size: 0.8rem;
@@ -182,8 +183,8 @@
 
 .profile-card-item {
   padding: 0.5rem 0 0.7rem;
-  border-bottom: 1px solid #111111;
   background: transparent;
+  margin: 20px 0;
 }
 
 .profile-card-header {
@@ -295,6 +296,24 @@
   font-size: 0.8rem;
   margin-top: 0.4rem;
 }
+.profile-add-btn {
+  border: 0;
+  color: #15803d;
+  font-weight: 550;
+  cursor: pointer;
+}
+.profile-remove-btn {
+  background-color: #d8dbd8;
+  padding: 7px 10px;
+  font-size: 0.8rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font-weight: 590;
+  letter-spacing: 0.06rem;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
 
 /* === CV LOADING SPINNER === */
 

@@ -296,6 +296,7 @@
   font-weight: 600;
   letter-spacing: 0.05rem;
   margin: 10px 0;
+  cursor: pointer;
 }
 
 /* cover text box */
@@ -515,6 +516,64 @@
   cursor: default;
   box-shadow: none;
 }
+
+.ai-cv-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ai-cv-section {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.ai-cv-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+textarea {
+  font-family: inherit;
+    font-size: 15px;
+    width: 100%;
+    border: grey;
+    padding: 0.5rem 0.3rem;
+    border-radius: 0.4rem;
+    height: 7rem;
+    background-color: #fffdf6;
+}
+.ai-cv-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #555;
+}
+
+.ai-cv-field input,
+.ai-cv-field textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  background-color: #fffdf6;
+}
+.ai-cv-project-block {
+  border: 1px solid #eee;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ai-cv-hint {
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+
+
 
 /* ============ RESPONSIVE ============ */
 

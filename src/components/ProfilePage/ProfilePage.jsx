@@ -21,6 +21,9 @@ const ProfilePage = () => {
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
 
+  const [project, setProject] = useState([]);       // projects array
+  const [interests, setInterests] = useState([]);   // interests array of strings
+
   const [form, setForm] = useState({
     fullName: '',
     headline: '',
@@ -50,10 +53,13 @@ const ProfilePage = () => {
             linkedin: profile.links?.linkedin || '',
             github: profile.links?.github || '',
             portfolio: profile.links?.portfolio || '',
+            
           });
 
           setExperience(profile.experience || []);
           setEducation(profile.education || []);
+          setProject(profile.projects || []);
+          setInterests(profile.interests || []);
         }
       } catch (err) {
         console.log(err);
@@ -101,12 +107,100 @@ const ProfilePage = () => {
 
       setExperience(profile.experience || []);
       setEducation(profile.education || []);
+      setProject(profile.projects || []);         // NEW
+      setInterests(profile.interests || []);     // NEW
     } catch (err) {
       console.error(err);
       setError(err.message || 'Failed to use CV');
     } finally {
       setCvLoading(false);
     }
+  };
+
+  // ===== Experience helpers =====
+  const handleExperienceChange = (index, field, value) => {
+    setExperience((prev) =>
+      prev.map((exp, i) => (i === index ? { ...exp, [field]: value } : exp))
+    );
+  };
+
+  const handleAddExperience = () => {
+    setExperience((prev) => [
+      ...prev,
+      {
+        jobTitle: '',
+        company: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        description: '',
+      },
+    ]);
+  };
+
+  const handleRemoveExperience = (index) => {
+    setExperience((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // ===== Education helpers =====
+  const handleEducationChange = (index, field, value) => {
+    setEducation((prev) =>
+      prev.map((edu, i) => (i === index ? { ...edu, [field]: value } : edu))
+    );
+  };
+
+  const handleAddEducation = () => {
+    setEducation((prev) => [
+      ...prev,
+      {
+        fieldOfStudy: '',
+        institution: '',
+        degree: '',
+        startDate: '',
+        endDate: '',
+      },
+    ]);
+  };
+
+  const handleRemoveEducation = (index) => {
+    setEducation((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // ===== Projects helpers =====
+  const handleProjectChange = (index, field, value) => {
+    setProject((prev) =>
+      prev.map((proj, i) => (i === index ? { ...proj, [field]: value } : proj))
+    );
+  };
+
+  const handleAddProject = () => {
+    setProject((prev) => [
+      ...prev,
+      {
+        name: '',
+        tech: '',
+        description: '',
+      },
+    ]);
+  };
+
+  const handleRemoveProject = (index) => {
+    setProject((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // ===== Interests helpers =====
+  const handleInterestChange = (index, value) => {
+    setInterests((prev) =>
+      prev.map((interest, i) => (i === index ? value : interest))
+    );
+  };
+
+  const handleAddInterest = () => {
+    setInterests((prev) => [...prev, '']);
+  };
+
+  const handleRemoveInterest = (index) => {
+    setInterests((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -132,6 +226,10 @@ const ProfilePage = () => {
           github: form.github,
           portfolio: form.portfolio,
         },
+        experience,
+        education,
+        project,      // NEW: matches projectSchema
+        interests,    // NEW: array of strings
       };
 
       await saveMyProfile(payload);
@@ -237,80 +335,303 @@ const ProfilePage = () => {
               onChange={handleChange}
             />
           </div>
-
-          <section className="profile-section">
-            <h2 className="profile-section-title">Experience</h2>
-
-            {experience.length === 0 ? (
+                {/* ===== Projects (Editable) ===== */}
+                <section className="profile-section">
+            <div className="profile-section-heading">
+              <h2 className="profile-section-title">Projects</h2>
+              <button
+                type="button"
+                className="profile-add-btn"
+                onClick={handleAddProject}
+              >
+                + ADD PROJECT
+              </button>
+            </div>
+            {project.length === 0 ? (
               <p className="profile-section-empty">
-                No experience data yet. Upload your CV to auto-populate this
-                section.
+                No projects added yet. Add your key portfolio projects here.
               </p>
             ) : (
               <ul className="profile-card-list">
-                {experience.map((exp, idx) => (
-                  <li key={idx} className="profile-card-item">
-                    <div className="profile-card-header">
-                      <h3>{exp.jobTitle || 'Role'}</h3>
-                      {exp.company && (
-                        <span className="profile-card-company">
-                          {exp.company}
-                        </span>
-                      )}
+                {project.map((proj, idx) => (
+                  <li key={idx} className="profile-card-item editable-card">
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Project name"
+                        value={proj.name || ''}
+                        onChange={(e) =>
+                          handleProjectChange(idx, 'name', e.target.value)
+                        }
+                      />
                     </div>
 
-                    <div className="profile-card-meta">
-                      {exp.location && <span>{exp.location}</span>}
-                      {(exp.startDate || exp.endDate) && (
-                        <span>
-                          {exp.startDate || ''}{' '}
-                          {exp.startDate && exp.endDate ? '–' : ''}
-                          {exp.endDate || ''}
-                        </span>
-                      )}
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Tech used (e.g. React, Node, MongoDB)"
+                        value={proj.tech || ''}
+                        onChange={(e) =>
+                          handleProjectChange(idx, 'tech', e.target.value)
+                        }
+                      />
                     </div>
 
-                    {exp.description && (
-                      <p className="profile-card-description">
-                        {exp.description}
-                      </p>
-                    )}
+                    <textarea
+                      className="profile-input profile-textarea"
+                      placeholder="Short description of the project and your impact"
+                      value={proj.description || ''}
+                      onChange={(e) =>
+                        handleProjectChange(idx, 'description', e.target.value)
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      className="profile-remove-btn"
+                      onClick={() => handleRemoveProject(idx)}
+                    >
+                       Remove project
+                    </button>
                   </li>
                 ))}
               </ul>
             )}
           </section>
 
+          {/* ===== Experience (Editable) ===== */}
           <section className="profile-section">
-            <h2 className="profile-section-title">Education</h2>
+            <div className="profile-section-heading">
+              <h2 className="profile-section-title">Experience</h2>
+              <button
+                type="button"
+                className="profile-add-btn"
+                onClick={handleAddExperience}
+              >
+                + ADD EXPERIENCE
+              </button>
+            </div>
+
+            {experience.length === 0 ? (
+              <p className="profile-section-empty">
+                No experience data yet. Upload your CV or add entries manually.
+              </p>
+            ) : (
+              <ul className="profile-card-list">
+                {experience.map((exp, idx) => (
+                  <li key={idx} className="profile-card-item editable-card">
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Job title"
+                        value={exp.jobTitle || ''}
+                        onChange={(e) =>
+                          handleExperienceChange(idx, 'jobTitle', e.target.value)
+                        }
+                      />
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Company"
+                        value={exp.company || ''}
+                        onChange={(e) =>
+                          handleExperienceChange(idx, 'company', e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Location"
+                        value={exp.location || ''}
+                        onChange={(e) =>
+                          handleExperienceChange(idx, 'location', e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="profile-card-row profile-dates-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Start date (e.g. Jan 2022)"
+                        value={exp.startDate || ''}
+                        onChange={(e) =>
+                          handleExperienceChange(idx, 'startDate', e.target.value)
+                        }
+                      />
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="End date (or Present)"
+                        value={exp.endDate || ''}
+                        onChange={(e) =>
+                          handleExperienceChange(idx, 'endDate', e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <textarea
+                      className="profile-input profile-textarea"
+                      placeholder="Short description / key achievements"
+                      value={exp.description || ''}
+                      onChange={(e) =>
+                        handleExperienceChange(idx, 'description', e.target.value)
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      className="profile-remove-btn"
+                      onClick={() => handleRemoveExperience(idx)}
+                    >
+                      Remove experience
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          {/* ===== Education (Editable) ===== */}
+          <section className="profile-section">
+            <div className="profile-section-heading">
+              <h2 className="profile-section-title">Education</h2>
+              <button
+                type="button"
+                className="profile-add-btn"
+                onClick={handleAddEducation}
+              >
+                + ADD EDUCATION
+              </button>
+            </div>
 
             {education.length === 0 ? (
               <p className="profile-section-empty">
-                No education data yet. Upload your CV to auto-populate this
-                section.
+                No education data yet. Upload your CV or add entries manually.
               </p>
             ) : (
               <ul className="profile-card-list">
                 {education.map((edu, idx) => (
-                  <li key={idx} className="profile-card-item">
-                    <div className="profile-card-header">
-                      <h3>{edu.fieldOfStudy || 'Course'}</h3>
-                      {edu.institution && (
-                        <span className="profile-card-company">
-                          {edu.institution}
-                        </span>
-                      )}
+                  <li key={idx} className="profile-card-item editable-card">
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Course / field of study"
+                        value={edu.fieldOfStudy || ''}
+                        onChange={(e) =>
+                          handleEducationChange(
+                            idx,
+                            'fieldOfStudy',
+                            e.target.value
+                          )
+                        }
+                      />
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Institution"
+                        value={edu.institution || ''}
+                        onChange={(e) =>
+                          handleEducationChange(
+                            idx,
+                            'institution',
+                            e.target.value
+                          )
+                        }
+                      />
                     </div>
 
-                    <div className="profile-card-meta">
-                      {edu.degree && <span>{edu.degree}</span>}
-                      {(edu.startDate || edu.endDate) && (
-                        <span>
-                          {edu.startDate || ''}{' '}
-                          {edu.startDate && edu.endDate ? '–' : ''}
-                          {edu.endDate || ''}
-                        </span>
-                      )}
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Degree (e.g. BSc, Bootcamp)"
+                        value={edu.degree || ''}
+                        onChange={(e) =>
+                          handleEducationChange(idx, 'degree', e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="profile-card-row profile-dates-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="Start date"
+                        value={edu.startDate || ''}
+                        onChange={(e) =>
+                          handleEducationChange(idx, 'startDate', e.target.value)
+                        }
+                      />
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="End date (or Present)"
+                        value={edu.endDate || ''}
+                        onChange={(e) =>
+                          handleEducationChange(idx, 'endDate', e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <button
+                      type="button"
+                      className="profile-remove-btn"
+                      onClick={() => handleRemoveEducation(idx)}
+                    >
+                       Remove education
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          {/* ===== Interests (Editable) ===== */}
+          <section className="profile-section">
+            <div className="profile-section-heading">
+              <h2 className="profile-section-title">Interests</h2>
+              <button
+                type="button"
+                className="profile-add-btn"
+                onClick={handleAddInterest}
+              >
+                + ADD INTERESTS
+              </button>
+            </div>
+
+            {interests.length === 0 ? (
+              <p className="profile-section-empty">
+                No interests added yet. Add a few personal / professional interests.
+              </p>
+            ) : (
+              <ul className="profile-card-list">
+                {interests.map((interest, idx) => (
+                  <li key={idx} className="profile-card-item interests editable-card">
+                    <div className="profile-card-row">
+                      <input
+                        type="text"
+                        className="profile-input"
+                        placeholder="e.g. UI design, accessibility, hiking"
+                        value={interest || ''}
+                        onChange={(e) =>
+                          handleInterestChange(idx, e.target.value)
+                        }
+                      />
+                      <button
+                        type="button"
+                        className="profile-remove-btn"
+                        onClick={() => handleRemoveInterest(idx)}
+                      >
+                        Remove
+                      </button>
                     </div>
                   </li>
                 ))}

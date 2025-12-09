@@ -219,6 +219,67 @@ const deleteNote = async (appId, noteId) => {
   return data;
 };
 
+const generateAiCv = async (jobId) => {
+  const res = await fetch(`${BASE_URL}/${jobId}/ai-cv`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders(),
+    },
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || 'Failed to generate AI CV');
+  }
+
+  return res.json(); // { cvData }
+};
+
+const updateAiCv = async (jobId, cvData) => {
+  const res = await fetch(`${BASE_URL}/${jobId}/ai-cv`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify({ cvData }),
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || 'Failed to save AI CV');
+  }
+
+  return res.json(); // { cvData }
+};
+
+const downloadAiCvPdf = async (jobId) => {
+  const res = await fetch(`${BASE_URL}/${jobId}/ai-cv/pdf`, {
+    method: 'GET',
+    headers: {
+      ...getAuthHeaders(),
+    },
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || 'Failed to download AI CV PDF');
+  }
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'applio-ai-cv.pdf';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+};
+
+
+
 export {
   createFromLink,
   createManualApplication,
@@ -232,4 +293,7 @@ export {
   addNote,
   updateNote,
   deleteNote,
+  downloadAiCvPdf,
+  updateAiCv,
+  generateAiCv
 };

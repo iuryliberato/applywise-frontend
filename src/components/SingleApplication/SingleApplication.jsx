@@ -7,9 +7,12 @@ import {
   generateCoverLetter,
   deleteApplication,
   addNote,
-  updateNote,
   updateCoverLetter,
   deleteNote,
+  generateAiCv,
+  updateAiCv,
+  downloadAiCvPdf
+
 } from '../../services/jobApplicationService';
 
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModel';
@@ -45,12 +48,25 @@ const SingleApplicationPage = () => {
   const [noteSaving, setNoteSaving] = useState(false);
   const [noteError, setNoteError] = useState('');
 
+  const [aiCvJson, setAiCvJson] = useState('');
+  const [aiCvData, setAiCvData] = useState(null);
+  const [aiCvLoading, setAiCvLoading] = useState(false);
+  const [aiCvSaving, setAiCvSaving] = useState(false);
+  const [aiCvError, setAiCvError] = useState('');
+  
+  
+
+
   useEffect(() => {
     const load = async () => {
       try {
         const data = await getOneApplication(id);
         setApp(data);
         setCoverLetter(data.coverLetter || '');
+        if (data.aiCvData) {
+          setAiCvData(data.aiCvData);
+          setAiCvJson(JSON.stringify(data.aiCvData, null, 2)); 
+        }
       } catch (err) {
         console.error(err);
         setError(err.message || 'Failed to load application');
@@ -60,6 +76,7 @@ const SingleApplicationPage = () => {
     };
     load();
   }, [id]);
+  
 
   if (loading) {
     return (
@@ -68,6 +85,121 @@ const SingleApplicationPage = () => {
       </main>
     );
   }
+  const handleGenerateAiCv = async () => {
+    if (!app) return;
+    setAiCvError('');
+    setAiCvLoading(true);
+    try {
+      const { cvData } = await generateAiCv(app._id);
+      setAiCvData(cvData);
+      setAiCvJson(JSON.stringify(cvData, null, 2));
+    } catch (err) {
+      setAiCvError(err.message);
+    }
+    setAiCvLoading(false);
+  };
+  
+  
+  const handleSaveAiCv = async () => {
+    if (!aiCvData) {
+      setAiCvError('No CV data to save.');
+      return;
+    }
+  
+    setAiCvSaving(true);
+    try {
+      const { cvData } = await updateAiCv(app._id, aiCvData);
+      setAiCvData(cvData);
+      setAiCvJson(JSON.stringify(cvData, null, 2));
+    } catch (err) {
+      setAiCvError(err.message);
+    }
+    setAiCvSaving(false);
+  };
+  
+  
+  const handleDownloadAiCvPdf = async () => {
+    try {
+      await downloadAiCvPdf(app._id);
+    } catch (err) {
+      setAiCvError(err.message);
+    }
+  };
+  
+  const updateCvField = (field, value) => {
+    setAiCvData(prev => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+  
+  const updateExperienceField = (index, field, value) => {
+    setAiCvData(prev => {
+      const experience = [...(prev.experience || [])];
+      experience[index] = { ...(experience[index] || {}), [field]: value };
+      return { ...prev, experience };
+    });
+  };
+  
+  const updateEducationField = (index, field, value) => {
+    setAiCvData(prev => {
+      const education = [...(prev.education || [])];
+      education[index] = { ...(education[index] || {}), [field]: value };
+      return { ...prev, education };
+    });
+  };
+  const updateExperienceBullets = (index, text) => {
+    const bullets = text
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean);
+  
+    updateExperienceField(index, 'bullets', bullets);
+  };
+  const updateSkillsCategory = (category, text) => {
+    const items = text
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean);
+  
+    setAiCvData(prev => ({
+      ...prev,
+      skills: {
+        ...(prev.skills || {}),
+        [category]: items,
+      },
+    }));
+  };
+  
+  const updateProjectField = (index, field, value) => {
+    setAiCvData(prev => {
+      const projects = [...(prev.projects || [])];
+      projects[index] = { ...(projects[index] || {}), [field]: value };
+      return { ...prev, projects };
+    });
+  };
+  
+  const updateProjectBullets = (index, text) => {
+    const bullets = text
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean);
+  
+    updateProjectField(index, 'bullets', bullets);
+  };
+  
+  const updateInterests = (text) => {
+    const interests = text
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean);
+  
+    setAiCvData(prev => ({
+      ...prev,
+      interests,
+    }));
+  };
+  
 
   const handleCopyCoverLetter = async () => {
     if (!coverLetter) return;
@@ -181,6 +313,8 @@ const SingleApplicationPage = () => {
   const statusLabel =
     STATUS_OPTIONS.find((opt) => opt.value === statusKey)?.label || statusKey;
   const statusClassKey = statusKey.toLowerCase();
+
+  
 
   return (
     <>
@@ -457,8 +591,106 @@ const SingleApplicationPage = () => {
 
             {noteError && <p className="single-app-error">{noteError}</p>}
           </section>
-
           <section className="single-app-card single-app-cover-card">
+  <header className="single-app-card-header">
+    <h2 className="single-app-section-title">AI-Tailored CV</h2>
+    <p className="single-app-card-subtitle">
+      Generate a CV for this specific role based on your profile, then export as PDF.
+    </p>
+  </header>
+
+  <div className="single-app-cover-actions">
+    <button
+      type="button"
+      className="single-app-cover-btn"
+      onClick={handleGenerateAiCv}
+      disabled={aiCvLoading}
+    >
+      {aiCvLoading ? (
+        <span className="cover-loading-msg">
+          <span className="cv-spinner"></span>
+          Generating CV…
+        </span>
+      ) : (
+        'Generate AI CV'
+      )}
+    </button>
+  </div>
+
+  {aiCvError && <p className="error-msg">{aiCvError}</p>}
+
+  {aiCvData && (
+    <div className="single-app-cover-body ai-cv-editor">
+      {/* Top basics */}
+      <div className="ai-cv-row">
+        <div className="ai-cv-field">
+          <label>Full name</label>
+          <input
+            type="text"
+            value={aiCvData.fullName || ''}
+            onChange={e => updateCvField('fullName', e.target.value)}
+          />
+        </div>
+
+        <div className="ai-cv-field">
+          <label>Headline</label>
+          <input
+            type="text"
+            value={aiCvData.headline || ''}
+            onChange={e => updateCvField('headline', e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* Summary */}
+      <div className="ai-cv-section">
+        <h3>Professional Summary</h3>
+        <textarea
+          rows={4}
+          value={aiCvData.summary || ''}
+          onChange={e => updateCvField('summary', e.target.value)}
+        />
+      </div>
+
+      {/* Interests */}
+<div className="ai-cv-section">
+  <h3>Interests</h3>
+  <p className="ai-cv-hint">
+    One interest per line (e.g. Open-source, hiking, mentoring juniors).
+  </p>
+  <textarea
+    rows={3}
+    value={(aiCvData.interests || []).join('\n')}
+    onChange={e => updateInterests(e.target.value)}
+  />
+</div>
+
+
+      {/* Actions */}
+      <div className="single-app-cover-actions">
+        <button
+          type="button"
+          className="single-app-cover-copy-btn"
+          onClick={handleSaveAiCv}
+          disabled={aiCvSaving}
+        >
+          {aiCvSaving ? 'Saving…' : 'Save CV changes'}
+        </button>
+
+        <button
+          type="button"
+          className="single-app-cover-copy-btn"
+          onClick={handleDownloadAiCvPdf}
+          disabled={!aiCvData || aiCvLoading || aiCvSaving}
+        >
+          Export as PDF
+        </button>
+      </div>
+    </div>
+  )}
+</section>
+
+<section className="single-app-card single-app-cover-card">
             <div className="single-app-cover-header">
               <h2 className="single-app-section-title">Cover letter</h2>
 
@@ -522,10 +754,14 @@ const SingleApplicationPage = () => {
               Save changes
             </button>
           </section>
+
         </div>
+      
+
       </main>
     </>
   );
 };
 
 export default SingleApplicationPage;
+
