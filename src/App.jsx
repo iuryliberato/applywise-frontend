@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/DashboardPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import AddApplicationPage from './components/AddApplicationPage/AddApplicationPage'
 import SingleApplicationPage from './components/SingleApplication/SingleApplication';
+import GenerateMaterials from './components/GenerateMaterials/GenerateMaterials';
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -52,6 +53,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <SingleApplicationPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/application/:id/generate-materials"
+            element={
+              <ProtectedRoute>
+                <GenerateMaterials />
               </ProtectedRoute>
             }
           />

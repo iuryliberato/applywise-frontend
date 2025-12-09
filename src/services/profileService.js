@@ -36,7 +36,7 @@ const getMyProfile = async () => {
 const saveMyProfile = async (profileData) => {
   try {
     const res = await fetch(`${BASE_URL}/my-profile`, {
-      method: 'POST',
+      method: 'PUT',
       headers: getAuthHeaders(),
       body: JSON.stringify(profileData),
     });

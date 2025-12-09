@@ -40,7 +40,12 @@
 }
 
 /* === MAIN FORM WRAPPER === */
-
+.verify-profile {
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+}
 .profile-card {
   background: transparent;
   display: flex;
@@ -54,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 3rem 0;
+  margin: 1.5em 0;
   font-size: 0.85rem;
   letter-spacing: 0.08em;
   cursor: pointer;
@@ -182,9 +187,8 @@
 }
 
 .profile-card-item {
-  padding: 0.5rem 0 0.7rem;
   background: transparent;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
 .profile-card-header {

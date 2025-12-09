@@ -40,7 +40,7 @@
 
 .single-app-title {
   margin: 0;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 600;
   color: #111111;
 }
@@ -262,6 +262,7 @@
 
 .single-app-cover-card {
   margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .single-app-cover-header {
@@ -274,7 +275,7 @@
 /* Big “Cover Letter” heading */
 .single-app-cover-card .single-app-section-title {
   border: none;
-  font-size: 4rem;
+  font-size: 2rem;
   letter-spacing: 0;
   font-weight: 600;
 }
@@ -285,18 +286,24 @@
   align-items: center;
 }
 
+.header-single-application {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Use your global underline button style */
 .single-app-cover-btn,
 .single-app-cover-copy-btn {
-  background-color: #d8dbd8;
+  background-color: #006b00;
   padding: 10px 20px;
   font-size: 1rem;
   border: 0;
   border-radius: 0.5rem;
-  font-weight: 600;
-  letter-spacing: 0.05rem;
-  margin: 10px 0;
+  font-weight: 550;
+  letter-spacing: 0.07rem;
+  margin: 10px 0 0 0;
   cursor: pointer;
+  color: white;
 }
 
 /* cover text box */

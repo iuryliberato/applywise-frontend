@@ -21,7 +21,7 @@ const ProfilePage = () => {
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
 
-  const [project, setProject] = useState([]);       // projects array
+  const [projects, setProjects] = useState([]);       // projects array
   const [interests, setInterests] = useState([]);   // interests array of strings
 
   const [form, setForm] = useState({
@@ -58,7 +58,7 @@ const ProfilePage = () => {
 
           setExperience(profile.experience || []);
           setEducation(profile.education || []);
-          setProject(profile.projects || []);
+          setProjects(profile.projects || []);
           setInterests(profile.interests || []);
         }
       } catch (err) {
@@ -107,7 +107,7 @@ const ProfilePage = () => {
 
       setExperience(profile.experience || []);
       setEducation(profile.education || []);
-      setProject(profile.projects || []);         // NEW
+      setProjects(profile.projects || []);         // NEW
       setInterests(profile.interests || []);     // NEW
     } catch (err) {
       console.error(err);
@@ -126,7 +126,7 @@ const ProfilePage = () => {
 
   const handleAddExperience = () => {
     setExperience((prev) => [
-      ...prev,
+      
       {
         jobTitle: '',
         company: '',
@@ -135,6 +135,7 @@ const ProfilePage = () => {
         endDate: '',
         description: '',
       },
+      ...prev,
     ]);
   };
 
@@ -151,7 +152,7 @@ const ProfilePage = () => {
 
   const handleAddEducation = () => {
     setEducation((prev) => [
-      ...prev,
+     
       {
         fieldOfStudy: '',
         institution: '',
@@ -159,6 +160,7 @@ const ProfilePage = () => {
         startDate: '',
         endDate: '',
       },
+      ...prev,
     ]);
   };
 
@@ -168,25 +170,27 @@ const ProfilePage = () => {
 
   // ===== Projects helpers =====
   const handleProjectChange = (index, field, value) => {
-    setProject((prev) =>
+    setProjects((prev) =>
       prev.map((proj, i) => (i === index ? { ...proj, [field]: value } : proj))
     );
   };
-
+  
   const handleAddProject = () => {
-    setProject((prev) => [
-      ...prev,
+    setProjects((prev) => [
+      
       {
         name: '',
         tech: '',
         description: '',
       },
+      ...prev,
     ]);
   };
-
+  
   const handleRemoveProject = (index) => {
-    setProject((prev) => prev.filter((_, i) => i !== index));
+    setProjects((prev) => prev.filter((_, i) => i !== index));
   };
+  
 
   // ===== Interests helpers =====
   const handleInterestChange = (index, value) => {
@@ -196,7 +200,7 @@ const ProfilePage = () => {
   };
 
   const handleAddInterest = () => {
-    setInterests((prev) => [...prev, '']);
+    setInterests((prev) => ['', ...prev]);
   };
 
   const handleRemoveInterest = (index) => {
@@ -228,12 +232,12 @@ const ProfilePage = () => {
         },
         experience,
         education,
-        project,      // NEW: matches projectSchema
-        interests,    // NEW: array of strings
+        projects,     
+        interests,    
       };
 
       await saveMyProfile(payload);
-      navigate('/add-application');
+      navigate('/profile');
     } catch (err) {
       setError(err.message || 'Failed to save profile');
     } finally {
@@ -280,7 +284,7 @@ const ProfilePage = () => {
               />
             </label>
           </div>
-
+          <p className="verify-profile">Please review your profile details before saving.</p>
           <div className="profile-fields">
             <input
               type="text"
@@ -347,13 +351,13 @@ const ProfilePage = () => {
                 + ADD PROJECT
               </button>
             </div>
-            {project.length === 0 ? (
+            {projects.length === 0 ? (
               <p className="profile-section-empty">
                 No projects added yet. Add your key portfolio projects here.
               </p>
             ) : (
               <ul className="profile-card-list">
-                {project.map((proj, idx) => (
+                {projects.map((proj, idx) => (
                   <li key={idx} className="profile-card-item editable-card">
                     <div className="profile-card-row">
                       <input
